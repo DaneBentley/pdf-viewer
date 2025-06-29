@@ -21,8 +21,8 @@
  */
 
 /**
- * pdfjsVersion = 5.3.77
- * pdfjsBuild = 85b67f19b
+ * pdfjsVersion = 5.3.0
+ * pdfjsBuild = 8da89d1
  */
 
 ;// ./web/pdfjs.js
@@ -12142,7 +12142,7 @@ class PDFViewer {
   #supportsPinchToZoom = true;
   #textLayerMode = TextLayerMode.ENABLE;
   constructor(options) {
-    const viewerVersion = "5.3.77";
+    const viewerVersion = "5.3.0";
     if (version !== viewerVersion) {
       throw new Error(`The API version "${version}" does not match the Viewer version "${viewerVersion}".`);
     }

@@ -2675,7 +2675,8 @@ html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar[styl
   width: 6px;
   height: 60px;
   writing-mode: bt-lr; /* IE */
-  -webkit-appearance: slider-vertical; /* WebKit */
+  writing-mode: vertical-lr;
+  direction: rtl;
   background: light-dark(rgb(229 231 235), rgb(38 38 38));
   border-radius: 3px;
   outline: none;

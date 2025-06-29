@@ -11045,7 +11045,8 @@ html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar[styl
   width:6px;
   height:60px;
   writing-mode:bt-lr;
-  -webkit-appearance:slider-vertical;
+  writing-mode:vertical-lr;
+  direction:rtl;
   --csstools-light-dark-toggle--95:var(--csstools-color-scheme--light) rgb(38 38 38);
   background:var(--csstools-light-dark-toggle--95, rgb(229 231 235));
   background:light-dark(rgb(229 231 235), rgb(38 38 38));
