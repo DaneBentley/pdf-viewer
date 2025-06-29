@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Files Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-info { background: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffebee; color: #c62828; }
+        .success { background: #e8f5e8; color: #2e7d32; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Recent Files Debug</h1>
+    <p>This page helps debug the recent files functionality.</p>
+    
+    <div class="debug-info">
+        <h3>Browser Compatibility</h3>
+        <p>localStorage available: <span id="localStorageCheck">Checking...</span></p>
+        <p>ES6 modules supported: <span id="modulesCheck">Checking...</span></p>
+    </div>
+    
+    <div class="debug-info">
+        <h3>Recent Files Manager Test</h3>
+        <button onclick="testRecentFilesManager()">Test Recent Files Manager</button>
+        <div id="managerTest">Not tested yet</div>
+    </div>
+    
+    <div class="debug-info">
+        <h3>Storage Test</h3>
+        <button onclick="testStorage()">Test Storage</button>
+        <div id="storageTest">Not tested yet</div>
+    </div>
+    
+    <div class="debug-info">
+        <h3>Current Storage Contents</h3>
+        <button onclick="showStorageContents()">Show Storage</button>
+        <button onclick="clearStorage()">Clear Storage</button>
+        <pre id="storageContents">Click "Show Storage" to view</pre>
+    </div>
+
+    <script>
+        // Check browser compatibility
+        document.getElementById('localStorageCheck').textContent = 
+            typeof(Storage) !== "undefined" ? "✅ Available" : "❌ Not available";
+        
+        document.getElementById('modulesCheck').textContent = 
+            'noModule' in HTMLScriptElement.prototype ? "✅ Supported" : "❌ Not supported";
+
+        function testRecentFilesManager() {
+            const testDiv = document.getElementById('managerTest');
+            try {
+                // Simple EventBus for testing
+                class TestEventBus {
+                    constructor() { this.listeners = new Map(); }
+                    _on(event, listener) {
+                        if (!this.listeners.has(event)) this.listeners.set(event, []);
+                        this.listeners.get(event).push(listener);
+                    }
+                    dispatch(event, data) {
+                        if (this.listeners.has(event)) {
+                            this.listeners.get(event).forEach(listener => listener(data));
+                        }
+                    }
+                }
+
+                // Test recent files manager creation
+                const eventBus = new TestEventBus();
+                
+                // Simulate RecentFilesManager functionality
+                const testManager = {
+                    recentFiles: new Map(),
+                    addRecentFile(fingerprint, filename, url, viewState = {}) {
+                        this.recentFiles.set(fingerprint, {
+                            fingerprint, filename, url, 
+                            lastOpened: Date.now(),
+                            viewState: { page: 1, zoom: 1, ...viewState }
+                        });
+                        this.saveToStorage();
+                    },
+                    saveToStorage() {
+                        try {
+                            const data = { files: Array.from(this.recentFiles.values()) };
+                            localStorage.setItem('pdfjs.recentFiles', JSON.stringify(data));
+                            return true;
+                        } catch (e) {
+                            console.error('Storage failed:', e);
+                            return false;
+                        }
+                    },
+                    getRecentFiles() {
+                        return Array.from(this.recentFiles.values());
+                    }
+                };
+
+                // Test adding a file
+                testManager.addRecentFile('test-123', 'Test Document.pdf', '/test.pdf', {
+                    page: 5, zoom: 1.5
+                });
+
+                const files = testManager.getRecentFiles();
+                if (files.length === 1 && files[0].filename === 'Test Document.pdf') {
+                    testDiv.innerHTML = '<span class="success">✅ Recent Files Manager working correctly</span>';
+                } else {
+                    testDiv.innerHTML = '<span class="error">❌ Recent Files Manager test failed</span>';
+                }
+            } catch (error) {
+                testDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        function testStorage() {
+            const testDiv = document.getElementById('storageTest');
+            try {
+                const testKey = 'pdfjs.test';
+                const testData = { test: true, timestamp: Date.now() };
+                
+                // Test write
+                localStorage.setItem(testKey, JSON.stringify(testData));
+                
+                // Test read
+                const retrieved = JSON.parse(localStorage.getItem(testKey));
+                
+                // Test delete
+                localStorage.removeItem(testKey);
+                
+                if (retrieved && retrieved.test === true) {
+                    testDiv.innerHTML = '<span class="success">✅ localStorage working correctly</span>';
+                } else {
+                    testDiv.innerHTML = '<span class="error">❌ localStorage test failed</span>';
+                }
+            } catch (error) {
+                testDiv.innerHTML = `<span class="error">❌ localStorage error: ${error.message}</span>`;
+            }
+        }
+
+        function showStorageContents() {
+            const contentDiv = document.getElementById('storageContents');
+            try {
+                const recentFiles = localStorage.getItem('pdfjs.recentFiles');
+                if (recentFiles) {
+                    const parsed = JSON.parse(recentFiles);
+                    contentDiv.textContent = JSON.stringify(parsed, null, 2);
+                } else {
+                    contentDiv.textContent = 'No recent files data found';
+                }
+            } catch (error) {
+                contentDiv.textContent = `Error reading storage: ${error.message}`;
+            }
+        }
+
+        function clearStorage() {
+            try {
+                localStorage.removeItem('pdfjs.recentFiles');
+                document.getElementById('storageContents').textContent = 'Storage cleared';
+            } catch (error) {
+                document.getElementById('storageContents').textContent = `Error clearing storage: ${error.message}`;
+            }
+        }
+
+        // Auto-run basic tests
+        setTimeout(() => {
+            testStorage();
+        }, 100);
+    </script>
+</body>
+</html> 

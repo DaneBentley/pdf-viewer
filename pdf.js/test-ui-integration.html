@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PDF.js UI Integration Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 2rem;
+            background: light-dark(#f9fafb, #1f2937);
+            color: light-dark(#111827, #f3f4f6);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background: light-dark(white, #374151);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .test-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: light-dark(#3b82f6, #60a5fa);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.2s;
+        }
+        .test-link:hover {
+            background: light-dark(#2563eb, #3b82f6);
+            transform: translateY(-1px);
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid light-dark(#e5e7eb, #4b5563);
+        }
+        .checklist li:before {
+            content: "✓ ";
+            color: light-dark(#059669, #10b981);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF.js UI Integration Test</h1>
+        
+        <div class="test-section">
+            <h2>🎨 UI Improvements Made</h2>
+            <ul class="checklist">
+                <li>Modern sidebar with consistent Tailwind-based styling</li>
+                <li>Updated toolbar container with proper z-index and background</li>
+                <li>Enhanced sidebar toolbar with grouped view buttons</li>
+                <li>Improved door hangers and dropdown menus with modern shadows</li>
+                <li>Updated thumbnail styling with hover effects and transitions</li>
+                <li>Modernized tree item styling in sidebar navigation</li>
+                <li>Enhanced sidebar resizer with visual feedback</li>
+                <li>Improved responsive design for mobile screens</li>
+                <li>Consistent color scheme with light/dark mode support</li>
+                <li>Better visual hierarchy and spacing throughout</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🧪 Test the Viewer</h2>
+            <p>Click the links below to test different aspects of the PDF viewer:</p>
+            
+            <a href="/web/viewer.html" class="test-link">Main PDF Viewer</a>
+            <a href="/examples/learning/helloworld.html" class="test-link">Hello World Example</a>
+            <a href="/examples/components/pageviewer.html" class="test-link">Page Viewer Component</a>
+            
+            <h3>Things to Test:</h3>
+            <ul class="checklist">
+                <li>Sidebar toggle functionality and smooth animations</li>
+                <li>Toolbar button hover states and visual feedback</li>
+                <li>Sidebar view button grouping and active states</li>
+                <li>Thumbnail hover effects and selection states</li>
+                <li>Tree item navigation and highlighting</li>
+                <li>Find bar dropdown and options</li>
+                <li>Secondary toolbar and editor tools</li>
+                <li>Responsive behavior on smaller screens</li>
+                <li>Dark mode compatibility (if supported by browser)</li>
+                <li>Overall visual consistency and polish</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>📱 Responsive Testing</h2>
+            <p>Test the viewer at different screen sizes:</p>
+            <ul>
+                <li><strong>Desktop:</strong> > 840px - Full sidebar with enhanced styling</li>
+                <li><strong>Tablet:</strong> 750px - 840px - Narrow sidebar with backdrop blur</li>
+                <li><strong>Mobile:</strong> < 750px - Hidden elements and compact layout</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🔧 Technical Details</h2>
+            <p>The UI improvements integrate seamlessly with the existing Tailwind CSS framework:</p>
+            <ul>
+                <li><strong>Consistent Design Language:</strong> Uses the same color palette and spacing as the main toolbar</li>
+                <li><strong>Modern Visual Effects:</strong> Subtle shadows, blur effects, and smooth transitions</li>
+                <li><strong>Accessibility:</strong> Proper contrast ratios and focus states</li>
+                <li><strong>Performance:</strong> CSS-only animations and efficient styling</li>
+                <li><strong>Maintainability:</strong> Uses design tokens and consistent patterns</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Auto-reload for development
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+            console.log('🔄 Development mode - UI integration test ready');
+        }
+    </script>
+</body>
+</html> 

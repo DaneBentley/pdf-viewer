@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Click Test - PDF.js Viewer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin: 0 10px 10px 0;
+        }
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+        .test-instructions {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-steps {
+            list-style: decimal;
+            padding-left: 20px;
+            margin: 1rem 0;
+        }
+        .test-steps li {
+            padding: 0.5rem 0;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖱️ Background Click to Normal Mode Test</h1>
+        <p>This test verifies that clicking on the viewer background switches the PDF viewer back to normal (cursor/selection) mode from annotation editing modes.</p>
+        
+        <div class="test-instructions">
+            <h2>📋 Test Instructions</h2>
+            <ol class="test-steps">
+                <li>Open the PDF viewer using one of the links below</li>
+                <li>Load any PDF file</li>
+                <li>Switch to an annotation editing mode (highlight, text, ink, etc.) using the toolbar</li>
+                <li>Click on the viewer background area (not on the PDF page itself)</li>
+                <li>Verify that the mode switches back to normal (cursor mode)</li>
+                <li>Try clicking on different areas while in editing mode to test edge cases</li>
+            </ol>
+        </div>
+
+        <h2>✨ Expected Behavior</h2>
+        <p><strong>Background clicks should switch to normal mode:</strong></p>
+        <ul>
+            <li>✅ Clicking on gray viewer background areas</li>
+            <li>✅ Clicking on margins around PDF pages</li>
+            <li>✅ Clicking on empty space in the viewer container</li>
+        </ul>
+
+        <p><strong>Background clicks should NOT interfere with:</strong></p>
+        <ul>
+            <li>❌ Clicks on PDF page content</li>
+            <li>❌ Clicks on annotation editors or their toolbars</li>
+            <li>❌ Clicks on the main toolbar or floating toolbar</li>
+            <li>❌ Clicks while actively editing text in an annotation</li>
+            <li>❌ Clicks on buttons, inputs, or other UI elements</li>
+        </ul>
+
+        <p>Open the PDF viewer to test the background click functionality:</p>
+        
+        <a href="web/viewer.html" class="button" target="_blank">
+            Open PDF Viewer
+        </a>
+        
+        <a href="web/viewer.html?file=test/pdfs/tracemonkey.pdf" class="button" target="_blank">
+            Open with Sample PDF
+        </a>
+
+        <p style="margin-top: 2rem; font-size: 0.875rem; color: #9ca3af;">
+            <strong>Note:</strong> The background click feature helps improve UX by providing an intuitive way to exit annotation editing modes, similar to how many design and editing tools work.
+        </p>
+    </div>
+</body>
+</html> 

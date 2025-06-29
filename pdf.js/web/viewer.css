@@ -1,0 +1,3133 @@
+/* Copyright 2014 Mozilla Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Import Tailwind CSS for modern UI styling */
+@import url(tailwind-built.css);
+
+@import url(pdf_viewer.css);
+@import url(signature_manager.css);
+
+:root {
+  --dir-factor: 1;
+  --inline-start: left;
+  --inline-end: right;
+
+  --sidebar-width: 200px;
+  --sidebar-transition-duration: 200ms;
+  --sidebar-transition-timing-function: ease-in-out;
+
+  --toolbar-height: 3rem;
+  --toolbar-horizontal-padding: 0.75rem;
+  --toolbar-vertical-padding: 0.25rem;
+  --icon-size: 20px;
+
+  --toolbar-icon-opacity: 0.7;
+  --doorhanger-icon-opacity: 0.9;
+  --doorhanger-height: 8px;
+
+  /* Modern neutral colors for dark mode */
+  --main-color: light-dark(rgb(12 12 13), rgb(250 250 250));
+  --body-bg-color: light-dark(rgb(212 212 215), rgb(17 17 17));
+  --progressBar-color: light-dark(rgb(37 99 235), rgb(59 130 246));
+  --progressBar-bg-color: light-dark(rgb(221 221 222), rgb(38 38 38));
+  --progressBar-blend-color: light-dark(rgb(96 165 250), rgb(37 99 235));
+  --scrollbar-color: light-dark(auto, rgb(64 64 64));
+  --scrollbar-bg-color: light-dark(auto, rgb(26 26 26));
+  --toolbar-icon-bg-color: light-dark(rgb(0 0 0), rgb(250 250 250));
+  --toolbar-icon-hover-bg-color: light-dark(rgb(0 0 0), rgb(250 250 250));
+
+  --sidebar-narrow-bg-color: light-dark(
+    rgb(212 212 215 / 0.9),
+    rgb(23 23 23 / 0.9)
+  );
+  --sidebar-toolbar-bg-color: light-dark(rgb(245 246 247), rgb(38 38 38));
+  --toolbar-bg-color: light-dark(rgb(255 255 255), rgb(31 31 31));
+  --toolbar-border-color: light-dark(rgb(229 231 235), rgb(64 64 64));
+  --toolbar-box-shadow: none;
+  --toolbar-border-bottom: 1px solid var(--toolbar-border-color);
+  --toolbarSidebar-box-shadow: none;
+  --toolbarSidebar-border-bottom: none;
+  --button-hover-color: light-dark(rgb(249 250 251), rgb(38 38 38));
+  --toggled-btn-color: light-dark(rgb(37 99 235), rgb(59 130 246));
+  --toggled-btn-bg-color: light-dark(rgb(238 242 255), rgb(38 38 38 / 0.2));
+  --toggled-hover-active-btn-color: light-dark(rgb(224 231 255), rgb(38 38 38 / 0.3));
+  --toggled-hover-btn-outline: none;
+  --dropdown-btn-bg-color: light-dark(rgb(215 215 219), rgb(64 64 64));
+  --dropdown-btn-border: none;
+  --separator-color: rgb(0 0 0 / 0.3);
+  --field-color: light-dark(rgb(6 6 6), rgb(250 250 250));
+  --field-bg-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  --field-border-color: light-dark(rgb(187 187 188), rgb(64 64 64));
+  --treeitem-color: light-dark(rgb(0 0 0 / 0.8), rgb(250 250 250 / 0.8));
+  --treeitem-bg-color: light-dark(rgb(0 0 0 / 0.15), rgb(250 250 250 / 0.15));
+  --treeitem-hover-color: light-dark(rgb(0 0 0 / 0.9), rgb(250 250 250 / 0.9));
+  --treeitem-selected-color: light-dark(
+    rgb(0 0 0 / 0.9),
+    rgb(250 250 250 / 0.9)
+  );
+  --treeitem-selected-bg-color: light-dark(
+    rgb(0 0 0 / 0.25),
+    rgb(250 250 250 / 0.25)
+  );
+  --thumbnail-hover-color: light-dark(rgb(0 0 0 / 0.1), rgb(250 250 250 / 0.1));
+  --thumbnail-selected-color: light-dark(
+    rgb(0 0 0 / 0.2),
+    rgb(250 250 250 / 0.2)
+  );
+  --doorhanger-bg-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  --doorhanger-border-color: light-dark(rgb(12 12 13 / 0.2), rgb(26 26 26));
+  --doorhanger-hover-color: light-dark(rgb(12 12 13), rgb(250 250 250));
+  --doorhanger-separator-color: light-dark(rgb(222 222 222), rgb(64 64 64));
+  --dialog-button-border: none;
+  --dialog-button-bg-color: light-dark(rgb(12 12 13 / 0.1), rgb(64 64 64));
+  --dialog-button-hover-bg-color: light-dark(
+    rgb(12 12 13 / 0.3),
+    rgb(82 82 82)
+  );
+
+  --loading-icon: url(images/loading.svg);
+  --treeitem-expanded-icon: url(images/treeitem-expanded.svg);
+  --treeitem-collapsed-icon: url(images/treeitem-collapsed.svg);
+  --toolbarButton-editorFreeText-icon: url(images/toolbarButton-editorFreeText.svg);
+  --toolbarButton-editorHighlight-icon: url(images/toolbarButton-editorHighlight.svg);
+  --toolbarButton-editorInk-icon: url(images/toolbarButton-editorInk.svg);
+  --toolbarButton-editorStamp-icon: url(images/toolbarButton-editorStamp.svg);
+  --toolbarButton-editorSignature-icon: url(images/toolbarButton-editorSignature.svg);
+  --toolbarButton-menuArrow-icon: url(images/toolbarButton-menuArrow.svg);
+  --toolbarButton-sidebarToggle-icon: url(images/toolbarButton-sidebarToggle.svg);
+  --toolbarButton-secondaryToolbarToggle-icon: url(images/toolbarButton-secondaryToolbarToggle.svg);
+  --toolbarButton-pageUp-icon: url(images/toolbarButton-pageUp.svg);
+  --toolbarButton-pageDown-icon: url(images/toolbarButton-pageDown.svg);
+  --toolbarButton-zoomOut-icon: url(images/toolbarButton-zoomOut.svg);
+  --toolbarButton-zoomIn-icon: url(images/toolbarButton-zoomIn.svg);
+  --toolbarButton-presentationMode-icon: url(images/toolbarButton-presentationMode.svg);
+  --toolbarButton-print-icon: url(images/toolbarButton-print.svg);
+  /*#if GENERIC*/
+  --toolbarButton-openFile-icon: url(images/toolbarButton-openFile.svg);
+  /*#endif*/
+  --toolbarButton-download-icon: url(images/toolbarButton-download.svg);
+  --toolbarButton-bookmark-icon: url(images/toolbarButton-bookmark.svg);
+  --toolbarButton-viewThumbnail-icon: url(images/toolbarButton-viewThumbnail.svg);
+  --toolbarButton-viewOutline-icon: url(images/toolbarButton-viewOutline.svg);
+  --toolbarButton-viewAttachments-icon: url(images/toolbarButton-viewAttachments.svg);
+  --toolbarButton-viewLayers-icon: url(images/toolbarButton-viewLayers.svg);
+  --toolbarButton-viewRecentFiles-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6"/><path d="M9 16h6"/><path d="m14 2-3 3-3-3"/><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>');
+  --toolbarButton-currentOutlineItem-icon: url(images/toolbarButton-currentOutlineItem.svg);
+  --toolbarButton-search-icon: url(images/toolbarButton-search.svg);
+  --findbarButton-previous-icon: url(images/findbarButton-previous.svg);
+  --findbarButton-next-icon: url(images/findbarButton-next.svg);
+  --secondaryToolbarButton-firstPage-icon: url(images/secondaryToolbarButton-firstPage.svg);
+  --secondaryToolbarButton-lastPage-icon: url(images/secondaryToolbarButton-lastPage.svg);
+  --secondaryToolbarButton-rotateCcw-icon: url(images/secondaryToolbarButton-rotateCcw.svg);
+  --secondaryToolbarButton-rotateCw-icon: url(images/secondaryToolbarButton-rotateCw.svg);
+  --secondaryToolbarButton-selectTool-icon: url(images/secondaryToolbarButton-selectTool.svg);
+  --secondaryToolbarButton-handTool-icon: url(images/secondaryToolbarButton-handTool.svg);
+  --secondaryToolbarButton-scrollPage-icon: url(images/secondaryToolbarButton-scrollPage.svg);
+  --secondaryToolbarButton-scrollVertical-icon: url(images/secondaryToolbarButton-scrollVertical.svg);
+  --secondaryToolbarButton-scrollHorizontal-icon: url(images/secondaryToolbarButton-scrollHorizontal.svg);
+  --secondaryToolbarButton-scrollWrapped-icon: url(images/secondaryToolbarButton-scrollWrapped.svg);
+  --secondaryToolbarButton-spreadNone-icon: url(images/secondaryToolbarButton-spreadNone.svg);
+  --secondaryToolbarButton-spreadOdd-icon: url(images/secondaryToolbarButton-spreadOdd.svg);
+  --secondaryToolbarButton-spreadEven-icon: url(images/secondaryToolbarButton-spreadEven.svg);
+  --secondaryToolbarButton-imageAltTextSettings-icon: var(
+    --toolbarButton-editorStamp-icon
+  );
+  --secondaryToolbarButton-documentProperties-icon: url(images/secondaryToolbarButton-documentProperties.svg);
+  --editorParams-stampAddImage-icon: url(images/toolbarButton-zoomIn.svg);
+
+  /* Lucide icons for floating annotation toolbar */
+  --toolbarButton-editorCursor-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z"/></svg>');
+  --toolbarButton-editorFreeText-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,7 4,4 20,4 20,7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>');
+  --toolbarButton-editorInk-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>');
+  --toolbarButton-editorHighlight-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>');
+  --toolbarButton-editorStamp-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>');
+  --toolbarButton-editorSignature-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"/><path d="M3 21h18"/></svg>');
+
+  --toolbar-control-height: 2rem;
+  --toolbar-control-bg: var(--button-hover-color);
+  --toolbar-control-border: none;
+  --toolbar-control-radius: 0.375rem;
+  --toolbar-control-color: var(--field-color);
+  --toolbar-control-font-size: 0.875rem;
+  --toolbar-control-hover-bg: var(--hover-overlay);
+  --toolbar-control-focus-bg: var(--hover-overlay);
+  --toolbar-control-padding: 0.25rem;
+  --toolbar-control-min-width: 6rem;
+  --toolbar-control-mobile-height: 1.75rem;
+  --toolbar-control-mobile-font-size: 0.75rem;
+
+  --thumbnail-width: 100px;
+  --thumbnail-height: 130px;
+  --thumbnail-gap: 0.75rem;
+
+  /* Button styling variables */
+  --toolbar-button-bg-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  --toolbar-button-hover-bg-color: light-dark(rgb(229 231 235), rgb(26 26 26));
+  --toolbar-button-toggled-bg-color: rgb(37 99 235);
+  --toolbar-button-toggled-color: rgb(250 250 250);
+  --toolbar-button-text-color: light-dark(rgb(0 0 0), rgb(250 250 250));
+  
+  /* Override any conflicting variables */
+  --button-hover-color: var(--toolbar-button-hover-bg-color);
+  --toggled-btn-bg-color: var(--toolbar-button-toggled-bg-color);
+  --toggled-btn-color: var(--toolbar-button-toggled-color);
+  --toolbar-icon-bg-color: currentColor;
+  --toolbar-icon-hover-bg-color: currentColor;
+  
+  /* Ensure icon colors match button states */
+  --toolbar-icon-opacity: 1;
+  --toolbar-icon-color: currentColor;
+  --toolbar-icon-hover-color: currentColor;
+  --toolbar-icon-toggled-color: currentColor;
+
+  --darkModeToggle-sun-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="m12 2 0 2"/><path d="m12 20 0 2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m2 12 2 0"/><path d="m20 12 2 0"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>');
+  --darkModeToggle-moon-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>');
+
+  --invertColorsToggle-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20V2z"/></svg>');
+}
+
+:root:dir(rtl) {
+  --dir-factor: -1;
+  --inline-start: right;
+  --inline-end: left;
+}
+
+@media screen and (forced-colors: active) {
+  :root {
+    --button-hover-color: Highlight;
+    --toolbar-icon-opacity: 1;
+    --toolbar-icon-bg-color: ButtonText;
+    --toolbar-icon-hover-bg-color: ButtonFace;
+    --toggled-hover-active-btn-color: ButtonText;
+    --toggled-hover-btn-outline: 2px solid ButtonBorder;
+    --toolbar-border-color: CanvasText;
+    --toolbar-border-bottom: 1px solid var(--toolbar-border-color);
+    --toolbar-box-shadow: none;
+    --toggled-btn-color: HighlightText;
+    --toggled-btn-bg-color: LinkText;
+    --doorhanger-hover-color: ButtonFace;
+    --doorhanger-border-color-whcm: 1px solid ButtonText;
+    --doorhanger-triangle-opacity-whcm: 0;
+    --dialog-button-border: 1px solid Highlight;
+    --dialog-button-hover-bg-color: Highlight;
+    --dialog-button-hover-color: ButtonFace;
+    --dropdown-btn-border: 1px solid ButtonText;
+    --field-border-color: ButtonText;
+    --main-color: CanvasText;
+    --separator-color: GrayText;
+    --doorhanger-separator-color: GrayText;
+    --toolbarSidebar-box-shadow: none;
+    --toolbarSidebar-border-bottom: 1px solid var(--toolbar-border-color);
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  :root {
+    --sidebar-transition-duration: 0;
+  }
+}
+
+@keyframes progressIndeterminate {
+  0% {
+    transform: translateX(calc(-142px * var(--dir-factor)));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+html {
+  &[data-toolbar-density="compact"] {
+    --toolbar-height: 56px;
+  }
+  &[data-toolbar-density="touch"] {
+    --toolbar-height: 72px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--body-bg-color);
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-bg-color);
+
+  &.wait::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    cursor: wait;
+  }
+}
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+#viewerContainer.pdfPresentationMode:fullscreen {
+  top: 0;
+  background-color: rgb(0 0 0);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: none;
+  user-select: none;
+}
+
+.pdfPresentationMode:fullscreen section:not([data-internal-link]) {
+  pointer-events: none;
+}
+
+.pdfPresentationMode:fullscreen .textLayer span {
+  cursor: none;
+}
+
+.pdfPresentationMode.pdfPresentationModeControls > *,
+.pdfPresentationMode.pdfPresentationModeControls .textLayer span {
+  cursor: default;
+}
+
+#outerContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 0;
+}
+
+#sidebarContainer {
+  position: absolute;
+  inset-block-start: var(--toolbar-height);
+  inset-block-end: 0;
+  inset-inline-start: calc(-1 * var(--sidebar-width));
+  width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  background-color: light-dark(rgb(249 250 251), rgb(42 42 46));
+  border-inline-end: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+  transition: inset-inline-start var(--sidebar-transition-duration) var(--sidebar-transition-timing-function);
+  z-index: 2;
+}
+
+#outerContainer:is(.sidebarMoving, .sidebarOpen) #sidebarContainer {
+  visibility: visible;
+}
+
+#outerContainer.sidebarOpen #sidebarContainer {
+  inset-inline-start: 0;
+}
+
+#mainContainer {
+  position: absolute;
+  inset: 0;
+  min-width: 350px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebarContent {
+  position: absolute;
+  top: 0 !important;
+  bottom: 40px !important;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Auto-hide scrollbars when not needed */
+  scrollbar-width: auto;
+  scrollbar-color: light-dark(rgb(209 213 219), rgb(107 114 128)) transparent;
+}
+
+/* WebKit scrollbar - only appears when content overflows */
+#sidebarContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+#sidebarContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#sidebarContent::-webkit-scrollbar-thumb {
+  background-color: light-dark(rgb(209 213 219), rgb(107 114 128));
+  border-radius: 3px;
+}
+
+#sidebarContent::-webkit-scrollbar-thumb:hover {
+  background-color: light-dark(rgb(156 163 175), rgb(156 163 175));
+}
+
+/* Modern overlay scrollbars for supported browsers */
+@supports (overflow: overlay) {
+  #sidebarContent {
+    overflow: overlay;
+  }
+}
+
+#viewerContainer {
+  overflow: auto;
+  position: absolute;
+  inset: var(--toolbar-height) 0 0;
+  width: 100%;
+  margin-inline-start: 0;
+  outline: none;
+  z-index: 0;
+  background-color: light-dark(#ededed, rgb(17 17 17));
+  transition: margin-inline-start var(--sidebar-transition-duration) var(--sidebar-transition-timing-function),
+              width var(--sidebar-transition-duration) var(--sidebar-transition-timing-function);
+}
+
+#viewerContainer:not(.pdfPresentationMode) {
+  transition-duration: var(--sidebar-transition-duration);
+  transition-timing-function: var(--sidebar-transition-timing-function);
+}
+
+#outerContainer.sidebarOpen #viewerContainer:not(.pdfPresentationMode) {
+  width: calc(100% - var(--sidebar-width));
+  margin-inline-start: var(--sidebar-width);
+  transition: margin-inline-start var(--sidebar-transition-duration) var(--sidebar-transition-timing-function),
+              width var(--sidebar-transition-duration) var(--sidebar-transition-timing-function);
+}
+
+#sidebarContainer :is(input, button, select) {
+  font: message-box;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--toolbar-height);
+  z-index: 10;
+  background-color: var(--toolbar-button-bg-color) !important;
+  border-bottom: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64)) !important;
+}
+
+#toolbarSidebar {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 40px !important;
+  padding: 4px 8px !important;
+  background-color: var(--toolbar-button-bg-color) !important;
+  border-top: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64)) !important;
+  border-bottom: none !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3;
+}
+
+#toolbarSidebarLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 100%;
+
+  #sidebarViewButtons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.125rem;
+    background-color: transparent;
+  }
+
+  .toolbarButton {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    background-color: var(--toolbar-button-bg-color) !important;
+    color: var(--toolbar-button-text-color) !important;
+    border: none !important;
+    cursor: pointer !important;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px !important;
+    margin: 0 !important;
+    transition: all 0.15s ease !important;
+
+    &::before {
+      width: calc(var(--icon-size) * 0.7) !important;
+      height: calc(var(--icon-size) * 0.7) !important;
+    }
+  }
+
+  .toolbarButton:hover {
+    background-color: var(--toolbar-button-hover-bg-color) !important;
+  }
+
+  .toolbarButton.toggled {
+    background-color: light-dark(rgb(209 213 219), rgb(64 64 64)) !important;
+    color: var(--toolbar-button-text-color) !important;
+  }
+
+  #viewThumbnail::before {
+    mask-image: var(--toolbarButton-viewThumbnail-icon);
+  }
+
+  #viewOutline::before {
+    mask-image: var(--toolbarButton-viewOutline-icon);
+    transform: scaleX(var(--dir-factor));
+  }
+
+  #viewAttachments::before {
+    mask-image: var(--toolbarButton-viewAttachments-icon);
+  }
+
+  #viewLayers::before {
+    mask-image: var(--toolbarButton-viewLayers-icon);
+  }
+
+  #viewRecentFiles::before {
+    mask-image: var(--toolbarButton-viewRecentFiles-icon);
+  }
+}
+
+#toolbarSidebarRight {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  padding-inline-end: 0;
+
+  .toolbarButton {
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 14px !important;
+    color: light-dark(rgb(75 85 99), rgb(209 213 219)) !important;
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  .toolbarButton:hover {
+    background-color: light-dark(rgb(229 231 235), rgb(38 38 38)) !important;
+  }
+
+  .toolbarButton:disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+#sidebarResizer {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: -6px;
+  width: 6px;
+  z-index: 200;
+  cursor: ew-resize;
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#sidebarResizer:hover {
+  background-color: light-dark(rgb(59 130 246), rgb(96 165 250));
+}
+
+/* Hide the resizer indicator by default */
+#sidebarResizer::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 20px;
+  background-color: light-dark(rgb(209 213 219), rgb(107 114 128));
+  border-radius: 1px;
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+}
+
+/* Only show the indicator when hovering or actively resizing */
+#sidebarResizer:hover::before,
+#outerContainer.sidebarResizing #sidebarResizer::before {
+  opacity: 1;
+  background-color: white;
+  height: 30px;
+}
+
+#outerContainer.sidebarOpen #loadingBar {
+  inset-inline-start: var(--sidebar-width);
+}
+
+#outerContainer.sidebarResizing
+  :is(#sidebarContainer, #viewerContainer, #loadingBar) {
+  /* Improve responsiveness and avoid visual glitches when the sidebar is resized. */
+  transition-duration: 0s;
+}
+
+.doorHanger,
+.doorHangerRight {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px -1px light-dark(rgb(0 0 0 / 0.05), rgb(0 0 0 / 0.15)), 0 1px 2px -1px light-dark(rgb(0 0 0 / 0.03), rgb(0 0 0 / 0.05));
+  border: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64));
+  background-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  backdrop-filter: blur(8px);
+  inset-block-start: calc(100% + var(--doorhanger-height) - 2px);
+
+  &::after,
+  &::before {
+    bottom: 100%;
+    border-style: solid;
+    border-color: transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    opacity: var(--doorhanger-triangle-opacity-whcm);
+  }
+
+  &::before {
+    border-width: calc(var(--doorhanger-height) + 2px);
+    border-bottom-color: var(--doorhanger-border-color);
+  }
+
+  &::after {
+    border-width: var(--doorhanger-height);
+  }
+}
+
+.doorHangerRight {
+  inset-inline-end: calc(50% - var(--doorhanger-height) - 1px);
+
+  &::before {
+    inset-inline-end: -1px;
+  }
+
+  &::after {
+    border-bottom-color: var(--doorhanger-bg-color);
+    inset-inline-end: 1px;
+  }
+}
+
+.doorHanger {
+  inset-inline-start: calc(50% - var(--doorhanger-height) - 1px);
+
+  &::before {
+    inset-inline-start: -1px;
+  }
+
+  &::after {
+    border-bottom-color: var(--toolbar-bg-color);
+    inset-inline-start: 1px;
+  }
+}
+
+.dialogButton {
+  border: none;
+  background: none;
+  width: 28px;
+  height: 28px;
+  outline: none;
+}
+
+.dialogButton:is(:hover, :focus-visible) {
+  background-color: var(--dialog-button-hover-bg-color);
+}
+
+.dialogButton:is(:hover, :focus-visible) > span {
+  color: var(--dialog-button-hover-color);
+}
+
+.splitToolbarButtonSeparator {
+  float: var(--inline-start);
+  width: 0;
+  height: 62%;
+  border-left: 1px solid var(--separator-color);
+  border-right: none;
+}
+
+.dialogButton {
+  min-width: 16px;
+  margin: 2px 1px;
+  padding: 2px 6px 0;
+  border: none;
+  border-radius: 2px;
+  color: var(--main-color);
+  font-size: 12px;
+  line-height: 14px;
+  user-select: none;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+.treeItemToggler::before {
+  /* All matching images have a size of 20x20
+   * All relevant containers have a size of 40x40 */
+  position: absolute;
+  display: inline-block;
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  content: "";
+  background-color: var(--toolbar-icon-bg-color);
+  mask-size: cover;
+}
+
+#sidebarToggleButton::before {
+  mask-image: var(--toolbarButton-sidebarToggle-icon);
+  transform: scaleX(var(--dir-factor));
+}
+
+#secondaryToolbarToggleButton::before {
+  mask-image: var(--toolbarButton-secondaryToolbarToggle-icon);
+  transform: scaleX(var(--dir-factor));
+}
+
+#previous::before {
+  mask-image: var(--toolbarButton-pageUp-icon);
+}
+
+#next::before {
+  mask-image: var(--toolbarButton-pageDown-icon);
+}
+
+#zoomOutButton::before {
+  mask-image: var(--toolbarButton-zoomOut-icon);
+}
+
+#zoomInButton::before {
+  mask-image: var(--toolbarButton-zoomIn-icon);
+}
+
+#editorFreeTextButton::before {
+  mask-image: var(--toolbarButton-editorFreeText-icon);
+}
+
+#editorHighlightButton::before {
+  mask-image: var(--toolbarButton-editorHighlight-icon);
+}
+
+#editorInkButton::before {
+  mask-image: var(--toolbarButton-editorInk-icon);
+}
+
+#editorStampButton::before {
+  mask-image: var(--toolbarButton-editorStamp-icon);
+}
+
+#editorSignatureButton::before {
+  mask-image: var(--toolbarButton-editorSignature-icon);
+}
+
+#printButton::before {
+  mask-image: var(--toolbarButton-print-icon);
+}
+
+#downloadButton::before {
+  mask-image: var(--toolbarButton-download-icon);
+}
+
+#currentOutlineItem::before {
+  mask-image: var(--toolbarButton-currentOutlineItem-icon);
+  transform: scaleX(var(--dir-factor));
+}
+
+#viewFindButton::before {
+  mask-image: var(--toolbarButton-search-icon);
+}
+
+#darkModeToggle::before {
+  mask-image: var(--darkModeToggle-sun-icon);
+}
+
+html[data-theme="dark"] #darkModeToggle::before {
+  mask-image: var(--darkModeToggle-moon-icon);
+}
+
+#invertColorsToggle::before {
+  mask-image: var(--invertColorsToggle-icon);
+}
+
+#invertColorsToggle.toggled::before {
+  mask-image: var(--invertColorsToggle-icon);
+}
+
+/* Invert colors functionality */
+.pdfViewer.invertColors .page canvas {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.pdfViewer.invertColors .textLayer {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.pdfViewer.invertColors .page {
+  border: none;
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pdfViewer.invertColors .page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Invert thumbnails in sidebar when color inversion is active */
+#outerContainer:has(.pdfViewer.invertColors) #thumbnailView .thumbnailImage,
+#outerContainer:has(.pdfViewer.invertColors) #thumbnailView .thumbnail canvas {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.pdfSidebarNotification::after {
+  position: absolute;
+  display: inline-block;
+  top: 2px;
+  inset-inline-end: 2px;
+  /* Create a filled circle, with a diameter of 9 pixels, using only CSS: */
+  content: "";
+  background-color: rgb(112 219 85);
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+}
+
+.verticalToolbarSeparator {
+  display: block;
+  margin-inline: 8px;
+  width: 0;
+  height: 80%;
+  border-left: 1px solid var(--separator-color);
+  border-right: none;
+  box-sizing: border-box;
+  opacity: 0.5;
+}
+
+.horizontalToolbarSeparator {
+  display: block;
+  margin: 6px 0;
+  border-top: 1px solid var(--doorhanger-separator-color);
+  border-bottom: none;
+  height: 0;
+  width: 100%;
+}
+
+.toggleButton {
+  display: inline;
+
+  &:has(> input:checked) {
+    color: var(--toggled-btn-color);
+    background-color: var(--toggled-btn-bg-color);
+  }
+
+  &:is(:hover, :has(> input:focus-visible)) {
+    color: var(--toggled-btn-color);
+    background-color: var(--button-hover-color);
+  }
+
+  & > input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+/* Common control styles */
+#toolbarViewer .toolbarField,
+#toolbarViewer .dropdownToolbarButton,
+#toolbarViewer #pageNumber,
+#toolbarViewer #scaleSelect,
+#toolbarViewer #scaleSelectContainer {
+  height: var(--toolbar-control-height);
+  background-color: var(--toolbar-control-bg);
+  border: var(--toolbar-control-border);
+  border-radius: 12px;
+  color: var(--toolbar-control-color);
+  font-size: var(--toolbar-control-font-size);
+  line-height: 1;
+  transition: background-color 0.15s ease;
+}
+
+#toolbarViewer .toolbarField:hover,
+#toolbarViewer .dropdownToolbarButton:hover,
+#toolbarViewer #pageNumber:hover,
+#toolbarViewer #scaleSelect:hover {
+  background-color: var(--toolbar-control-hover-bg);
+}
+
+#toolbarViewer .toolbarField:focus,
+#toolbarViewer .dropdownToolbarButton:focus-within,
+#toolbarViewer #pageNumber:focus,
+#toolbarViewer #scaleSelect:focus {
+  outline: none;
+  background-color: var(--toolbar-control-focus-bg);
+}
+
+/* Page number input */
+#toolbarViewer .toolbarField[type="number"],
+#toolbarViewer #pageNumber {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  text-align: center;
+  width: 2.5rem;
+  border-radius: 12px;
+
+  height: 1.75rem;
+  padding: 0 var(--toolbar-control-padding);
+  transition: background-color 0.15s ease, filter 0.15s ease;
+}
+
+#toolbarViewer .toolbarField[type="number"]:hover,
+#toolbarViewer #pageNumber:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  filter: brightness(0.95) !important;
+}
+
+#toolbarViewer .toolbarField[type="number"]::-webkit-inner-spin-button,
+#toolbarViewer #pageNumber::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  
+}
+
+#toolbarViewer .toolbarLabel,
+#toolbarViewer #numPages {
+  font-size: var(--toolbar-control-font-size);
+  color: var(--main-color);
+  opacity: 1;
+  padding-inline: var(--toolbar-control-padding);
+  line-height: var(--toolbar-control-height);
+}
+
+/* Loading state */
+#toolbarViewer .loadingInput {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+#toolbarViewer .loadingInput.loading::after {
+  content: "";
+  position: absolute;
+  right: var(--toolbar-control-padding);
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--toolbar-icon-bg-color);
+  mask-image: var(--loading-icon);
+  mask-size: cover;
+  animation: rotate 1s linear infinite;
+}
+
+/* Zoom controls */
+#toolbarViewer .dropdownToolbarButton,
+#toolbarViewer #scaleSelectContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--toolbar-control-min-width);
+  padding: 0;
+  margin: 0;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+#toolbarViewer .dropdownToolbarButton > select,
+#toolbarViewer #scaleSelect {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  padding: 0 1.75rem 0 0.5rem;
+  font-size: var(--toolbar-control-font-size);
+  color: var(--toolbar-control-color);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+#toolbarViewer .dropdownToolbarButton > select:focus,
+#toolbarViewer #scaleSelect:focus {
+  outline: none;
+}
+
+#toolbarViewer .dropdownToolbarButton::after,
+#toolbarViewer #scaleSelectContainer::after {
+  content: "";
+  position: absolute;
+  right: 0.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  pointer-events: none;
+  background-color: var(--toolbar-control-color);
+  mask-image: url('data:image/svg+xml;charset=US-ASCII,<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M2 4h8l-4 4z" fill="currentColor"/></svg>');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --toolbar-control-height: var(--toolbar-control-mobile-height);
+    --toolbar-control-font-size: var(--toolbar-control-mobile-font-size);
+  }
+
+  #toolbarViewer .toolbarField,
+  #toolbarViewer .dropdownToolbarButton,
+  #toolbarViewer #pageNumber,
+  #toolbarViewer #scaleSelect,
+  #toolbarViewer #scaleSelectContainer {
+    height: 1.75rem;
+    font-size: 0.75rem;
+
+  }
+
+  #toolbarViewer .toolbarLabel,
+  #toolbarViewer #numPages {
+    font-size: 0.75rem;
+    line-height: 1.75rem;
+  }
+
+  #toolbarViewer .toolbarField[type="number"],
+  #toolbarViewer #pageNumber {
+    width: 2.5rem;
+    
+  }
+
+  #toolbarViewer .dropdownToolbarButton,
+  #toolbarViewer #scaleSelectContainer {
+    min-width: 5rem;
+  }
+}
+
+#thumbnailView {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--thumbnail-gap);
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#thumbnailView > a:is(:active, :focus) {
+  outline: 0;
+}
+
+.thumbnail {
+  width: 100%;
+  max-width: 100px;
+  aspect-ratio: 0.77;
+  margin: 0.5rem auto;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -1px rgb(0 0 0 / 0.20);
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: light-dark(rgb(255 255 255), rgb(31 41 55));
+}
+
+.thumbnail:hover {
+  box-shadow: 0 10px 25px -1px rgb(0 0 0 / 0.20);
+  border-color: light-dark(rgb(101, 101, 102), rgb(90, 145, 255));
+}
+
+.thumbnail.selected {
+  outline: 2px solid light-dark(rgb(17 24 39), rgb(229 231 235));
+  outline-offset: 2px;
+  box-shadow: 0 10px 25px -1px rgb(0 0 0 / 0.20);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: light-dark(rgb(243 244 246), rgb(31 41 55));
+  display: block;
+}
+
+a:focus > .thumbnail > .thumbnailImage,
+.thumbnail:hover > .thumbnailImage {
+  opacity: 0.95;
+}
+
+.thumbnail.selected > .thumbnailImage {
+  opacity: 1 !important;
+}
+
+.thumbnail:not([data-loaded]) > .thumbnailImage {
+  width: 100%;
+  height: 100%;
+  background-color: light-dark(rgb(229 231 235), rgb(55 65 81));
+}
+
+.treeWithDeepNesting > .treeItem,
+.treeItem > .treeItems {
+  margin-inline-start: 16px; /* Reduced from 20px for more compact layout */
+}
+
+.treeItem > a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  /* Subtract the right padding (left, in RTL mode) of the container: */
+  min-width: calc(100% - 4px);
+  height: auto;
+  margin-bottom: 1px; /* Reduced from 2px for more compact spacing */
+  padding: 0.375rem 0.5rem; /* Reduced padding: 6px 8px instead of 8px 12px */
+  border-radius: 0.25rem; /* Slightly smaller border radius */
+  color: light-dark(rgb(55 65 81), rgb(209 213 219));
+  font-size: 0.8125rem; /* Slightly smaller: 13px instead of 14px */
+  line-height: 1.2; /* Tighter line height for compact design */
+  font-weight: 400;
+  user-select: none;
+  white-space: normal;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
+  border: 1px solid transparent;
+  position: relative;
+}
+
+/* Visual hierarchy through typography and indentation */
+.treeItem > a {
+  font-weight: 400;
+}
+
+.treeWithDeepNesting > .treeItem > a {
+  font-weight: 500; /* Slightly bolder for top-level items */
+  font-size: 0.875rem; /* 14px for top-level */
+}
+
+.treeItem .treeItem > a {
+  font-size: 0.8125rem; /* 13px for second-level */
+  opacity: 0.9;
+}
+
+.treeItem .treeItem .treeItem > a {
+  font-size: 0.75rem; /* 12px for third-level and deeper */
+  opacity: 0.8;
+}
+
+/* Modern hover state with subtle elevation */
+.treeItem > a:hover {
+  background-color: light-dark(rgb(248 250 252), rgb(45 55 72));
+  color: light-dark(rgb(15 23 42), rgb(248 250 252));
+  border-color: light-dark(rgb(226 232 240), rgb(75 85 99));
+  transform: translateX(2px);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Selected state with modern accent */
+.treeItem.selected > a {
+  background-color: light-dark(rgb(239 246 255), rgb(30 58 138));
+  color: light-dark(rgb(29 78 216), rgb(147 197 253));
+  border-color: light-dark(rgb(191 219 254), rgb(59 130 246));
+  font-weight: 500;
+  box-shadow: 0 1px 3px 0 rgb(59 130 246 / 0.2);
+}
+
+/* Enhanced selected state on hover */
+.treeItem.selected > a:hover {
+  background-color: light-dark(rgb(219 234 254), rgb(37 99 235));
+  color: light-dark(rgb(29 78 216), rgb(165 180 252));
+  transform: translateX(2px);
+  box-shadow: 0 2px 4px 0 rgb(59 130 246 / 0.3);
+}
+
+/* Improved toggle button design */
+.treeItemToggler {
+  position: relative;
+  float: var(--inline-start);
+  height: 0;
+  width: 0;
+  color: light-dark(rgb(107 114 128), rgb(156 163 175));
+  transition: color 0.15s ease;
+}
+
+.treeItemToggler::before {
+  inset-inline-end: 4px;
+  mask-image: var(--treeitem-expanded-icon);
+  opacity: 0.7;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.treeItemToggler:hover::before {
+  opacity: 1;
+  color: light-dark(rgb(75 85 99), rgb(209 213 219));
+}
+
+.treeItemToggler.treeItemsHidden::before {
+  mask-image: var(--treeitem-collapsed-icon);
+  transform: scaleX(var(--dir-factor));
+}
+
+.treeItemToggler.treeItemsHidden ~ .treeItems {
+  display: none;
+}
+
+/* Subtle focus indicators */
+.treeItem > a:focus-visible {
+  outline: 2px solid light-dark(rgb(59 130 246), rgb(96 165 250));
+  outline-offset: 1px;
+  border-radius: 0.25rem;
+}
+
+/* Improved nested item styling */
+.treeItems {
+  position: relative;
+}
+
+.treeItems::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: light-dark(rgb(229 231 235), rgb(75 85 99));
+  opacity: 0.3;
+}
+
+/* Remove connecting line for RTL languages */
+:root:dir(rtl) .treeItems::before {
+  left: auto;
+  right: -8px;
+}
+
+/* Hover effect for toggle button and associated items */
+.treeItemToggler:hover,
+.treeItemToggler:hover + a,
+.treeItemToggler:hover ~ .treeItems {
+  /* Remove old styles that conflict with new design */
+}
+
+/* Ensure proper spacing for deeply nested items */
+.treeWithDeepNesting .treeItem {
+  position: relative;
+}
+
+/* Layer-specific overrides remain unchanged */
+#layersView .treeItem > a * {
+  cursor: pointer;
+}
+
+#layersView .treeItem > a > label {
+  padding-inline-start: 4px;
+}
+
+#layersView .treeItem > a > label > input {
+  float: var(--inline-start);
+  margin-top: 1px;
+}
+
+#outlineOptionsContainer {
+  display: none;
+
+  #sidebarContainer:has(#outlineView:not(.hidden)) & {
+    display: inline flex;
+  }
+}
+
+.dialogButton {
+  width: auto;
+  margin: 3px 4px 2px !important;
+  padding: 2px 11px;
+  color: var(--main-color);
+  background-color: var(--dialog-button-bg-color);
+  border: var(--dialog-button-border) !important;
+}
+
+dialog {
+  margin: auto;
+  padding: 15px;
+  border-spacing: 4px;
+  color: var(--main-color);
+  font: message-box;
+  font-size: 12px;
+  line-height: 14px;
+  background-color: var(--doorhanger-bg-color);
+  border: 1px solid rgb(0 0 0 / 0.5);
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
+}
+
+dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.2);
+}
+
+dialog > .row {
+  display: table-row;
+}
+
+dialog > .row > * {
+  display: table-cell;
+}
+
+dialog .toolbarField {
+  margin: 5px 0;
+  
+}
+
+dialog .separator {
+  display: block;
+  margin: 4px 0;
+  height: 0;
+  width: 100%;
+  border-top: 1px solid var(--separator-color);
+  border-bottom: none;
+}
+
+dialog .buttonRow {
+  text-align: center;
+  vertical-align: middle;
+}
+
+dialog :link {
+  color: rgb(255 255 255);
+}
+
+#passwordDialog {
+  text-align: center;
+}
+
+#passwordDialog .toolbarField {
+  width: 200px;
+  
+}
+
+#documentPropertiesDialog {
+  text-align: left;
+}
+
+#documentPropertiesDialog .row > * {
+  min-width: 100px;
+  text-align: start;
+}
+
+#documentPropertiesDialog .row > span {
+  width: 125px;
+  word-wrap: break-word;
+}
+
+#documentPropertiesDialog .row > p {
+  max-width: 225px;
+  word-wrap: break-word;
+}
+
+#documentPropertiesDialog .buttonRow {
+  margin-top: 10px;
+}
+
+.grab-to-pan-grab {
+  cursor: grab !important;
+}
+
+.grab-to-pan-grab
+  *:not(input):not(textarea):not(button):not(select):not(:link) {
+  cursor: inherit !important;
+}
+
+.grab-to-pan-grab:active,
+.grab-to-pan-grabbing {
+  cursor: grabbing !important;
+}
+
+.grab-to-pan-grabbing {
+  position: fixed;
+  background: rgb(0 0 0 / 0);
+  display: block;
+  inset: 0;
+  overflow: hidden;
+  z-index: 50000; /* should be higher than anything else in PDF.js! */
+}
+
+.toolbarButton {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--toolbar-button-bg-color);
+  border: none;
+  color: var(--toolbar-button-text-color);
+  outline: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font: message-box;
+  flex: none;
+  position: relative;
+  padding: 6px;
+  margin: 0;
+  transition: all 0.15s ease;
+  cursor: pointer;
+
+  > span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  &::before {
+    opacity: var(--toolbar-icon-opacity);
+    display: inline-block;
+    width: calc(var(--icon-size) * 0.7);
+    height: calc(var(--icon-size) * 0.7);
+    content: "";
+    background-color: currentColor;
+    mask-size: cover;
+    mask-position: center;
+    transition: background-color 0.15s ease;
+  }
+
+  &.toggled {
+    background-color: var(--toolbar-button-toggled-bg-color);
+    color: var(--toolbar-button-toggled-color);
+
+    &::before {
+      background-color: currentColor;
+    }
+  }
+
+  &:is(:hover, :focus-visible) {
+    background-color: var(--toolbar-button-hover-bg-color);
+  }
+
+  &:is([disabled="disabled"], [disabled]) {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+/* Remove any custom sizing for specific buttons */
+#previous::before,
+#next::before,
+#zoomOutButton::before,
+#zoomInButton::before,
+#viewThumbnail::before,
+#viewOutline::before,
+#viewAttachments::before,
+#sidebarToggleButton::before,
+#secondaryToolbarToggleButton::before {
+  width: calc(var(--icon-size) * 0.7);
+  height: calc(var(--icon-size) * 0.7);
+}
+
+/* Ensure consistent sizing for toolbar sections */
+#toolbarViewerLeft,
+#toolbarViewerMiddle,
+#toolbarViewerRight {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.toolbarButtonWithContainer {
+  height: 100%;
+  aspect-ratio: 1;
+  display: inline-block;
+  position: relative;
+  flex: none;
+
+  > .toolbarButton {
+    width: 100%;
+    height: 100%;
+  }
+
+  .menu {
+    padding-block: 5px;
+  }
+
+  .menuContainer {
+    width: 100%;
+    height: auto;
+    max-height: calc(
+      var(--viewer-container-height) - var(--toolbar-height) -
+        var(--doorhanger-height)
+    );
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+
+  .editorParamsToolbar {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    margin-top: 4px !important;
+    background-color: light-dark(rgb(249 250 251), rgb(38 38 38)) !important;
+    border: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64)) !important;
+    border-radius: 0.5rem !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    padding: 0.75rem !important;
+    min-width: 220px !important;
+    z-index: 30000 !important;
+  }
+
+  .editorParamsLabel {
+    flex: none;
+    font: menu;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    width: fit-content;
+    inset-inline-start: 0;
+    color: var(--main-color);
+  }
+
+  button:is(:hover, :focus-visible) .editorParamsLabel {
+    color: var(--doorhanger-hover-color);
+  }
+
+  .editorParamsToolbarContainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+  }
+
+  .editorParamsSetter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .editorParamsColor {
+    width: 100%;
+    height: 32px;
+    padding: 2px;
+    border: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+    border-radius: 4px;
+  }
+
+  .editorParamsSlider {
+    width: 100%;
+    height: 32px;
+    background-color: light-dark(rgb(229 231 235), rgb(75 85 99));
+    border-radius: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: light-dark(rgb(249 250 251), rgb(209 213 219));
+      border: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: light-dark(rgb(249 250 251), rgb(209 213 219));
+      border: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+      cursor: pointer;
+    }
+  }
+}
+
+#secondaryToolbar {
+  position: absolute !important;
+  top: 100% !important;
+  right: 0 !important;
+  margin-top: 4px !important;
+  background-color: light-dark(rgb(249 250 251), rgb(38 38 38)) !important;
+  border: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64)) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  padding: 0.25rem !important;
+  min-width: 200px !important;
+  z-index: 30000 !important;
+}
+
+/* Override base toolbarButton styles */
+html #secondaryToolbar .toolbarButton.labeled {
+  width: 100% !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  max-height: 28px !important;
+  padding: 0.25rem 0.5rem !important;
+  margin: 0 !important;
+  font-size: 0.8125rem !important;
+  font-weight: 400 !important;
+  color: light-dark(rgb(55 65 81), rgb(229 231 235)) !important;
+  text-align: left !important;
+  background-color: transparent !important;
+  border-radius: 0.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important;
+  aspect-ratio: unset !important;
+}
+
+html #secondaryToolbar .toolbarButton.labeled:hover {
+  background-color: light-dark(rgb(243 244 246), rgb(55 65 81)) !important;
+}
+
+html #secondaryToolbar .toolbarButton.labeled::before {
+  width: 1rem !important;
+  height: 1rem !important;
+  margin-right: 0.375rem !important;
+  flex-shrink: 0 !important;
+}
+
+html #secondaryToolbar .toolbarButton.labeled > span {
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  line-height: 1.2 !important;
+  display: inline !important;
+}
+
+html #secondaryToolbar .horizontalToolbarSeparator {
+  height: 1px !important;
+  background-color: light-dark(rgb(229 231 235), rgb(75 85 99)) !important;
+  margin: 0.25rem !important;
+  opacity: 0.5 !important;
+}
+
+html #secondaryToolbar #secondaryToolbarButtonContainer {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.125rem !important;
+}
+
+#findbar {
+  --input-horizontal-padding: 4px;
+  --findbar-padding: 2px;
+
+  width: max-content;
+  max-width: 90vw;
+  min-height: var(--toolbar-height);
+  height: auto;
+  position: absolute;
+  z-index: 30000;
+  cursor: default;
+  padding: 0;
+  min-width: 300px;
+  background-color: var(--toolbar-bg-color);
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  > * {
+    height: var(--toolbar-height);
+    padding: var(--findbar-padding);
+  }
+
+  #findInputContainer {
+    margin-inline-start: 2px;
+
+    #findPreviousButton::before {
+      mask-image: var(--findbarButton-previous-icon);
+    }
+
+    #findNextButton::before {
+      mask-image: var(--findbarButton-next-icon);
+    }
+
+    #findInput {
+      width: 240px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--field-border-color);
+      background-color: var(--field-bg-color);
+      transition: all 0.15s ease;
+
+      /*#if !MOZCENTRAL*/
+      &::-webkit-input-placeholder {
+        color: rgb(156 163 175);
+      }
+      /*#endif*/
+      &::placeholder {
+        font-style: normal;
+        color: rgb(156 163 175);
+      }
+
+      &:focus {
+        border-color: var(--toggled-btn-color);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--toggled-btn-color) 10%, transparent);
+      }
+
+      .loadingInput:has(> &[data-status="pending"])::after {
+        display: inline;
+        visibility: visible;
+        inset-inline-end: calc(var(--input-horizontal-padding) + 1px);
+      }
+
+      &[data-status="notFound"] {
+        background-color: rgb(255 102 102);
+      }
+    }
+  }
+
+  #findbarMessageContainer {
+    display: none;
+    gap: 4px;
+
+    &:has(> :is(#findResultsCount, #findMsg):not(:empty)) {
+      display: inline flex;
+    }
+
+    #findResultsCount {
+      background-color: rgb(217 217 217);
+      color: rgb(82 82 82);
+      padding-block: 4px;
+
+      &:empty {
+        display: none;
+      }
+    }
+
+    #findMsg {
+      &[data-status="notFound"] {
+        font-weight: bold;
+      }
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  &.wrapContainers {
+    flex-direction: column;
+    align-items: flex-start;
+    height: max-content;
+
+    .toolbarLabel {
+      margin: 0 4px;
+    }
+
+    #findbarMessageContainer {
+      flex-wrap: wrap;
+      flex-flow: column nowrap;
+      align-items: flex-start;
+      height: max-content;
+
+      #findResultsCount {
+        height: calc(var(--toolbar-height) - 2 * var(--findbar-padding));
+      }
+
+      #findMsg {
+        min-height: var(--toolbar-height);
+      }
+    }
+  }
+}
+
+@page {
+  margin: 0;
+}
+
+#printContainer {
+  display: none;
+}
+
+@media print {
+  body {
+    background: rgb(0 0 0 / 0) none;
+  }
+
+  body[data-pdfjsprinting] #outerContainer {
+    display: none;
+  }
+
+  body[data-pdfjsprinting] #printContainer {
+    display: block;
+  }
+
+  #printContainer {
+    height: 100%;
+  }
+
+  /* wrapper around (scaled) print canvas elements */
+  #printContainer > .printedPage {
+    page-break-after: always;
+    page-break-inside: avoid;
+
+    /* The wrapper always cover the whole page. */
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #printContainer > .xfaPrintedPage .xfaPage {
+    position: absolute;
+  }
+
+  #printContainer > .xfaPrintedPage {
+    page-break-after: always;
+    page-break-inside: avoid;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  #printContainer > .printedPage :is(canvas, img) {
+    /* The intrinsic canvas / image size will make sure that we fit the page. */
+    max-width: 100%;
+    max-height: 100%;
+
+    direction: ltr;
+    display: block;
+  }
+}
+
+.visibleMediumView {
+  display: none !important;
+}
+
+.toolbarLabel {
+  width: max-content;
+  min-width: 16px;
+  height: 100%;
+  padding-inline: 4px;
+  margin: 2px;
+  border-radius: 2px;
+  color: var(--main-color);
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+  user-select: none;
+  cursor: default;
+  box-sizing: border-box;
+
+  display: inline flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  > label {
+    width: 100%;
+  }
+}
+
+.dropdownToolbarButton {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--toolbar-button-bg-color);
+  border: none;
+  border-radius: 14px;
+  color: var(--toolbar-button-text-color);
+  font-size: 12px;
+  line-height: 14px;
+  user-select: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none;
+  padding: 8px;
+  min-width: 120px;
+  height: 40px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background-color: var(--toolbar-button-hover-bg-color);
+  }
+
+  > select {
+    appearance: none;
+    width: inherit;
+    min-width: inherit;
+    height: 24px;
+    font: message-box;
+    font-size: 12px;
+    color: currentColor;
+    margin: 0;
+    padding-block: 1px;
+    padding-inline: 4px 32px;
+    border: none;
+    outline: none;
+    background: none;
+
+    > option {
+      background: var(--doorhanger-bg-color);
+      color: var(--main-color);
+    }
+
+    &:is(:hover, :focus-visible) {
+      color: currentColor;
+    }
+  }
+
+  &::after {
+    position: absolute;
+    display: inline;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    content: "";
+    background-color: currentColor;
+    mask-size: cover;
+    inset-inline-end: 4px;
+    pointer-events: none;
+    mask-image: var(--toolbarButton-menuArrow-icon);
+  }
+}
+
+#toolbarContainer {
+  position: relative;
+  height: var(--toolbar-height);
+  background-color: var(--toolbar-button-bg-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--toolbar-vertical-padding) var(--toolbar-horizontal-padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#toolbarViewer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#toolbarViewerMiddle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  white-space: nowrap;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+#toolbarViewerLeft {
+  position: relative;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+#toolbarViewerRight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+#toolbarViewerLeft #numPages.toolbarLabel {
+  padding-inline-start: 0px;
+  padding-bottom: 1.5px;
+
+  font-size: 0.9em;
+}
+
+@media all and (max-width: 840px) {
+  :root {
+    --sidebar-width: 180px;
+    --thumbnail-gap: 0.5rem;
+  }
+  
+  #sidebarContainer {
+    background-color: light-dark(rgba(255, 255, 255, 0.95), rgba(42, 42, 46, 0.95));
+    backdrop-filter: blur(12px);
+    box-shadow: 4px 0 12px light-dark(rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.3));
+  }
+
+  #outerContainer.sidebarOpen #viewerContainer {
+    width: 100%;
+    margin-inline-start: 0;
+  }
+  
+  #toolbarSidebar {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  #thumbnailView {
+    padding: 1rem 0.75rem;
+  }
+}
+
+@media all and (max-width: 750px) {
+  #outerContainer .hiddenMediumView {
+    display: none !important;
+  }
+  #outerContainer .visibleMediumView:not(.hidden, [hidden]) {
+    display: inline-block !important;
+  }
+}
+
+@media all and (max-width: 640px) {
+  :root {
+    --sidebar-width: 160px;
+    --thumbnail-gap: 0.375rem;
+  }
+
+  #sidebarContainer {
+    width: 100%;
+    inset-inline-start: -100%;
+    z-index: 4;
+  }
+
+  #outerContainer.sidebarOpen #sidebarContainer {
+    inset-inline-start: 0;
+  }
+
+  #outerContainer.sidebarOpen #viewerContainer {
+    visibility: hidden;
+  }
+}
+
+@media all and (max-width: 690px) {
+  .hiddenSmallView,
+  .hiddenSmallView * {
+    display: none !important;
+  }
+
+  #toolbarContainer #toolbarViewer .toolbarButtonSpacer {
+    width: 0;
+  }
+}
+
+@media all and (max-width: 560px) {
+  #scaleSelectContainer {
+    display: none;
+  }
+}
+
+/* Loading bar styles */
+#loadingBar {
+  --progressBar-percent: 0%;
+  --progressBar-end-offset: 0;
+
+  position: absolute;
+  top: var(--toolbar-height);
+  inset-inline: 0 var(--progressBar-end-offset);
+  height: 4px;
+  background-color: var(--progressBar-bg-color);
+  border-bottom: 1px solid var(--toolbar-border-color);
+  transition-property: inset-inline-start;
+  transition-duration: var(--sidebar-transition-duration);
+  transition-timing-function: var(--sidebar-transition-timing-function);
+
+  .progress {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    transform: scaleX(var(--progressBar-percent));
+    transform-origin: calc(50% - 50% * var(--dir-factor)) 0;
+    height: 100%;
+    background-color: var(--progressBar-color);
+    overflow: hidden;
+    transition: transform 200ms;
+  }
+}
+
+#toolbarViewerMiddle .toolbarHorizontalGroup {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 32px;
+}
+
+#toolbarViewerMiddle .toolbarButton.compact {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  border-radius: 4px;
+}
+
+#toolbarViewerMiddle #scaleSelect {
+  width: 60px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--field-border-color);
+  border-radius: 12px;
+  background-color: var(--field-bg-color);
+  color: var(--main-color);
+  font-size: 12px;
+  text-align: center;
+  text-align-last: center;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  cursor: pointer;
+  text-indent: 0 !important;
+  text-overflow: "" !important;
+  padding-inline: 0 !important;
+  padding-block: 0 !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  direction: ltr !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#toolbarViewerMiddle #scaleSelect:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  filter: brightness(0.95) !important;
+}
+
+#toolbarViewerMiddle #scaleSelect:focus {
+  outline: none;
+  border-color: var(--focus-outline-color);
+}
+
+#toolbarViewerMiddle #scaleSelect option {
+  text-align: center !important;
+  text-align-last: center !important;
+  padding: 4px 0 !important;
+  text-indent: 0 !important;
+  direction: ltr !important;
+}
+
+#toolbarViewerMiddle #customScaleOption {
+  text-align: center;
+  text-align-last: center;
+  padding: 4px;
+}
+
+/* Floating Annotation Toolbar - Updated to match Figma design */
+#floatingAnnotationToolbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  border: none;
+  border-radius: 18px;
+  padding:5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 40px;
+  max-width: 40px;
+}
+
+#floatingAnnotationToolbar .toolbarButton {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 8px !important;
+  margin: 0 !important;
+  border-radius: 14px !important;
+  background-color: light-dark(rgb(255 255 255), rgb(38 38 38)) !important;
+  border: none !important;
+  color: light-dark(rgb(0 0 0), rgb(250 250 250)) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+}
+
+#floatingAnnotationToolbar .toolbarButton:hover {
+  background-color: light-dark(rgb(229 231 235), rgb(26 26 26)) !important;
+}
+
+#floatingAnnotationToolbar .toolbarButton.toggled {
+  background-color: rgb(37 99 235) !important;
+  color: rgb(250 250 250) !important;
+}
+
+#floatingAnnotationToolbar .toolbarButton.toggled::before {
+  background-color: rgb(250 250 250) !important;
+}
+
+#floatingAnnotationToolbar > .toolbarButtonWithContainer > .editorParamsToolbar,
+#floatingAnnotationToolbar .toolbarButtonWithContainer .editorParamsToolbar,
+#floatingAnnotationToolbar .editorParamsToolbar {
+  position: absolute !important;
+  right: calc(100% + 8px) !important;
+  top: 0 !important;
+  background-color: light-dark(rgb(255 255 255), rgb(38 38 38)) !important;
+  border: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64)) !important;
+  border-radius: 18px !important;
+  padding: 12px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25) !important;
+  min-width: 220px !important;
+  max-width: calc(100vw - 120px) !important;
+  margin-top: 0 !important;
+}
+
+/* Ensure compact toolbars don't inherit conflicting styles */
+#floatingAnnotationToolbar .editorParamsToolbar:not(#editorFreeTextParamsToolbar):not(#editorHighlightParamsToolbar):not(#editorInkParamsToolbar):not(#editorStampParamsToolbar):not(#editorSignatureParamsToolbar) {
+  /* Apply default styles only to non-compact toolbars */
+  min-width: 220px;
+  padding: 4px;
+}
+
+/* All annotation menus positioned at consistent distance from bottom of page */
+html #floatingAnnotationToolbar > .toolbarButtonWithContainer > #editorFreeTextParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar .toolbarButtonWithContainer #editorFreeTextParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar > .toolbarButtonWithContainer > #editorHighlightParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar .toolbarButtonWithContainer #editorHighlightParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar > .toolbarButtonWithContainer > #editorInkParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar .toolbarButtonWithContainer #editorInkParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+#floatingAnnotationToolbar > .toolbarButtonWithContainer > #editorStampParamsToolbar,
+#floatingAnnotationToolbar .toolbarButtonWithContainer #editorStampParamsToolbar,
+#floatingAnnotationToolbar #editorStampParamsToolbar,
+#floatingAnnotationToolbar > .toolbarButtonWithContainer > #editorSignatureParamsToolbar,
+#floatingAnnotationToolbar .toolbarButtonWithContainer #editorSignatureParamsToolbar,
+#floatingAnnotationToolbar #editorSignatureParamsToolbar {
+  /* Position all menus at consistent distance from bottom of page */
+  position: fixed !important;
+  bottom: 305px !important;
+  right: 20px !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  
+  /* Reset margins */
+  margin: 0 !important;
+  
+  /* Common styling */
+  background-color: light-dark(rgb(255 255 255), rgb(38 38 38)) !important;
+  border: none !important;
+  border-radius: 18px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  
+  /* Allow menus to expand to full height without scrolling */
+  max-height: none !important;
+  max-width: calc(100vw - 40px) !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+  z-index: 1001 !important;
+  
+  /* Better positioning constraints */
+  box-sizing: border-box !important;
+  transform-origin: bottom right !important;
+}
+
+/* Specific sizing for different menu types */
+html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar {
+  min-width: 50px !important;
+  width: 50px !important;
+  padding: 5px !important;
+}
+
+html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar {
+  width: 50px !important;
+  min-width: 50px !important;
+  height: auto !important;
+  min-height: 250px !important;
+  padding: 5px !important;
+}
+
+#floatingAnnotationToolbar #editorStampParamsToolbar,
+#floatingAnnotationToolbar #editorSignatureParamsToolbar {
+  min-width: 50px !important;
+  width: 50px !important;
+  padding: 4px !important;
+}
+
+/* Button index variables no longer needed since menus are positioned above toolbar */
+
+/* Special sizing for Highlight menu (has color array layout) */
+html #floatingAnnotationToolbar > .toolbarButtonWithContainer > #editorHighlightParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar .toolbarButtonWithContainer #editorHighlightParamsToolbar.editorParamsToolbar,
+html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar {
+  width: 50px !important;
+  min-width: 50px !important;
+  height: auto !important;
+  min-height: 250px !important;
+  padding: 5px !important;
+}
+
+/* Special sizing for Ink menu (has two sliders) */
+html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar {
+  width: 50px !important;
+  min-width: 50px !important;
+}
+
+/* Responsive positioning to maintain consistent distance from bottom */
+@media (max-height: 600px) {
+  html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+  #floatingAnnotationToolbar #editorStampParamsToolbar,
+  #floatingAnnotationToolbar #editorSignatureParamsToolbar {
+    /* Reduce distance from bottom on short screens but keep full height */
+    bottom: 80px !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+  #floatingAnnotationToolbar #editorStampParamsToolbar,
+  #floatingAnnotationToolbar #editorSignatureParamsToolbar {
+    /* Adjust horizontal position on medium screens */
+    right: 60px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+  #floatingAnnotationToolbar #editorStampParamsToolbar,
+  #floatingAnnotationToolbar #editorSignatureParamsToolbar {
+    /* Further adjust on narrow screens */
+    right: 50px !important;
+    max-width: calc(100vw - 60px) !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-width: 250px) {
+  html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+  #floatingAnnotationToolbar #editorStampParamsToolbar,
+  #floatingAnnotationToolbar #editorSignatureParamsToolbar {
+    /* Minimal spacing on very narrow screens */
+    right: 45px !important;
+    bottom: 60px !important;
+    max-width: calc(100vw - 50px) !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #floatingAnnotationToolbar {
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+  #floatingAnnotationToolbar #editorStampParamsToolbar,
+  #floatingAnnotationToolbar #editorSignatureParamsToolbar {
+    /* Maintain consistent distance from bottom on small screens */
+    right: 60px !important;
+    bottom: 100px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  #floatingAnnotationToolbar {
+    right: 4px;
+    bottom: 4px;
+  }
+  
+  html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar,
+  html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar,
+  #floatingAnnotationToolbar #editorStampParamsToolbar,
+  #floatingAnnotationToolbar #editorSignatureParamsToolbar {
+    /* Maintain consistent distance from bottom on very small screens */
+    right: 54px !important;
+    bottom: 80px !important;
+  }
+}
+
+/* Force consistent positioning when inline styles might interfere */
+html #floatingAnnotationToolbar #editorFreeTextParamsToolbar.editorParamsToolbar[style],
+html #floatingAnnotationToolbar #editorHighlightParamsToolbar.editorParamsToolbar[style],
+html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar[style],
+#floatingAnnotationToolbar #editorStampParamsToolbar[style],
+#floatingAnnotationToolbar #editorSignatureParamsToolbar[style] {
+  position: fixed !important;
+  right: 80px !important;
+  top: auto !important;
+  left: auto !important;
+  bottom: 120px !important;
+}
+
+/* Special layouts for compact parameters */
+#floatingAnnotationToolbar .editorParamsToolbarContainer.freeTextParams,
+#floatingAnnotationToolbar .editorParamsToolbarContainer.inkParams {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  min-width: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* FreeText: color picker + font size slider */
+#floatingAnnotationToolbar .editorParamsToolbarContainer.freeTextParams {
+  height: auto;
+  min-height: 120px;
+}
+
+/* Ink: color picker + thickness slider + opacity slider */
+#floatingAnnotationToolbar .editorParamsToolbarContainer.inkParams {
+  height: auto;
+  min-height: 120px;
+}
+
+/* Highlight: special layout with color array + slider side by side */
+#floatingAnnotationToolbar .editorParamsToolbarContainer.highlightParams {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0px 0px 10px 0px;
+  min-width: 40px;
+  width: 40px;
+  height: auto;
+  min-height: 250px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#floatingAnnotationToolbar .editorParamsLeftPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+#floatingAnnotationToolbar .editorParamsMainPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Highlight color array container */
+#floatingAnnotationToolbar .highlightColorArray {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  width: 40px;
+  justify-content: flex-start;
+  padding: 5px 0;
+}
+
+/* Style the PDF.js generated highlight color picker as a grid */
+#floatingAnnotationToolbar #editorHighlightColorPicker {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+#floatingAnnotationToolbar #editorHighlightColorPicker .dropdown {
+  position: static !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  padding: 2px 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  min-width: auto !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+#floatingAnnotationToolbar #editorHighlightColorPicker .dropdown.hidden {
+  display: grid !important; /* Override hidden class */
+}
+
+/* Style individual color buttons as circles */
+#floatingAnnotationToolbar #editorHighlightColorPicker .dropdown button {
+  width: 32px !important;
+  height: 32px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  outline: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+#floatingAnnotationToolbar #editorHighlightColorPicker .dropdown button:hover {
+  transform: scale(1.05) !important;
+}
+
+#floatingAnnotationToolbar #editorHighlightColorPicker .dropdown button[aria-selected="true"] {
+  transform: scale(1.05) !important;
+  box-shadow: 0 0 0 3px light-dark(rgb(62 99 221), rgb(62 99 221)) !important;
+}
+
+#floatingAnnotationToolbar #editorHighlightColorPicker .dropdown button .swatch {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 10px !important;
+  display: block !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#floatingAnnotationToolbar .colorPickerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#floatingAnnotationToolbar .editorParamsColorCircle {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.15s ease;
+}
+
+#floatingAnnotationToolbar .editorParamsColorCircle::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border: none;
+  border-radius: 14px;
+}
+
+#floatingAnnotationToolbar .editorParamsColorCircle::-webkit-color-swatch {
+  border: none;
+  border-radius: 14px;
+}
+
+#floatingAnnotationToolbar .editorParamsColorCircle::-moz-color-swatch {
+  border: none;
+  border-radius: 14px;
+}
+
+#floatingAnnotationToolbar .sliderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60px;
+  justify-content: center;
+  margin: 8px 0;
+  width: 40px;
+}
+
+/* Special slider positioning for highlight menu */
+#floatingAnnotationToolbar .highlightParams .sliderContainer {
+  height: 50px;
+  margin: 4px 0;
+  flex: 0 0 auto;
+  width: 40px;
+  justify-content: center;
+}
+
+/* Smaller slider containers for ink menu */
+#floatingAnnotationToolbar .inkParams .sliderContainer {
+  height: 50px;
+  margin: 8px 0;
+  width: 40px;
+}
+
+#floatingAnnotationToolbar .toggleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-top: 8px;
+  width: 40px;
+}
+
+/* Special toggle positioning for highlight menu */
+#floatingAnnotationToolbar .highlightParams .toggleContainer {
+  height: 40px;
+  margin-top: 4px;
+  width: 40px;
+}
+
+
+
+/* Compact toggle button */
+#floatingAnnotationToolbar .toggle-button-compact {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 14px;
+  background: light-dark(rgb(255 255 255), rgb(38 38 38));
+  color: light-dark(rgb(0 0 0), rgb(255 255 255));
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+#floatingAnnotationToolbar .toggle-button-compact:hover {
+  background: light-dark(rgb(229 231 235), rgb(38 38 38));
+}
+
+#floatingAnnotationToolbar .toggle-button-compact[aria-pressed="true"] {
+  background: light-dark(rgb(62 99 221), rgb(62 99 221));
+  color: light-dark(rgb(255 255 255), rgb(255 255 255));
+}
+
+#floatingAnnotationToolbar .toggle-button-compact[aria-pressed="true"]::after {
+  content: "";
+  background-color: rgb(255, 255, 255) !important;
+}
+
+#floatingAnnotationToolbar .toggle-button-compact .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#floatingAnnotationToolbar .toggle-button-compact::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+#floatingAnnotationToolbar .editorParamsSliderVertical {
+  width: 6px;
+  height: 60px;
+  writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  background: light-dark(rgb(229 231 235), rgb(38 38 38));
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Smaller sliders for ink menu (two sliders need to fit) */
+#floatingAnnotationToolbar .inkParams .editorParamsSliderVertical {
+  height: 45px;
+}
+
+#floatingAnnotationToolbar .editorParamsSliderVertical::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: light-dark(rgb(62 99 221), rgb(62 99 221));
+  border: 2px solid light-dark(rgb(255 255 255), rgb(255 255 255));
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#floatingAnnotationToolbar .editorParamsSliderVertical::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: light-dark(rgb(62 99 221), rgb(62 99 221));
+  border: 2px solid light-dark(rgb(255 255 255), rgb(255 255 255));
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#floatingAnnotationToolbar .toolbarButtonWithContainer {
+  position: relative;
+}
+
+#floatingAnnotationToolbar .editorParamsToolbarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#floatingAnnotationToolbar .editorParamsSetter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#floatingAnnotationToolbar .editorParamsLabel {
+  font-size: 12px;
+  color: light-dark(rgb(55 65 81), rgb(209 213 219));
+}
+
+#floatingAnnotationToolbar .editorParamsColor {
+  width: 100%;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+  border-radius: 4px;
+}
+
+#floatingAnnotationToolbar .editorParamsSlider {
+  width: 100%;
+  height: 32px;
+}
+
+/* Floating annotation toolbar icon assignments */
+#floatingAnnotationToolbar #editorCursorButton::before {
+  mask-image: var(--toolbarButton-editorCursor-icon);
+}
+
+#floatingAnnotationToolbar #editorFreeTextButton::before {
+  mask-image: var(--toolbarButton-editorFreeText-icon);
+}
+
+#floatingAnnotationToolbar #editorInkButton::before {
+  mask-image: var(--toolbarButton-editorInk-icon);
+}
+
+#floatingAnnotationToolbar #editorHighlightButton::before {
+  mask-image: var(--toolbarButton-editorHighlight-icon);
+}
+
+#floatingAnnotationToolbar #editorStampButton::before {
+  mask-image: var(--toolbarButton-editorStamp-icon);
+}
+
+#floatingAnnotationToolbar #editorSignatureButton::before {
+  mask-image: var(--toolbarButton-editorSignature-icon);
+}
+
+/* Hide the original toolbar buttons */
+#editorModeButtons {
+  display: none !important;
+}
+
+#editorModeSeparator {
+  display: none !important;
+}
+
+#floatingAnnotationToolbar .editorParamsToolbarContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+/* Override gap for stamp/signature menu containers */
+#floatingAnnotationToolbar #editorStampParamsToolbar .editorParamsToolbarContainer,
+#floatingAnnotationToolbar #editorSignatureParamsToolbar .editorParamsToolbarContainer {
+  gap: 4px;
+  padding: 0;
+}
+
+/* Fix margin on stamp/signature add buttons */
+#floatingAnnotationToolbar #editorStampAddImage,
+#floatingAnnotationToolbar #editorSignatureAddSignature {
+  margin: 0 !important;
+}
+
+/* Add plus icon for the signature add button */
+#floatingAnnotationToolbar #editorSignatureAddSignature::before {
+  mask-image: var(--toolbarButton-zoomIn-icon);
+  width: 16px !important;
+  height: 16px !important;
+  opacity: var(--toolbar-icon-opacity);
+  background-color: currentColor;
+  mask-size: cover;
+  mask-position: center;
+  transition: background-color 0.15s ease;
+  display: inline-block;
+  content: "";
+}
+
+/* Hide stamp params toolbar since stamp button opens file picker directly */
+#editorStampParamsToolbar {
+  display: none !important;
+}
+
+.toolbarField.pageNumber {
+  display: flex;
+  align-items: center;
+  gap: 0 !important;
+  padding-right: 10px;
+  padding-left: 5px;
+
+}
+
+#floatingAnnotationToolbar .inkParams .sliderContainer:last-child {
+  display: none !important;
+}
+
+.pdfViewer .canvasWrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px !important;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    contain: content;
+    border-radius: 15px !important;
+
+    .structTree {
+      contain: strict;
+    }
+  }
+}
+
+.pdfViewer .page {
+  --user-unit: 1;
+  --total-scale-factor: calc(var(--scale-factor) * var(--user-unit));
+  --scale-round-x: 1px;
+  --scale-round-y: 1px;
+
+  direction: ltr;
+  width: 816px;
+  height: 1056px;
+  margin: var(--page-margin);
+  position: relative;
+  overflow: visible;
+  border: var(--page-border);
+  border-radius: 25px !important;
+  background-clip: content-box;
+  background-color: var(--page-bg-color, rgb(255 255 255));
+}
+
+.highlightEditor .editToolbar {
+  --editor-toolbar-colorpicker-arrow-image: url(images/toolbarButton-menuArrow.svg);
+  --editor-toolbar-bg-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  --editor-toolbar-hover-bg-color: light-dark(rgb(229 231 235), rgb(26 26 26));
+
+  transform-origin: center !important;
+
+  .buttons {
+    .colorPicker {
+      position: relative;
+      width: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: var(--toolbar-button-padding);
+      border-radius: var(--toolbar-button-border-radius);
+      background-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+      border: none;
+      color: light-dark(rgb(0 0 0), rgb(255 255 255));
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &::after {
+        content: "";
+        mask-image: var(--editor-toolbar-colorpicker-arrow-image);
+        mask-repeat: no-repeat;
+        mask-position: center;
+        display: inline-block;
+        background-color: var(--editor-toolbar-fg-color);
+        width: 12px;
+        height: 12px;
+      }
+
+      &:hover {
+        background-color: var(--editor-toolbar-hover-bg-color);
+      }
+
+      &:has(.dropdown:not(.hidden)) {
+        background-color: var(--editor-toolbar-hover-bg-color);
+
+        &::after {
+          scale: -1;
+        }
+      }
+
+      .dropdown {
+        position: absolute;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+        padding: 4px;
+        border-radius: 16px;
+        background-color: var(--editor-toolbar-bg-color);
+        border: none;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+        inset-block-start: calc(100% + 8px);
+        min-width: 160px;
+        z-index: 101;
+
+        button {
+          width: 100%;
+          height: auto;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: none;
+          padding: 4px;
+          border-radius: 8px;
+          transition: background-color 0.15s ease;
+
+          &:is(:active, :focus-visible) {
+            outline: none;
+          }
+
+          &:hover {
+            background-color: light-dark(rgb(243 244 246), rgb(26 26 26));
+          }
+        }
+      }
+    }
+  }
+}
+
+#secondaryToolbarButtonContainer {
+  /*#if GENERIC*/
+  #secondaryOpenFile::before {
+    mask-image: var(--toolbarButton-openFile-icon);
+  }
+  /*#endif*/
+
+  #secondaryPrint::before {
+    mask-image: var(--toolbarButton-print-icon);
+  }
+
+  #secondaryDownload::before {
+    mask-image: var(--toolbarButton-download-icon);
+  }
+
+  #presentationMode::before {
+    mask-image: var(--toolbarButton-presentationMode-icon);
+  }
+
+  #viewBookmark::before {
+    mask-image: var(--toolbarButton-bookmark-icon);
+  }
+
+  #firstPage::before {
+    mask-image: var(--secondaryToolbarButton-firstPage-icon);
+  }
+
+  #lastPage::before {
+    mask-image: var(--secondaryToolbarButton-lastPage-icon);
+  }
+
+  #pageRotateCcw::before {
+    mask-image: var(--secondaryToolbarButton-rotateCcw-icon);
+  }
+
+  #pageRotateCw::before {
+    mask-image: var(--secondaryToolbarButton-rotateCw-icon);
+  }
+
+  #cursorSelectTool::before {
+    mask-image: var(--secondaryToolbarButton-selectTool-icon);
+  }
+
+  #cursorHandTool::before {
+    mask-image: var(--secondaryToolbarButton-handTool-icon);
+  }
+
+  #scrollPage::before {
+    mask-image: var(--secondaryToolbarButton-scrollPage-icon);
+  }
+
+  #scrollVertical::before {
+    mask-image: var(--secondaryToolbarButton-scrollVertical-icon);
+  }
+
+  #scrollHorizontal::before {
+    mask-image: var(--secondaryToolbarButton-scrollHorizontal-icon);
+  }
+
+  #scrollWrapped::before {
+    mask-image: var(--secondaryToolbarButton-scrollWrapped-icon);
+  }
+
+  #spreadNone::before {
+    mask-image: var(--secondaryToolbarButton-spreadNone-icon);
+  }
+
+  #spreadOdd::before {
+    mask-image: var(--secondaryToolbarButton-spreadOdd-icon);
+  }
+
+  #spreadEven::before {
+    mask-image: var(--secondaryToolbarButton-spreadEven-icon);
+  }
+
+  #imageAltTextSettings::before {
+    mask-image: var(--secondaryToolbarButton-imageAltTextSettings-icon);
+  }
+
+  #documentProperties::before {
+    mask-image: var(--secondaryToolbarButton-documentProperties-icon);
+  }
+}
+
+/* Hide redundant buttons */
+html #secondaryToolbar #firstPage,
+html #secondaryToolbar #lastPage,
+html #secondaryToolbar #pageRotateCcw,
+html #secondaryToolbar #cursorSelectTool,
+html #secondaryToolbar #cursorHandTool,
+html #secondaryToolbar #cursorToolButtons {
+  display: none !important;
+}
+
+/* Hide all separators by default */
+html #secondaryToolbar .horizontalToolbarSeparator {
+  display: none !important;
+}
+
+/* Only show separators between specific sections */
+html #secondaryToolbar .visibleMediumView + .horizontalToolbarSeparator,
+html #secondaryToolbar #pageRotateCw + .horizontalToolbarSeparator,
+html #secondaryToolbar #scrollModeButtons + .horizontalToolbarSeparator {
+  display: block !important;
+  height: 1px !important;
+  background-color: light-dark(rgb(229 231 235), rgb(75 85 99)) !important;
+  margin: 0.25rem !important;
+  opacity: 0.5 !important;
+}
+
+/* Dark mode theme overrides */
+html[data-theme="dark"] {
+  --main-color: rgb(217 217 217);
+  --body-bg-color: rgb(42 42 42);
+  --errorWrapper-bg-color: rgb(199 17 17);
+  --progressBar-color: rgb(0 96 223);
+  --progressBar-bg-color: rgb(64 64 64);
+  --progressBar-blend-color: rgb(116 177 239);
+  --scrollbar-color: auto;
+  --scrollbar-bg-color: auto;
+  --toolbar-icon-bg-color: rgb(255 255 255);
+  --toolbar-icon-hover-bg-color: rgb(255 255 255);
+
+  --sidebar-narrow-bg-color: rgb(64 64 64 / 0.1);
+  --sidebar-toolbar-bg-color: rgb(50 50 50);
+  --toolbar-bg-color: rgb(56 56 56);
+  --toolbar-border-color: rgb(12 12 13);
+  --button-hover-color: rgb(102 102 103);
+  --toggled-btn-color: rgb(255 255 255);
+  --toggled-btn-bg-color: rgb(0 0 0 / 0.3);
+  --toggled-hover-active-btn-color: rgb(0 0 0 / 0.4);
+  --dropdown-btn-bg-color: rgb(74 74 79);
+  --separator-color: rgb(0 0 0 / 0.3);
+  --field-color: rgb(250 250 250);
+  --field-bg-color: rgb(64 64 68);
+  --field-border-color: rgb(115 115 115);
+  --findbar-nextprevious-btn-bg-color: rgb(89 89 89);
+  --treeitem-color: rgb(255 255 255 / 0.8);
+  --treeitem-hover-color: rgb(255 255 255 / 0.9);
+  --treeitem-selected-color: rgb(255 255 255 / 0.9);
+  --treeitem-selected-bg-color: rgb(255 255 255 / 0.25);
+  --sidebaritem-bg-color: rgb(255 255 255 / 0.15);
+  --doorhanger-bg-color: rgb(74 74 79);
+  --doorhanger-border-color: rgb(39 39 43);
+  --doorhanger-hover-color: rgb(93 94 98);
+  --doorhanger-hover-bg-color: rgb(93 94 98);
+  --doorhanger-separator-color: rgb(92 92 97);
+  --overlay-button-bg-color: rgb(92 92 97);
+  --overlay-button-hover-color: rgb(115 115 115);
+
+  /* Toolbar button colors for dark mode */
+  --toolbar-button-bg-color: rgb(56 56 56);
+  --toolbar-button-hover-bg-color: rgb(76 76 76);
+  --toolbar-button-toggled-bg-color: rgb(0 84 166);
+  --toolbar-button-toggled-color: rgb(255 255 255);
+  --toolbar-button-text-color: rgb(255 255 255);
+}
+
+.pdfSidebarNotification::after {
+  position: absolute;
+  display: inline-block;
+  top: 2px;
+  inset-inline-end: 2px;
+  /* Create a filled circle, with a diameter of 9 pixels, using only CSS: */
+  content: "";
+  background-color: rgb(112 219 85);
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+}
+
+

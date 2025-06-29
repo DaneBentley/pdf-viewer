@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PDF.js Layout Test</title>
+    <link rel="stylesheet" href="web/tailwind-built.css">
+    <link rel="stylesheet" href="web/viewer.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, sans-serif;
+        }
+        .test-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        .test-overlay {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        .demo-content {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 200vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        Layout Test Mode<br>
+        Toolbar Height: var(--toolbar-height)<br>
+        Sidebar Width: var(--sidebar-width)
+    </div>
+
+    <div id="outerContainer" class="sidebarOpen">
+        <!-- Sidebar -->
+        <div id="sidebarContainer">
+            <div id="toolbarSidebar" class="toolbarHorizontalGroup">
+                <div id="toolbarSidebarLeft">
+                    <div id="sidebarViewButtons" class="toolbarHorizontalGroup toggled" role="radiogroup">
+                        <button id="viewThumbnail" class="toolbarButton toggled" type="button">
+                            <span>📄</span>
+                        </button>
+                        <button id="viewOutline" class="toolbarButton" type="button">
+                            <span>📑</span>
+                        </button>
+                        <button id="viewAttachments" class="toolbarButton" type="button">
+                            <span>📎</span>
+                        </button>
+                        <button id="viewLayers" class="toolbarButton" type="button">
+                            <span>🗂️</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="toolbarSidebarRight">
+                    <button class="toolbarButton" type="button">
+                        <span>⚙️</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="sidebarContent">
+                <div id="thumbnailView">
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 1</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 2</div>
+                    </div>
+                    <div class="thumbnail selected" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 3</div>
+                    </div>
+                    <!-- Add many more thumbnails to test scrollbar behavior -->
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 4</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 5</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 6</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 7</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 8</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 9</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 10</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 11</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 12</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 13</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 14</div>
+                    </div>
+                    <div class="thumbnail" style="--thumbnail-width: 100px; --thumbnail-height: 130px;">
+                        <div class="thumbnailImage" style="background: #ddd; width: 100px; height: 130px; display: flex; align-items: center; justify-content: center;">Page 15</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="sidebarResizer"></div>
+        </div>
+
+        <!-- Main Container -->
+        <div id="mainContainer">
+            <div class="toolbar">
+                <div id="toolbarContainer">
+                    <div id="toolbarViewer">
+                        <div id="toolbarViewerLeft">
+                            <button id="sidebarToggleButton" class="toolbarButton" type="button">
+                                <span>☰</span>
+                            </button>
+                            <div class="toolbarButtonSpacer"></div>
+                            <button class="toolbarButton" type="button">
+                                <span>🔍</span>
+                            </button>
+                            <div class="toolbarHorizontalGroup">
+                                <button class="toolbarButton" type="button">
+                                    <span>◀</span>
+                                </button>
+                                <div class="splitToolbarButtonSeparator"></div>
+                                <button class="toolbarButton" type="button">
+                                    <span>▶</span>
+                                </button>
+                            </div>
+                            <div class="toolbarHorizontalGroup">
+                                <input type="number" id="pageNumber" class="toolbarField" value="1">
+                                <span id="numPages" class="toolbarLabel">of 14</span>
+                            </div>
+                        </div>
+                        
+                        <div id="toolbarViewerMiddle">
+                            <div class="toolbarHorizontalGroup">
+                                <button class="toolbarButton" type="button">
+                                    <span>🔍-</span>
+                                </button>
+                                <div class="splitToolbarButtonSeparator"></div>
+                                <button class="toolbarButton" type="button">
+                                    <span>🔍+</span>
+                                </button>
+                            </div>
+                            <select id="scaleSelect" class="dropdownToolbarButton">
+                                <option value="auto">Automatic Zoom</option>
+                                <option value="1">100%</option>
+                                <option value="1.25">125%</option>
+                                <option value="1.5">150%</option>
+                            </select>
+                        </div>
+                        
+                        <div id="toolbarViewerRight">
+                            <button class="toolbarButton" type="button">
+                                <span>🖨️</span>
+                            </button>
+                            <button class="toolbarButton" type="button">
+                                <span>💾</span>
+                            </button>
+                            <div class="verticalToolbarSeparator"></div>
+                            <button class="toolbarButton" type="button">
+                                <span>⚙️</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="viewerContainer">
+                <div class="demo-content">
+                    <h1>PDF Content Area</h1>
+                    <p>This simulates the PDF viewer content area. The toolbar should be at the top, and the sidebar should be properly positioned on the left.</p>
+                    <p>Scroll down to test the layout behavior...</p>
+                    <div style="margin-top: 50px;">
+                        <h2>Layout Test Points:</h2>
+                        <ul>
+                            <li>✅ Toolbar should be 64px tall and fixed at the top</li>
+                            <li>✅ Sidebar should be 250px wide and properly positioned</li>
+                            <li>✅ Content area should start below the toolbar</li>
+                            <li>✅ Sidebar buttons should be properly sized</li>
+                            <li>✅ All animations should be smooth</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-overlay">
+        <strong>Quick Tests:</strong><br>
+        • Click sidebar toggle (☰)<br>
+        • Hover over toolbar buttons<br>
+        • Try the sidebar resizer<br>
+        • Check responsive behavior<br>
+        • <strong>Scroll sidebar thumbnails</strong><br>
+        • <em>Scrollbar should auto-hide when not needed</em><br>
+        • <strong>Hover sidebar edge to see resizer</strong><br>
+        • <em>Resizer pill should only show when hovering</em><br>
+        <button id="toggleThumbnails" style="margin-top: 10px; padding: 5px;">Toggle Many Thumbnails</button>
+    </div>
+
+    <script>
+        // Quick layout diagnostics
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolbar = document.querySelector('.toolbar');
+            const sidebar = document.querySelector('#sidebarContainer');
+            const viewer = document.querySelector('#viewerContainer');
+            
+            console.log('🔧 Layout Diagnostics:');
+            console.log('Toolbar height:', toolbar?.offsetHeight + 'px');
+            console.log('Sidebar width:', sidebar?.offsetWidth + 'px');
+            console.log('Viewer top offset:', viewer?.offsetTop + 'px');
+            
+            // Add some interactive functionality
+            document.getElementById('sidebarToggleButton')?.addEventListener('click', function() {
+                document.getElementById('outerContainer')?.classList.toggle('sidebarOpen');
+            });
+            
+            // Test scrollbar behavior
+            let showingManyThumbnails = true;
+            document.getElementById('toggleThumbnails')?.addEventListener('click', function() {
+                const thumbnailView = document.getElementById('thumbnailView');
+                const thumbnails = thumbnailView?.querySelectorAll('.thumbnail');
+                
+                if (showingManyThumbnails) {
+                    // Keep only first 3 thumbnails
+                    thumbnails?.forEach((thumb, index) => {
+                        if (index >= 3) {
+                            thumb.style.display = 'none';
+                        }
+                    });
+                    this.textContent = 'Show Many Thumbnails';
+                    showingManyThumbnails = false;
+                } else {
+                    // Show all thumbnails
+                    thumbnails?.forEach(thumb => {
+                        thumb.style.display = 'block';
+                    });
+                    this.textContent = 'Hide Extra Thumbnails';
+                    showingManyThumbnails = true;
+                }
+                
+                console.log('📊 Scrollbar Test:', showingManyThumbnails ? 'Many thumbnails (should show scrollbar)' : 'Few thumbnails (should hide scrollbar)');
+            });
+        });
+    </script>
+</body>
+</html> 

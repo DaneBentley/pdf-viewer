@@ -1,0 +1,12 @@
+#toggleNotifications.toggled {
+  background-color: var(--toggled-btn-color);
+  color: var(--toggled-btn-color-text);
+}
+
+#toggleNotifications.toggled:hover {
+  background-color: var(--toggled-hover-btn-color);
+}
+
+#toggleNotifications.toggled:active {
+  background-color: var(--toggled-active-btn-color);
+} 
