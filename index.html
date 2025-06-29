@@ -25,7 +25,8 @@
             color: white;
             text-decoration: none;
             border-radius: 0.5rem;
-            transition: background 0.2s;
+            font-weight: 500;
+            transition: background-color 0.2s;
         }
         .btn:hover {
             background: #2563eb;
@@ -36,49 +37,46 @@
         .btn-secondary:hover {
             background: #4b5563;
         }
-        .info {
-            background: light-dark(#eff6ff, #1e3a8a);
-            border: 1px solid light-dark(#bfdbfe, #3b82f6);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 2rem 0;
+        .feature-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .feature-list li {
+            margin: 0.5rem 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>PDF Viewer</h1>
-        <p>Choose your viewing mode:</p>
+        <h1>🔍 PDF Viewer</h1>
+        <p>A modern PDF viewer with improved document outline and unified workflow</p>
         
-        <div class="info">
-            <h3>📝 Development Mode</h3>
-            <p>Use this for development with hot reloading and unminified code.</p>
-            <a href="pdf.js/web/viewer.html" class="btn">Open Development Viewer</a>
+        <div style="margin: 2rem 0;">
+            <a href="viewer.html" class="btn">📖 Open PDF Viewer</a>
+            <a href="viewer.html?file=compressed.tracemonkey-pldi-09.pdf" class="btn btn-secondary">📄 View Sample PDF</a>
         </div>
         
-        <div class="info">
-            <h3>🚀 Production Mode</h3>
-            <p>Optimized build with improved document outline and modern styling.</p>
-            <a href="pdf.js/build/generic/web/viewer.html" class="btn">Open Production Viewer</a>
+        <div class="feature-list">
+            <h3>✨ Features</h3>
+            <ul>
+                <li><strong>Improved Document Outline</strong> - Compact spacing and modern design</li>
+                <li><strong>Better Visual Hierarchy</strong> - Clear distinction between outline levels</li>
+                <li><strong>Smooth Animations</strong> - Enhanced hover states and transitions</li>
+                <li><strong>Modern UI</strong> - Clean, accessible interface</li>
+                <li><strong>Full PDF.js Compatibility</strong> - All standard PDF.js features included</li>
+            </ul>
         </div>
-        
-        <div style="margin-top: 3rem;">
-            <h3>🛠️ Quick Actions</h3>
-            <a href="pdf.js/web/recent_files_debug.html" class="btn btn-secondary">Recent Files Debug</a>
-            <a href="signature-ui-test.html" class="btn btn-secondary">Signature UI Test</a>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
+            <h3>🚀 Development</h3>
+            <p>For development mode with hot reloading:</p>
+            <a href="pdf.js/web/viewer.html" class="btn btn-secondary">🛠️ Development Mode</a>
         </div>
         
         <div style="margin-top: 2rem; font-size: 0.875rem; color: #6b7280;">
-            <p><strong>Note:</strong> Both viewers now use the same improved document outline with compact design and better visual hierarchy.</p>
+            <p>Built with PDF.js • Enhanced with modern UI improvements</p>
         </div>
     </div>
-
-    <script>
-        // Auto-redirect to production viewer if a PDF file is specified
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('file')) {
-            window.location.href = `pdf.js/build/generic/web/viewer.html${window.location.search}`;
-        }
-    </script>
 </body>
 </html> 
