@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature Manager UI - Improved Styling</title>
+    <style>
+        :root {
+            --toolbar-button-border-radius: 14px;
+            --main-color: #333;
+            --focus-ring-outline: 2px solid #0060df;
+            --menuitem-height: 32px;
+            --button-signature-bg: transparent;
+            --button-signature-color: var(--main-color);
+            --button-signature-active-bg: rgba(0, 0, 0, 0.1);
+            --button-signature-active-color: var(--button-signature-color);
+            --button-signature-hover-bg: rgba(0, 0, 0, 0.05);
+            --button-signature-hover-color: var(--button-signature-color);
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .demo-container {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+        
+        .toolbar-demo {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #444;
+        }
+        
+        /* Apply the improved signature manager styles */
+        .toolbarAddSignatureButtonContainer {
+            height: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            align-self: stretch;
+            gap: 8px;
+            margin-bottom: 8px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .toolbarAddSignatureButtonContainer button {
+            border: none;
+            border-radius: var(--toolbar-button-border-radius);
+            background-color: var(--button-signature-bg);
+            color: var(--button-signature-color);
+        }
+
+        .toolbarAddSignatureButtonContainer button:hover {
+            background-color: var(--button-signature-hover-bg);
+        }
+
+        .toolbarAddSignatureButtonContainer button:active {
+            background-color: var(--button-signature-active-bg);
+            color: var(--button-signature-active-color);
+        }
+
+        .deleteButton {
+            width: 24px !important;
+            height: 24px !important;
+            padding: 0 !important;
+            background-color: rgba(0, 0, 0, 0.08) !important;
+            border: none !important;
+            border-radius: var(--toolbar-button-border-radius) !important;
+            cursor: pointer !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 16px !important;
+            font-weight: 300 !important;
+            line-height: 1 !important;
+            color: #666 !important;
+            flex-shrink: 0 !important;
+            transition: all 0.15s ease !important;
+        }
+
+        .deleteButton:hover {
+            background-color: rgba(0, 0, 0, 0.12) !important;
+            color: #333 !important;
+        }
+
+        .toolbarAddSignatureButton {
+            width: auto !important;
+            height: 100% !important;
+            min-height: var(--menuitem-height) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            outline: none !important;
+            border-radius: var(--toolbar-button-border-radius) !important;
+            box-sizing: border-box !important;
+            position: relative !important;
+            flex: 1 1 auto !important;
+            padding: 4px !important;
+            gap: 8px !important;
+            text-align: start !important;
+            cursor: pointer !important;
+            overflow: hidden !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+
+        .toolbarAddSignatureButton:hover {
+            background-color: var(--button-signature-hover-bg) !important;
+        }
+
+        .toolbarAddSignatureButton > svg {
+            display: inline-block !important;
+            height: calc(100% - 8px) !important;
+            aspect-ratio: 1 !important;
+            background-color: #f5f5f7 !important;
+            flex: none !important;
+            padding: 2px !important;
+            box-sizing: border-box !important;
+            border: none !important;
+            border-radius: calc(var(--toolbar-button-border-radius) - 4px) !important;
+            overflow: hidden !important;
+        }
+
+        .toolbarAddSignatureButton:hover > svg {
+            background-color: #ebebed !important;
+        }
+
+        .toolbarAddSignatureButton > span {
+            height: auto !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+            flex: 1 1 auto !important;
+            font-size: 13px !important;
+            font-style: normal !important;
+            font-weight: 400 !important;
+            line-height: normal !important;
+            overflow: hidden !important;
+        }
+        
+        .improvements-list {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .improvements-list h3 {
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+        
+        .improvements-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .improvements-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .checkmark {
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Signature Manager UI - Improved</h1>
+        <p class="subtitle">Enhanced styling with harmonious design and consistent border radii</p>
+        
+        <div class="toolbar-demo">
+            <div class="section-title">✨ Improved Signature Buttons</div>
+            
+            <div class="toolbarAddSignatureButtonContainer">
+                <button class="toolbarAddSignatureButton">
+                    <svg viewBox="0 0 100 50" width="24" height="24">
+                        <path d="M10,30 Q20,10 30,30 T50,30" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span>John Doe Signature</span>
+                </button>
+                <button class="deleteButton">−</button>
+            </div>
+            
+            <div class="toolbarAddSignatureButtonContainer">
+                <button class="toolbarAddSignatureButton">
+                    <svg viewBox="0 0 100 50" width="24" height="24">
+                        <path d="M15,35 Q25,15 35,35 Q45,20 55,35" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span>Jane Smith Professional</span>
+                </button>
+                <button class="deleteButton">−</button>
+            </div>
+            
+            <div class="toolbarAddSignatureButtonContainer">
+                <button class="toolbarAddSignatureButton">
+                    <svg viewBox="0 0 100 50" width="24" height="24">
+                        <path d="M20,25 L40,25 M20,35 L35,35" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                    <span>A very long signature description that should truncate nicely with ellipsis</span>
+                </button>
+                <button class="deleteButton">−</button>
+            </div>
+        </div>
+        
+        <div class="improvements-list">
+            <h3>Key Improvements Made</h3>
+            <ul>
+                <li><span class="checkmark">✅</span><strong>Consistent Border Radius:</strong> All elements now use 14px radius matching the toolbar design system</li>
+                <li><span class="checkmark">✅</span><strong>Harmonious Backgrounds:</strong> Signature SVG backgrounds use subtle colors that blend with the toolbar</li>
+                <li><span class="checkmark">✅</span><strong>Removed Conflicting Borders:</strong> Eliminated borders and !important conflicts for cleaner styling</li>
+                <li><span class="checkmark">✅</span><strong>Improved Delete Button:</strong> Consistent sizing, better hover states, and proper alignment</li>
+                <li><span class="checkmark">✅</span><strong>Better Visual Hierarchy:</strong> Improved spacing, transitions, and typography</li>
+                <li><span class="checkmark">✅</span><strong>Higher CSS Specificity:</strong> Added selectors to override floating toolbar conflicts</li>
+                <li><span class="checkmark">✅</span><strong>Responsive Design:</strong> Proper text truncation and flexible layouts</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 24px; padding: 16px; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196f3;">
+            <strong>💡 Technical Changes:</strong> Updated CSS variables, added !important declarations for specificity, 
+            improved light-dark color schemes, and ensured compatibility with the floating annotation toolbar.
+        </div>
+    </div>
+</body>
+</html> 

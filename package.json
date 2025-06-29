@@ -1,0 +1,25 @@
+{
+  "name": "pdf-viewer-unified",
+  "version": "1.0.0",
+  "description": "Unified PDF.js viewer for development and production",
+  "main": "index.html",
+  "scripts": {
+    "dev": "cd pdf.js && npx gulp server",
+    "build": "cd pdf.js && npx gulp generic",
+    "build:prod": "cd pdf.js && npx gulp minified",
+    "build:dist": "cd pdf.js && npx gulp dist",
+    "serve": "cd pdf.js && npx gulp server",
+    "clean": "cd pdf.js && npx gulp clean",
+    "lint": "cd pdf.js && npx gulp lint",
+    "test": "cd pdf.js && npx gulp test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.16.0 || >=22.3.0"
+  }
+} 

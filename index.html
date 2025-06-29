@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: light-dark(#f8fafc, #1e293b);
+            color: light-dark(#1e293b, #f8fafc);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #2563eb;
+        }
+        .btn-secondary {
+            background: #6b7280;
+        }
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        .info {
+            background: light-dark(#eff6ff, #1e3a8a);
+            border: 1px solid light-dark(#bfdbfe, #3b82f6);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Viewer</h1>
+        <p>Choose your viewing mode:</p>
+        
+        <div class="info">
+            <h3>📝 Development Mode</h3>
+            <p>Use this for development with hot reloading and unminified code.</p>
+            <a href="pdf.js/web/viewer.html" class="btn">Open Development Viewer</a>
+        </div>
+        
+        <div class="info">
+            <h3>🚀 Production Mode</h3>
+            <p>Optimized build with improved document outline and modern styling.</p>
+            <a href="pdf.js/build/generic/web/viewer.html" class="btn">Open Production Viewer</a>
+        </div>
+        
+        <div style="margin-top: 3rem;">
+            <h3>🛠️ Quick Actions</h3>
+            <a href="pdf.js/web/recent_files_debug.html" class="btn btn-secondary">Recent Files Debug</a>
+            <a href="signature-ui-test.html" class="btn btn-secondary">Signature UI Test</a>
+        </div>
+        
+        <div style="margin-top: 2rem; font-size: 0.875rem; color: #6b7280;">
+            <p><strong>Note:</strong> Both viewers now use the same improved document outline with compact design and better visual hierarchy.</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect to production viewer if a PDF file is specified
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('file')) {
+            window.location.href = `pdf.js/build/generic/web/viewer.html${window.location.search}`;
+        }
+    </script>
+</body>
+</html> 
