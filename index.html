@@ -8,75 +8,106 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
-            padding: 2rem;
-            background: light-dark(#f8fafc, #1e293b);
-            color: light-dark(#1e293b, #f8fafc);
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             text-align: center;
         }
-        .btn {
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .button {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
-            margin: 0.5rem;
-            background: #3b82f6;
+            background: #3498db;
             color: white;
+            padding: 12px 24px;
             text-decoration: none;
-            border-radius: 0.5rem;
+            border-radius: 8px;
             font-weight: 500;
-            transition: background-color 0.2s;
+            margin: 10px;
+            transition: background 0.3s ease;
         }
-        .btn:hover {
-            background: #2563eb;
+        .button:hover {
+            background: #2980b9;
         }
-        .btn-secondary {
-            background: #6b7280;
+        .button.primary {
+            background: #e74c3c;
+            font-size: 18px;
+            padding: 16px 32px;
         }
-        .btn-secondary:hover {
-            background: #4b5563;
+        .button.primary:hover {
+            background: #c0392b;
         }
-        .feature-list {
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 8px;
             text-align: left;
-            max-width: 600px;
-            margin: 2rem auto;
         }
-        .feature-list li {
-            margin: 0.5rem 0;
+        .info h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .info li {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔍 PDF Viewer</h1>
-        <p>A modern PDF viewer with improved document outline and unified workflow</p>
+        <h1>🔥 Modern PDF Viewer</h1>
+        <p>A clean, modern PDF viewer with advanced features and beautiful design.</p>
         
-        <div style="margin: 2rem 0;">
-            <a href="viewer.html" class="btn">📖 Open PDF Viewer</a>
-            <a href="viewer.html?file=compressed.tracemonkey-pldi-09.pdf" class="btn btn-secondary">📄 View Sample PDF</a>
+        <!-- Primary Access Button -->
+        <a href="pdf.js/web/viewer.html" class="button primary">Open PDF Viewer</a>
+        
+        <!-- Alternative Access Methods -->
+        <div style="margin-top: 20px;">
+            <a href="pdf.js/web/viewer.html?file=compressed.tracemonkey-pldi-09.pdf" class="button">View Sample PDF</a>
         </div>
         
-        <div class="feature-list">
+        <div class="info">
             <h3>✨ Features</h3>
             <ul>
-                <li><strong>Improved Document Outline</strong> - Compact spacing and modern design</li>
-                <li><strong>Better Visual Hierarchy</strong> - Clear distinction between outline levels</li>
-                <li><strong>Smooth Animations</strong> - Enhanced hover states and transitions</li>
-                <li><strong>Modern UI</strong> - Clean, accessible interface</li>
-                <li><strong>Full PDF.js Compatibility</strong> - All standard PDF.js features included</li>
+                <li><strong>Modern Interface:</strong> Clean, intuitive design with dark mode support</li>
+                <li><strong>Advanced Navigation:</strong> Thumbnails, outline, attachments, and recent files</li>
+                <li><strong>Responsive Design:</strong> Works perfectly on desktop, tablet, and mobile</li>
+                <li><strong>Signature Support:</strong> Add and edit digital signatures</li>
+                <li><strong>Annotation Tools:</strong> Highlight, draw, and add text annotations</li>
+                <li><strong>Multiple View Modes:</strong> Continuous, horizontal, grid, and single page views</li>
+                <li><strong>Accessibility:</strong> Full keyboard navigation and screen reader support</li>
+            </ul>
+            
+            <h3>🚀 Quick Start</h3>
+            <ul>
+                <li>Click "Open PDF Viewer" to launch the application</li>
+                <li>Use the "Open File" button to load your PDF documents</li>
+                <li>Recent files are automatically saved for quick access</li>
+                <li>Toggle dark mode with the moon icon in the toolbar</li>
+                <li>Access advanced settings via the three-dot menu</li>
             </ul>
         </div>
-
-        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
-            <h3>🚀 Development</h3>
-            <p>For development mode with hot reloading:</p>
-            <a href="pdf.js/web/viewer.html" class="btn btn-secondary">🛠️ Development Mode</a>
-        </div>
-        
-        <div style="margin-top: 2rem; font-size: 0.875rem; color: #6b7280;">
-            <p>Built with PDF.js • Enhanced with modern UI improvements</p>
-        </div>
     </div>
+
+    <script>
+        // Auto-redirect option (uncomment to automatically redirect)
+        // setTimeout(() => {
+        //     window.location.href = 'pdf.js/web/viewer.html';
+        // }, 2000);
+    </script>
 </body>
 </html> 

@@ -197,6 +197,9 @@ pdfjs-layers-button-label = Layers
 pdfjs-thumbs-button =
     .title = Show Thumbnails
 pdfjs-thumbs-button-label = Thumbnails
+pdfjs-recent-files-button =
+    .title = Show Recent Files
+pdfjs-recent-files-button-label = Recent Files
 pdfjs-current-outline-item-button =
     .title = Find Current Outline Item
 pdfjs-current-outline-item-button-label = Current Outline Item
@@ -517,6 +520,10 @@ pdfjs-editor-new-alt-text-generated-alt-text-with-disclaimer = Created automatic
 pdfjs-image-alt-text-settings-button =
     .title = Image alt text settings
 pdfjs-image-alt-text-settings-button-label = Image alt text settings
+
+pdfjs-toggle-annotation-toolbar-button =
+    .title = Show Annotation Tools
+pdfjs-toggle-annotation-toolbar-button-label = Show Annotation Tools
 
 pdfjs-editor-alt-text-settings-dialog-label = Image alt text settings
 pdfjs-editor-alt-text-settings-automatic-title = Automatic alt text

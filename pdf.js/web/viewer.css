@@ -4231,14 +4231,14 @@
       gap:20px;
     }
 
-:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionContainer{
+:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionInputContainer{
         flex:1;
         display:flex;
         flex-direction:column;
         gap:8px;
       }
 
-:is(:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionContainer)  > label{
+:is(:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionInputContainer)  > label{
           color:var(--signature-input-text);
           font-size:14px;
           font-weight:500;
@@ -7494,14 +7494,14 @@ html body #floatingAnnotationToolbar #editorSignatureParamsToolbar .toolbarAddSi
       gap:20px;
     }
 
-:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionContainer{
+:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionInputContainer{
         flex:1;
         display:flex;
         flex-direction:column;
         gap:8px;
       }
 
-:is(:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionContainer)  > label{
+:is(:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionInputContainer)  > label{
           color:var(--signature-input-text);
           font-size:14px;
           font-weight:500;
@@ -9092,14 +9092,14 @@ html body #floatingAnnotationToolbar #editorSignatureParamsToolbar .toolbarAddSi
       gap:20px;
     }
 
-:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionContainer{
+:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionInputContainer{
         flex:1;
         display:flex;
         flex-direction:column;
         gap:8px;
       }
 
-:is(:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionContainer)  > label{
+:is(:is(:is(#editSignatureDescriptionDialog .mainContainer) #editSignatureDescriptionAndView) #editSignatureDescriptionInputContainer)  > label{
           color:var(--signature-input-text);
           font-size:14px;
           font-weight:500;

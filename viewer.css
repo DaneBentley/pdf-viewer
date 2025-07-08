@@ -13,12 +13,6 @@
  * limitations under the License.
  */
 
-/* Import Tailwind CSS for modern UI styling */
-@import url(tailwind-built.css);
-
-@import url(pdf_viewer.css);
-@import url(signature_manager.css);
-
 :root {
   --dir-factor: 1;
   --inline-start: left;

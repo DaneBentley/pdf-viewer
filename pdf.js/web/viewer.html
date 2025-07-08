@@ -254,6 +254,19 @@ See https://github.com/adobe-type-tools/cmap-resources
                       <button id="toggleAnnotationToolbar" class="toolbarButton labeled" type="button" tabindex="0" data-l10n-id="pdfjs-toggle-annotation-toolbar-button">
                         <span data-l10n-id="pdfjs-toggle-annotation-toolbar-button-label"></span>
                       </button>
+
+                      <!-- Hidden Legacy Buttons (for JavaScript compatibility) -->
+                      <button id="secondaryPrint" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="secondaryDownload" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <a href="#" id="viewBookmark" class="toolbarButton labeled" style="display: none !important;"></a>
+                      <button id="firstPage" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="lastPage" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="pageRotateCcw" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="cursorSelectTool" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="cursorHandTool" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="spreadNone" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="spreadOdd" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
+                      <button id="spreadEven" class="toolbarButton labeled" type="button" style="display: none !important;"></button>
                     </div>
                   </div>
                 </div>
@@ -659,7 +672,7 @@ See https://github.com/adobe-type-tools/cmap-resources
             <span id="editSignatureDescriptionTitle" role="sectionhead" data-l10n-id="pdfjs-editor-edit-signature-dialog-title" tabindex="0"></span>
           </div>
           <div id="editSignatureDescriptionAndView">
-            <div id="editSignatureDescriptionContainer">
+            <div id="editSignatureDescriptionInputContainer">
               <label for="editSignatureDescInput" data-l10n-id="pdfjs-editor-add-signature-description-label"></label>
               <span id="editSignatureDescription" class="inputWithClearButton">
                 <input id="editSignatureDescInput" type="text" data-l10n-id="pdfjs-editor-add-signature-description-input" tabindex="0"></input>
