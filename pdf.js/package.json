@@ -69,5 +69,10 @@
   "license": "Apache-2.0",
   "dependencies": {
     "lucide": "^0.523.0"
+  },
+  "scripts": {
+    "build": "gulp generic",
+    "dev": "gulp server",
+    "watch": "gulp server"
   }
 }

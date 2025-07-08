@@ -61,7 +61,7 @@
 
   /* Modern Page Navigation */
   #pageNumber {
-    @apply w-10 h-7 text-center bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md px-2 py-1 text-sm font-medium text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors;
+    @apply w-10 h-7 text-center bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-[10px] px-2 py-1 text-sm font-medium text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 transition-colors;
   }
 
   #numPages {
@@ -126,21 +126,68 @@
     @apply text-gray-700 dark:text-gray-300 font-medium cursor-pointer;
   }
 
-  /* Modern Secondary Toolbar */
+  /* Modern Secondary Toolbar - Match Recent Files Context Menu */
   #secondaryToolbar {
-    @apply absolute top-12 right-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 min-w-[200px] z-20 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95;
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    margin-top: 4px !important;
+    background-color: var(--secondary-toolbar-bg) !important;
+    border: 1px solid var(--secondary-toolbar-border) !important;
+    border-radius: var(--secondary-toolbar-border-radius) !important;
+    box-shadow: var(--secondary-toolbar-shadow) !important;
+    padding: var(--secondary-toolbar-padding) !important;
+    min-width: var(--secondary-toolbar-min-width) !important;
+    z-index: 30000 !important;
+    backdrop-filter: blur(8px) !important;
+    /* Remove doorhanger arrow */
+    inset-block-start: auto !important;
+  }
+
+  #secondaryToolbar::before,
+  #secondaryToolbar::after {
+    display: none !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    #secondaryToolbar {
+      box-shadow: var(--secondary-toolbar-shadow-dark) !important;
+    }
   }
 
   #secondaryToolbarButtonContainer {
-    @apply space-y-1 px-2;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 !important;
   }
 
   #secondaryToolbar .toolbarButton {
-    @apply w-full justify-start px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: var(--secondary-toolbar-item-padding) !important;
+    border-radius: var(--secondary-toolbar-item-radius) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-align: left !important;
+    color: var(--recent-files-text) !important;
+    gap: 10px !important;
+    transition: background-color 0.15s ease !important;
+    background-color: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+  }
+
+  #secondaryToolbar .toolbarButton:hover {
+    background-color: var(--secondary-toolbar-item-hover-bg) !important;
   }
 
   .horizontalToolbarSeparator {
-    @apply h-px bg-gray-200 dark:bg-gray-700 my-2 mx-2;
+    height: 1px !important;
+    background-color: var(--doorhanger-separator-color) !important;
+    margin: 4px 0 !important;
+    opacity: 1 !important;
   }
 
   /* Modern Separators */
@@ -150,6 +197,59 @@
 
   .splitToolbarButtonSeparator {
     @apply w-px h-4 bg-gray-300 dark:bg-gray-600 mx-1;
+  }
+
+  /* Compact Page Layout Buttons */
+  #pageLayoutButtons {
+    gap: var(--page-layout-button-gap);
+  }
+
+  #pageLayoutButtons .toolbarButton.compact {
+    width: var(--page-layout-button-size);
+    height: var(--page-layout-button-size);
+    padding: 4px;
+    border-radius: var(--page-layout-button-radius);
+    background-color: transparent;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+
+  #pageLayoutButtons .toolbarButton.compact::before {
+    width: 16px;
+    height: 16px;
+    background-color: var(--toolbar-icon-bg-color);
+    opacity: var(--toolbar-icon-opacity);
+  }
+
+  #pageLayoutButtons .toolbarButton.compact:hover {
+    background-color: var(--toolbar-button-hover-bg-color);
+  }
+
+  #pageLayoutButtons .toolbarButton.compact.toggled {
+    background-color: var(--toggled-btn-bg-color);
+    color: var(--toggled-btn-color);
+  }
+
+  #pageLayoutButtons .toolbarButton.compact.toggled::before {
+    background-color: var(--toggled-btn-color);
+    opacity: 1;
+  }
+
+  /* Icon definitions for main toolbar page layout buttons */
+  #scrollVerticalMain::before {
+    mask-image: var(--secondaryToolbarButton-scrollVertical-icon);
+  }
+
+  #scrollHorizontalMain::before {
+    mask-image: var(--secondaryToolbarButton-scrollHorizontal-icon);
+  }
+
+  #scrollWrappedMain::before {
+    mask-image: var(--secondaryToolbarButton-scrollWrapped-icon);
+  }
+
+  #scrollPageMain::before {
+    mask-image: var(--secondaryToolbarButton-scrollPage-icon);
   }
 
   /* Modern Loading Bar */

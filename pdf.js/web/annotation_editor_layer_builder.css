@@ -88,7 +88,7 @@
     --editor-toolbar-highlight-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>');
     --editor-toolbar-fg-color: light-dark(rgb(20 20 20), rgb(240 240 240));
     --editor-toolbar-hover-bg-color: light-dark(rgb(229 231 235), rgb(75 85 99));
-    --editor-toolbar-vert-offset: -16px;
+    --editor-toolbar-vert-offset: 0px; /* Changed from -16px to 34px to move down by 50px */
     --selected-outline-color: #0060df;
     --hover-outline-color: #8f8f9d;
     --toolbar-button-size: 40px;
@@ -481,7 +481,7 @@
     --editor-toolbar-highlight-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>');
     --editor-toolbar-fg-color: light-dark(rgb(20 20 20), rgb(240 240 240));
     --editor-toolbar-hover-bg-color: light-dark(rgb(229 231 235), rgb(75 85 99));
-    --editor-toolbar-vert-offset: -16px;
+    --editor-toolbar-vert-offset: 0px; /* Changed from -16px to 34px to move down by 50px */
     --selected-outline-color: #0060df;
     --hover-outline-color: #8f8f9d;
     --toolbar-button-size: 40px;
@@ -1008,6 +1008,7 @@
   &::backdrop {
     /* This is needed to avoid to darken the image the user want to describe. */
     mask: url(#alttext-manager-mask);
+    background: rgba(0, 0, 0, 0.5); /* Add subtle backdrop overlay */
   }
 
   /* See alt_text_manager.js */
@@ -1022,12 +1023,16 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    padding: 24px; /* Add more padding */
+    border-radius: 8px; /* Rounded corners */
+    background: var(--dialog-bg-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 
     & #overallDescription {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 4px;
+      gap: 8px;
       align-self: stretch;
 
       & span {
@@ -1035,9 +1040,10 @@
       }
 
       & .title {
-        font-size: 13px;
+        font-size: 16px;
         font-style: normal;
-        font-weight: 590;
+        font-weight: 600;
+        color: var(--text-primary-color);
       }
     }
 
@@ -1045,7 +1051,8 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 8px;
+      gap: 12px;
+      width: 100%;
 
       & .descriptionArea {
         flex: 1;
@@ -1054,6 +1061,16 @@
         textarea {
           width: 100%;
           min-height: 75px;
+          padding: 12px;
+          border: 1px solid var(--input-border-color);
+          border-radius: 4px;
+          font-size: 14px;
+          transition: border-color 0.2s;
+
+          &:focus {
+            border-color: var(--focus-outline-color);
+            outline: none;
+          }
         }
       }
     }
@@ -1061,9 +1078,37 @@
     & #buttons {
       display: flex;
       justify-content: flex-end;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
       align-self: stretch;
+      margin-top: 8px;
+
+      button {
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+
+        &.primaryButton {
+          background-color: var(--primary-button-bg-color);
+          color: var(--primary-button-color);
+
+          &:hover {
+            background-color: var(--primary-button-hover-color);
+          }
+        }
+
+        &.secondaryButton {
+          background-color: transparent;
+          border: 1px solid var(--secondary-button-border-color);
+          color: var(--secondary-button-color);
+
+          &:hover {
+            background-color: var(--secondary-button-hover-color);
+          }
+        }
+      }
     }
   }
 }
@@ -1573,29 +1618,56 @@
 }
 
 #altTextSettingsDialog {
-  padding: 16px;
+  padding: 0;
+  border-radius: 8px;
+  background: var(--dialog-bg-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 
   #altTextSettingsContainer {
     display: flex;
     width: 573px;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
+    padding: 24px;
 
-    .mainContainer {
-      gap: 16px;
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary-color);
+      margin-bottom: 8px;
     }
 
     .description {
       color: var(--text-secondary-color);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     #aiModelSettings {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
+      padding: 16px;
+      background: var(--section-bg-color);
+      border-radius: 6px;
 
       button {
         width: fit-content;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+
+        &.secondaryButton {
+          background-color: transparent;
+          border: 1px solid var(--secondary-button-border-color);
+          color: var(--secondary-button-color);
+
+          &:hover {
+            background-color: var(--secondary-button-hover-color);
+          }
+        }
       }
 
       &.download {
@@ -1615,7 +1687,7 @@
     #altTextEditor {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
     }
 
     #createModelDescription,
@@ -1627,7 +1699,49 @@
     #automaticSettings {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
+    }
+
+    .toggler {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .togglerLabel {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-primary-color);
+      }
+    }
+
+    .dialogSeparator {
+      height: 1px;
+      background-color: var(--separator-color);
+      margin: 8px 0;
+    }
+
+    #buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 16px;
+
+      button {
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+
+        &.primaryButton {
+          background-color: var(--primary-button-bg-color);
+          color: var(--primary-button-color);
+
+          &:hover {
+            background-color: var(--primary-button-hover-color);
+          }
+        }
+      }
     }
   }
 }

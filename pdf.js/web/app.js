@@ -734,6 +734,31 @@ const PDFViewerApplication = {
         );
       };
     }
+
+    const eventBusDispatchToDOM = this.isViewerEmbedded ? false : true;
+    eventBus.on("thumbnailbookmarked", (evt) => {
+      const { pageNumber, isBookmarked } = evt;
+      const bookmarks = JSON.parse(localStorage.getItem("pdfBookmarks") || "{}");
+      const pdfFingerprint = this.pdfDocument?.fingerprints[0];
+      if (!pdfFingerprint) return;
+
+      if (!bookmarks[pdfFingerprint]) {
+        bookmarks[pdfFingerprint] = [];
+      }
+
+      if (isBookmarked) {
+        if (!bookmarks[pdfFingerprint].includes(pageNumber)) {
+          bookmarks[pdfFingerprint].push(pageNumber);
+        }
+      } else {
+        const index = bookmarks[pdfFingerprint].indexOf(pageNumber);
+        if (index > -1) {
+          bookmarks[pdfFingerprint].splice(index, 1);
+        }
+      }
+
+      localStorage.setItem("pdfBookmarks", JSON.stringify(bookmarks));
+    });
   },
 
   async run(config) {
@@ -2127,6 +2152,16 @@ const PDFViewerApplication = {
       () => pdfDocumentProperties?.open(),
       opts
     );
+    eventBus._on(
+      "toggleannotationtoolbar",
+      () => {
+        const floatingAnnotationToolbar = document.getElementById("floatingAnnotationToolbar");
+        if (floatingAnnotationToolbar) {
+          floatingAnnotationToolbar.classList.toggle("hidden");
+        }
+      },
+      opts
+    );
     eventBus._on("findfromurlhash", onFindFromUrlHash.bind(this), opts);
     eventBus._on(
       "updatefindmatchescount",
@@ -2408,15 +2443,52 @@ const PDFViewerApplication = {
 
     try {
       const fingerprint = pdfDocument.fingerprints[0];
-      const filename = this._docFilename || "Unknown Document";
-      const url = this.url || "";
+      
+      // Try to get the best possible filename
+      let filename = null;
+      
+      // 1. Try Content-Disposition filename first
+      if (this._contentDispositionFilename) {
+        filename = this._contentDispositionFilename;
+      }
+      
+      // 2. Try PDF metadata title
+      if (!filename && this.metadata) {
+        const title = this.metadata.get("dc:title");
+        if (title && title !== "Untitled") {
+          filename = title;
+          // Add .pdf extension if not present
+          if (!filename.toLowerCase().endsWith(".pdf")) {
+            filename += ".pdf";
+          }
+        }
+      }
+      
+      // 3. Try PDF document info title
+      if (!filename && this.documentInfo?.Title) {
+        filename = this.documentInfo.Title;
+        if (!filename.toLowerCase().endsWith(".pdf")) {
+          filename += ".pdf";
+        }
+      }
+      
+      // 4. Try URL-based filename
+      if (!filename) {
+        filename = getPdfFilenameFromUrl(this.url);
+      }
+      
+      // 5. Generate a descriptive fallback name if all else fails
+      if (!filename || filename === "document.pdf") {
+        const date = new Date().toISOString().split('T')[0];  // YYYY-MM-DD
+        const pageCount = pdfDocument.numPages;
+        filename = `PDF Document (${pageCount} pages) - ${date}.pdf`;
+      }
 
-      // Get current view state
+      const url = this.url || "";
       const viewState = this._getCurrentViewState();
 
       console.log("Tracking recent file:", { fingerprint, filename, url, viewState });
 
-      // Get PDF data for caching
       let fileData = null;
       try {
         fileData = await pdfDocument.getData();
@@ -2424,15 +2496,12 @@ const PDFViewerApplication = {
         console.warn("Could not get PDF data for caching:", error);
       }
 
-      // Add to recent files with optional caching
       await this.recentFilesManager.addRecentFile(fingerprint, filename, url, viewState, fileData);
 
-      // Mark this file as currently being viewed
       if (this.pdfRecentFilesViewer) {
         this.pdfRecentFilesViewer.setCurrentFile(fingerprint);
       }
 
-      // Generate thumbnail after first page renders
       this._generateThumbnailForRecentFile(pdfDocument, fingerprint);
     } catch (error) {
       console.error("Error tracking recent file:", error);

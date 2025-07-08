@@ -125,37 +125,13 @@
   mask-image: var(--darkModeToggle-sun-icon) !important;
 }
 
-html[data-theme="dark"] #darkModeToggle::before {
-  mask-image: var(--darkModeToggle-moon-icon) !important;
+@media (prefers-color-scheme: dark) {
+  #darkModeToggle::before {
+    mask-image: var(--darkModeToggle-moon-icon) !important;
+  }
 }
 
-/* Dark mode theme overrides */
-html[data-theme="dark"] {
-  color-scheme: dark;
-}
-
-html[data-theme="dark"] .toolbar {
-  background-color: rgb(56 56 56) !important;
-  border-color: rgb(64 64 64) !important;
-}
-
-html[data-theme="dark"] #toolbarContainer {
-  background-color: rgb(56 56 56) !important;
-}
-
-html[data-theme="dark"] .toolbarButton {
-  background-color: rgb(56 56 56) !important;
-  color: rgb(255 255 255) !important;
-}
-
-html[data-theme="dark"] .toolbarButton:hover {
-  background-color: rgb(76 76 76) !important;
-}
-
-html[data-theme="dark"] .toolbarButton.toggled {
-  background-color: rgb(0 84 166) !important;
-  color: rgb(255 255 255) !important;
-}
+/* Forced dark mode styles removed - now using system preference only */
 
 /* Hide unnecessary separators */
 .toolbarButtonSpacer,
@@ -167,27 +143,33 @@ html[data-theme="dark"] .toolbarButton.toggled {
 /* Page Number Input */
 #toolbarViewer #pageNumber,
 #pageNumber {
-  width: 2rem !important;
+  width: auto !important;
+  min-width: 1.5rem !important;
+  max-width: 3rem !important;
   height: 2rem !important;
-  text-align: center !important;
-  background-color: var(--button-hover-color) !important;
+  text-align: right !important;
+  background-color: transparent !important;
   border: none !important;
-  border-radius: 0.375rem !important;
-  padding: 0 !important;
+  border-radius: 10px !important;
+  padding: 0 0.25rem 0 0.25rem !important;
   font-size: 0.875rem !important;
-  color: var(--field-color) !important;
-  line-height: 1 !important;
+  color: var(--main-color) !important;
+  line-height: 2rem !important;
   transition: background-color 0.15s ease !important;
   margin: 0 !important;
+  vertical-align: baseline !important;
+  position: relative !important;
+  top: 0.5px !important;
+  box-sizing: border-box !important;
 }
 
 #pageNumber:hover {
-  background-color: var(--hover-overlay) !important;
+  background-color: var(--toolbar-button-hover-bg-color) !important;
 }
 
 #pageNumber:focus {
   outline: none !important;
-  background-color: var(--hover-overlay) !important;
+  background-color: var(--toolbar-button-hover-bg-color) !important;
 }
 
 #toolbarViewer #numPages,
@@ -198,6 +180,9 @@ html[data-theme="dark"] .toolbarButton.toggled {
   padding: 0 !important;
   line-height: 2rem !important;
   margin: 0 !important;
+  height: 2rem !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 /* Zoom Select */
@@ -209,7 +194,7 @@ html[data-theme="dark"] .toolbarButton.toggled {
   padding: 0 1.75rem 0 0.5rem !important;
   font-size: 0.875rem !important;
   border: none !important;
-  border-radius: 0.375rem !important;
+  border-radius: 10px !important;
   background-color: var(--button-hover-color) !important;
   color: var(--field-color) !important;
   min-width: 6rem !important;
@@ -221,12 +206,12 @@ html[data-theme="dark"] .toolbarButton.toggled {
 }
 
 #scaleSelect:hover {
-  background-color: var(--hover-overlay) !important;
+  background-color: var(--toolbar-button-hover-bg-color) !important;
 }
 
 #scaleSelect:focus {
   outline: none !important;
-  background-color: var(--hover-overlay) !important;
+  background-color: var(--toolbar-button-hover-bg-color) !important;
 }
 
 #scaleSelectContainer {
@@ -255,6 +240,61 @@ html[data-theme="dark"] .toolbarButton.toggled {
   opacity: 0.7 !important;
 }
 
+/* Compact Page Layout Buttons */
+#pageLayoutButtons {
+  gap: var(--page-layout-button-gap) !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact {
+  width: var(--page-layout-button-size) !important;
+  height: var(--page-layout-button-size) !important;
+  padding: 4px !important;
+  border-radius: var(--page-layout-button-radius) !important;
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+  transition: all 0.15s ease !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact::before {
+  width: 16px !important;
+  height: 16px !important;
+  background-color: var(--toolbar-icon-bg-color) !important;
+  opacity: var(--toolbar-icon-opacity) !important;
+  mask-size: cover !important;
+  mask-position: center !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact:hover {
+  background-color: var(--toolbar-button-hover-bg-color) !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact.toggled {
+  background-color: var(--toggled-btn-bg-color) !important;
+  color: var(--toggled-btn-color) !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact.toggled::before {
+  background-color: var(--toggled-btn-color) !important;
+  opacity: 1 !important;
+}
+
+/* Icon definitions for main toolbar page layout buttons */
+#scrollVerticalMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollVertical-icon) !important;
+}
+
+#scrollHorizontalMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollHorizontal-icon) !important;
+}
+
+#scrollWrappedMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollWrapped-icon) !important;
+}
+
+#scrollPageMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollPage-icon) !important;
+}
+
 @media (max-width: 768px) {
   #pageNumber,
   #scaleSelect,
@@ -266,10 +306,14 @@ html[data-theme="dark"] .toolbarButton.toggled {
   #numPages {
     font-size: 0.75rem !important;
     line-height: 1.75rem !important;
+    height: 1.75rem !important;
   }
 
   #pageNumber {
-    width: 2.5rem !important;
+    min-width: 1.5rem !important;
+    max-width: 2.5rem !important;
+    line-height: 1.75rem !important;
+    padding: 0 0.2rem 0 0.2rem !important;
   }
 
   #scaleSelect,
@@ -454,61 +498,115 @@ html[data-theme="dark"] .toolbarButton.toggled {
   }
 }
 
-/* Secondary Toolbar */
+/* Secondary Toolbar - Modern Organized Style */
 #secondaryToolbar {
   position: absolute !important;
-  top: 3rem !important;
-  right: 1rem !important;
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 0.75rem !important;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05) !important;
-  padding: 0.5rem !important;
-  min-width: 200px !important;
-  z-index: 20 !important;
-  backdrop-filter: blur(4px) !important;
+  top: 100% !important;
+  right: 0 !important;
+  margin-top: 4px !important;
+  background-color: var(--secondary-toolbar-bg) !important;
+  border: 1px solid var(--secondary-toolbar-border) !important;
+  border-radius: var(--secondary-toolbar-border-radius) !important;
+  box-shadow: var(--secondary-toolbar-shadow) !important;
+  padding: var(--secondary-toolbar-padding) !important;
+  min-width: var(--secondary-toolbar-width) !important;
+  max-width: var(--secondary-toolbar-width) !important;
+  z-index: 30000 !important;
+  backdrop-filter: blur(8px) !important;
+  /* Remove doorhanger arrow */
+  inset-block-start: auto !important;
+}
+
+#secondaryToolbar::before,
+#secondaryToolbar::after {
+  display: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #secondaryToolbar {
+    box-shadow: var(--secondary-toolbar-shadow-dark) !important;
+  }
 }
 
 #secondaryToolbarButtonContainer {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.25rem !important;
-  padding: 0.5rem !important;
+  gap: 0 !important;
+  padding: 0 !important;
 }
 
 #secondaryToolbar .toolbarButton.labeled {
   width: 100% !important;
   justify-content: flex-start !important;
-  padding: 0.5rem 0.75rem !important;
-  border-radius: 0.5rem !important;
-  font-size: 0.875rem !important;
-  font-weight: 500 !important;
+  padding: var(--secondary-toolbar-item-padding) !important;
+  border-radius: var(--secondary-toolbar-item-radius) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
   text-align: left !important;
+  color: var(--recent-files-text) !important;
+  gap: 10px !important;
+  transition: background-color 0.15s ease !important;
 }
 
 #secondaryToolbar .toolbarButton.labeled:hover {
-  background-color: #f3f4f6 !important;
+  background-color: var(--secondary-toolbar-item-hover-bg) !important;
+}
+
+/* Modern Organized Toolbar Sections */
+#secondaryToolbar .toolbar-section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  padding: 8px 0 !important;
+}
+
+#secondaryToolbar .toolbar-section-header {
+  padding: 0 8px !important;
+  margin-bottom: 4px !important;
+}
+
+#secondaryToolbar .toolbar-section-title {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--secondary-toolbar-section-title-color) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+#secondaryToolbar .toolbar-separator {
+  height: 1px !important;
+  background-color: var(--doorhanger-separator-color) !important;
+  margin: 8px 0 !important;
+  opacity: 0.6 !important;
+}
+
+#secondaryToolbar .toolbar-radio-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+/* Toolbar Icon System */
+#secondaryToolbar .toolbar-icon {
+  width: 16px !important;
+  height: 16px !important;
+  background-color: var(--secondary-toolbar-icon-color) !important;
+  mask-repeat: no-repeat !important;
+  mask-position: center !important;
+  mask-size: contain !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin-right: 10px !important;
 }
 
 .horizontalToolbarSeparator {
   height: 1px !important;
-  background-color: #e5e7eb !important;
-  margin: 0.5rem 0.5rem !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  #secondaryToolbar {
-    background-color: rgba(31, 41, 55, 0.95) !important;
-    border-color: #374151 !important;
-  }
-  
-  #secondaryToolbar .toolbarButton.labeled:hover {
-    background-color: #374151 !important;
-  }
-  
-  .horizontalToolbarSeparator {
-    background-color: #374151 !important;
-  }
+  background-color: var(--doorhanger-separator-color) !important;
+  margin: 4px 0 !important;
+  opacity: 1 !important;
 }
 
 /* Editor Params Toolbar */

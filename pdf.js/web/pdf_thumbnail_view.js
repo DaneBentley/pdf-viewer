@@ -136,6 +136,38 @@ class PDFThumbnailView {
     anchor.setAttribute("data-l10n-args", this.#pageL10nArgs);
     anchor.onclick = function () {
       linkService.goToPage(id);
+      
+      // Trigger page highlight animation using the pagechanging event
+      const triggerAnimation = () => {
+        // Look specifically for the page element in the viewer, not the thumbnail
+        const pageElement = document.querySelector(`.pdfViewer .page[data-page-number="${id}"]`);
+        console.log('Thumbnail clicked for page:', id, 'Found page element:', pageElement);
+        if (pageElement) {
+          console.log('Starting page highlight animation for page:', id);
+          // Remove any existing animation class
+          pageElement.classList.remove('page-highlight');
+          // Force reflow to restart animation
+          pageElement.offsetHeight;
+          // Add animation class
+          pageElement.classList.add('page-highlight');
+          
+          // Remove animation class after animation completes
+          setTimeout(() => {
+            pageElement.classList.remove('page-highlight');
+            console.log('Page highlight animation completed for page:', id);
+          }, 1500);
+        } else {
+          console.log('Page element not found in viewer for page:', id);
+          // Debug: let's see what elements exist
+          const allPages = document.querySelectorAll('.pdfViewer .page');
+          const allPageNumbers = Array.from(allPages).map(p => p.getAttribute('data-page-number'));
+          console.log('Available pages in viewer:', allPageNumbers);
+        }
+      };
+      
+      // Trigger animation after a short delay to ensure page navigation has started
+      setTimeout(triggerAnimation, 100);
+      
       return false;
     };
     this.anchor = anchor;
@@ -146,10 +178,34 @@ class PDFThumbnailView {
     this.div = div;
     this.#updateDims();
 
+    const bookmarkButton = document.createElement("button");
+    bookmarkButton.className = "bookmark-button";
+    bookmarkButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+      </svg>
+    `;
+    bookmarkButton.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      this.#toggleBookmark();
+    };
+    div.appendChild(bookmarkButton);
+
+    // Restore bookmark state
+    this.eventBus.on("documentloaded", ({ source }) => {
+      const pdfFingerprint = source.pdfDocument?.fingerprints[0];
+      if (!pdfFingerprint) return;
+
+      const bookmarks = JSON.parse(localStorage.getItem("pdfBookmarks") || "{}");
+      if (bookmarks[pdfFingerprint]?.includes(this.id)) {
+        this.div.classList.add("bookmarked");
+      }
+    });
+
     const img = document.createElement("div");
     img.className = "thumbnailImage";
     this._placeholderImg = img;
-
     div.append(img);
     anchor.append(div);
     container.append(anchor);
@@ -461,6 +517,15 @@ class PDFThumbnailView {
       return;
     }
     this.image?.setAttribute("data-l10n-args", this.#pageL10nArgs);
+  }
+
+  #toggleBookmark() {
+    const isBookmarked = this.div.classList.toggle("bookmarked");
+    this.eventBus.dispatch("thumbnailbookmarked", {
+      source: this,
+      pageNumber: this.id,
+      isBookmarked,
+    });
   }
 }
 

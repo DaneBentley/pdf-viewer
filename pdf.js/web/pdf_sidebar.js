@@ -28,6 +28,7 @@ const SIDEBAR_WIDTH_VAR = "--sidebar-width";
 const SIDEBAR_MIN_WIDTH = 200; // pixels
 const SIDEBAR_RESIZING_CLASS = "sidebarResizing";
 const UI_NOTIFICATION_CLASS = "pdfSidebarNotification";
+const STORED_SIDEBAR_WIDTH_KEY = "pdfjs.sidebar.width";
 
 /**
  * @typedef {Object} PDFSidebarOptions
@@ -100,6 +101,18 @@ class PDFSidebar {
     this.active = SidebarView.THUMBS;
     this.isInitialViewSet = false;
     this.isInitialEventDispatched = false;
+
+    // Try to restore saved width
+    try {
+      const savedWidth = localStorage.getItem(STORED_SIDEBAR_WIDTH_KEY);
+      if (savedWidth) {
+        this.#width = parseInt(savedWidth, 10);
+        docStyle.setProperty(SIDEBAR_WIDTH_VAR, `${this.#width}px`);
+      }
+    } catch (err) {
+      // Ignore errors if localStorage is not available
+      console.warn("Failed to restore sidebar width:", err);
+    }
 
     /**
      * Callback used when the sidebar has been opened/closed, to ensure that
@@ -649,6 +662,15 @@ class PDFSidebar {
     this.#width = width;
 
     docStyle.setProperty(SIDEBAR_WIDTH_VAR, `${width}px`);
+    
+    // Save the width to localStorage
+    try {
+      localStorage.setItem(STORED_SIDEBAR_WIDTH_KEY, width.toString());
+    } catch (err) {
+      // Ignore errors if localStorage is not available
+      console.warn("Failed to save sidebar width:", err);
+    }
+    
     return true;
   }
 

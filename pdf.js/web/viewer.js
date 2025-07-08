@@ -66,6 +66,11 @@ function getViewerConfiguration() {
         "editorSignatureParamsToolbar"
       ),
       download: document.getElementById("downloadButton"),
+      // Page Layout Controls (Main Toolbar)
+      scrollVerticalMainButton: document.getElementById("scrollVerticalMain"),
+      scrollHorizontalMainButton: document.getElementById("scrollHorizontalMain"),
+      scrollWrappedMainButton: document.getElementById("scrollWrappedMain"),
+      scrollPageMainButton: document.getElementById("scrollPageMain"),
     },
     secondaryToolbar: {
       toolbar: document.getElementById("secondaryToolbar"),
@@ -97,6 +102,7 @@ function getViewerConfiguration() {
       imageAltTextSettingsSeparator: document.getElementById(
         "imageAltTextSettingsSeparator"
       ),
+      toggleAnnotationToolbarButton: document.getElementById("toggleAnnotationToolbar"),
       documentPropertiesButton: document.getElementById("documentProperties"),
     },
     sidebar: {
@@ -311,25 +317,50 @@ function initializeDarkModeToggle() {
   const darkModeToggle = document.getElementById('darkModeToggle');
   const html = document.documentElement;
   
-  // Check for saved theme preference or default to 'light'
-  const savedTheme = localStorage.getItem('pdfjs-theme') || 'light';
-  html.setAttribute('data-theme', savedTheme);
+  // Check for saved preference or default to 'auto' (follow system)
+  const savedMode = localStorage.getItem('pdfjs-color-scheme') || 'auto';
   
-  // Update button icon based on current theme
-  function updateIcon() {
-    const currentTheme = html.getAttribute('data-theme');
-    darkModeToggle.title = currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  // Set the color scheme
+  function setColorScheme(mode) {
+    if (mode === 'auto') {
+      html.style.colorScheme = 'light dark';
+      html.removeAttribute('data-theme');
+      html.classList.remove('light', 'dark');
+    } else {
+      html.style.colorScheme = mode;
+      html.removeAttribute('data-theme');
+      html.classList.remove('light', 'dark');
+      html.classList.add(mode);
+    }
   }
   
-  updateIcon();
+  // Update button icon and title based on current mode
+  function updateButton() {
+    const currentMode = localStorage.getItem('pdfjs-color-scheme') || 'auto';
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = currentMode === 'dark' || (currentMode === 'auto' && systemDark);
+    
+    darkModeToggle.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  }
+  
+  // Apply saved mode
+  setColorScheme(savedMode);
+  updateButton();
+  
+  // Listen for system preference changes
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addEventListener('change', updateButton);
   
   darkModeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    const currentMode = localStorage.getItem('pdfjs-color-scheme') || 'auto';
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = currentMode === 'dark' || (currentMode === 'auto' && systemDark);
     
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('pdfjs-theme', newTheme);
-    updateIcon();
+    const newMode = isDark ? 'light' : 'dark';
+    
+    setColorScheme(newMode);
+    localStorage.setItem('pdfjs-color-scheme', newMode);
+    updateButton();
   });
 }
 
@@ -379,6 +410,84 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeInvertColorsToggle);
 } else {
   initializeInvertColorsToggle();
+}
+
+// Main Toolbar Page Layout Buttons functionality
+function initializeMainToolbarPageLayoutButtons() {
+  const config = getViewerConfiguration();
+  
+  // Get main toolbar buttons
+  const scrollVerticalMain = config.toolbar.scrollVerticalMainButton;
+  const scrollHorizontalMain = config.toolbar.scrollHorizontalMainButton;
+  const scrollWrappedMain = config.toolbar.scrollWrappedMainButton;
+  const scrollPageMain = config.toolbar.scrollPageMainButton;
+  
+  if (!scrollVerticalMain || !scrollHorizontalMain || !scrollWrappedMain || !scrollPageMain) {
+    console.warn('Main toolbar page layout buttons not found');
+    return;
+  }
+  
+  // Define ScrollMode constants to match ui_utils.js
+  const ScrollMode = {
+    UNKNOWN: -1,
+    VERTICAL: 0,    // Default value
+    HORIZONTAL: 1,
+    WRAPPED: 2,
+    PAGE: 3
+  };
+  
+  // Button mappings with their corresponding scroll modes
+  const buttonMappings = [
+    { button: scrollVerticalMain, mode: ScrollMode.VERTICAL },
+    { button: scrollHorizontalMain, mode: ScrollMode.HORIZONTAL },
+    { button: scrollWrappedMain, mode: ScrollMode.WRAPPED },
+    { button: scrollPageMain, mode: ScrollMode.PAGE }
+  ];
+  
+  // Add click listeners to main toolbar buttons
+  buttonMappings.forEach(({ button, mode }) => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Directly dispatch scroll mode change event
+      PDFViewerApplication.eventBus.dispatch("switchscrollmode", { 
+        source: PDFViewerApplication, 
+        mode: mode 
+      });
+    });
+  });
+  
+  // Sync button states when scroll mode changes
+  function syncButtonStates() {
+    const app = window.PDFViewerApplication;
+    if (app?.eventBus) {
+      app.eventBus._on('scrollmodechanged', ({ mode }) => {
+        // Update button states
+        scrollVerticalMain.classList.toggle('toggled', mode === ScrollMode.VERTICAL);
+        scrollHorizontalMain.classList.toggle('toggled', mode === ScrollMode.HORIZONTAL);
+        scrollWrappedMain.classList.toggle('toggled', mode === ScrollMode.WRAPPED);
+        scrollPageMain.classList.toggle('toggled', mode === ScrollMode.PAGE);
+        
+        // Update aria-checked attributes for accessibility
+        scrollVerticalMain.setAttribute('aria-checked', mode === ScrollMode.VERTICAL ? 'true' : 'false');
+        scrollHorizontalMain.setAttribute('aria-checked', mode === ScrollMode.HORIZONTAL ? 'true' : 'false');
+        scrollWrappedMain.setAttribute('aria-checked', mode === ScrollMode.WRAPPED ? 'true' : 'false');
+        scrollPageMain.setAttribute('aria-checked', mode === ScrollMode.PAGE ? 'true' : 'false');
+      });
+    } else {
+      // Retry if PDFViewerApplication is not ready yet
+      setTimeout(syncButtonStates, 100);
+    }
+  }
+  
+  // Start syncing button states
+  syncButtonStates();
+}
+
+// Initialize main toolbar page layout buttons when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeMainToolbarPageLayoutButtons);
+} else {
+  initializeMainToolbarPageLayoutButtons();
 }
 
 export {

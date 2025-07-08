@@ -24,7 +24,7 @@
   --inline-start: left;
   --inline-end: right;
 
-  --sidebar-width: 200px;
+  --sidebar-width: 300px;
   --sidebar-transition-duration: 200ms;
   --sidebar-transition-timing-function: ease-in-out;
 
@@ -53,8 +53,8 @@
     rgb(23 23 23 / 0.9)
   );
   --sidebar-toolbar-bg-color: light-dark(rgb(245 246 247), rgb(38 38 38));
-  --toolbar-bg-color: light-dark(rgb(255 255 255), rgb(31 31 31));
-  --toolbar-border-color: light-dark(rgb(229 231 235), rgb(64 64 64));
+  --toolbar-bg-color: light-dark(rgb(249 250 251), rgb(31 31 31));
+  --toolbar-border-color: light-dark(rgb(229 231 235), rgb(55 65 81));
   --toolbar-box-shadow: none;
   --toolbar-border-bottom: 1px solid var(--toolbar-border-color);
   --toolbarSidebar-box-shadow: none;
@@ -135,9 +135,14 @@
   --secondaryToolbarButton-selectTool-icon: url(images/secondaryToolbarButton-selectTool.svg);
   --secondaryToolbarButton-handTool-icon: url(images/secondaryToolbarButton-handTool.svg);
   --secondaryToolbarButton-scrollPage-icon: url(images/secondaryToolbarButton-scrollPage.svg);
-  --secondaryToolbarButton-scrollVertical-icon: url(images/secondaryToolbarButton-scrollVertical.svg);
-  --secondaryToolbarButton-scrollHorizontal-icon: url(images/secondaryToolbarButton-scrollHorizontal.svg);
-  --secondaryToolbarButton-scrollWrapped-icon: url(images/secondaryToolbarButton-scrollWrapped.svg);
+  --secondaryToolbarButton-scrollVertical-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2h18"/><rect width="18" height="12" x="3" y="6" rx="2"/><path d="M3 22h18"/></svg>');
+  
+  --secondaryToolbarButton-scrollHorizontal-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3v18"/><rect width="12" height="18" x="6" y="3" rx="2"/><path d="M22 3v18"/></svg>');
+  
+  --secondaryToolbarButton-scrollWrapped-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>');
+  
+  --secondaryToolbarButton-scrollPage-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>');
+
   --secondaryToolbarButton-spreadNone-icon: url(images/secondaryToolbarButton-spreadNone.svg);
   --secondaryToolbarButton-spreadOdd-icon: url(images/secondaryToolbarButton-spreadOdd.svg);
   --secondaryToolbarButton-spreadEven-icon: url(images/secondaryToolbarButton-spreadEven.svg);
@@ -175,27 +180,155 @@
   /* Button styling variables */
   --toolbar-button-bg-color: light-dark(rgb(255 255 255), rgb(38 38 38));
   --toolbar-button-hover-bg-color: light-dark(rgb(229 231 235), rgb(26 26 26));
-  --toolbar-button-toggled-bg-color: rgb(37 99 235);
-  --toolbar-button-toggled-color: rgb(250 250 250);
-  --toolbar-button-text-color: light-dark(rgb(0 0 0), rgb(250 250 250));
-  
-  /* Override any conflicting variables */
-  --button-hover-color: var(--toolbar-button-hover-bg-color);
-  --toggled-btn-bg-color: var(--toolbar-button-toggled-bg-color);
-  --toggled-btn-color: var(--toolbar-button-toggled-color);
-  --toolbar-icon-bg-color: currentColor;
-  --toolbar-icon-hover-bg-color: currentColor;
-  
-  /* Ensure icon colors match button states */
-  --toolbar-icon-opacity: 1;
-  --toolbar-icon-color: currentColor;
-  --toolbar-icon-hover-color: currentColor;
-  --toolbar-icon-toggled-color: currentColor;
+  --toolbar-button-toggled-bg-color: light-dark(rgb(229 231 235), rgb(26 26 26));
+  --toolbar-button-toggled-hover-bg-color: light-dark(rgb(229 231 235), rgb(26 26 26));
+  --toolbar-button-pressed-bg-color: light-dark(rgb(209 213 219), rgb(26 26 26));
+  --toolbar-button-pressed-hover-bg-color: light-dark(rgb(209 213 219), rgb(26 26 26));
+  --toolbar-button-border-hover-color: light-dark(rgb(209 213 219), rgb(75 85 99));
+  --toolbar-button-border-toggled-color: light-dark(rgb(156 163 175), rgb(75 85 99));
+  --toolbar-button-icon-opacity: 0.7;
+  --toolbar-button-icon-hover-opacity: 0.85;
+  --toolbar-button-icon-toggled-opacity: 0.7;
+  --toolbar-button-icon-toggled-hover-opacity: 0.85;
+  --toolbar-button-icon-pressed-opacity: 1;
+  --toolbar-button-icon-pressed-hover-opacity: 1;
+  --toolbar-button-icon-disabled-opacity: 0.15;
+  --toolbar-button-text-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-disabled-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-hover-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-toggled-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-toggled-hover-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-pressed-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-pressed-hover-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-disabled-opacity: 0.35;
+  --toolbar-button-text-hover-opacity: 0.85;
+  --toolbar-button-text-toggled-opacity: 0.85;
+  --toolbar-button-text-toggled-hover-opacity: 1;
+  --toolbar-button-text-pressed-opacity: 1;
+  --toolbar-button-text-pressed-hover-opacity: 1;
+  --toolbar-button-text-shadow: none;
+  --toolbar-button-text-hover-shadow: none;
+  --toolbar-button-text-toggled-shadow: none;
+  --toolbar-button-text-toggled-hover-shadow: none;
+  --toolbar-button-text-pressed-shadow: none;
+  --toolbar-button-text-pressed-hover-shadow: none;
+  --toolbar-button-text-disabled-shadow: none;
+  --toolbar-button-text-disabled-hover-shadow: none;
+  --toolbar-button-text-disabled-opacity: 0.35;
+  --toolbar-button-text-disabled-hover-opacity: 0.35;
+  --toolbar-button-text-disabled-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-disabled-hover-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-disabled-shadow: none;
+  --toolbar-button-text-disabled-hover-shadow: none;
+  --toolbar-button-text-disabled-opacity: 0.35;
+  --toolbar-button-text-disabled-hover-opacity: 0.35;
+  --toolbar-button-text-disabled-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-disabled-hover-color: light-dark(rgb(0 0 0), rgb(249 250 251));
+  --toolbar-button-text-disabled-shadow: none;
+  --toolbar-button-text-disabled-hover-shadow: none;
+  --toolbar-button-text-disabled-opacity: 0.35;
+  --toolbar-button-text-disabled-hover-opacity: 0.35;
 
-  --darkModeToggle-sun-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="m12 2 0 2"/><path d="m12 20 0 2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m2 12 2 0"/><path d="m20 12 2 0"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>');
+  --darkModeToggle-sun-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>');
   --darkModeToggle-moon-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>');
+  --invertColorsToggle-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 10 10"/></svg>');
+  
+  /* Recent Files Design Tokens */
+  --recent-files-border-radius: 20px;
+  --recent-files-item-padding: 12px 12px;
+  --recent-files-item-margin: 0 8px;
+  --recent-files-search-radius: 20px;
+  --recent-files-thumbnail-radius: 6px;
+  --recent-files-context-menu-radius: 12px;
 
-  --invertColorsToggle-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20V2z"/></svg>');
+  /* Page Layout Buttons Design Tokens */
+  --page-layout-button-size: 26px;
+  --page-layout-button-radius: 6px;
+  --page-layout-button-gap: 2px;
+  
+  /* Recent Files Colors */
+  --recent-files-bg: var(--toolbar-bg-color);
+  --recent-files-text: var(--toolbar-button-text-color);
+  --recent-files-border: var(--toolbar-border-color);
+  --recent-files-hover-bg: var(--toolbar-button-hover-bg-color);
+  --recent-files-selected-bg: light-dark(rgb(43 43 43 / 0.06), rgb(26 26 26));
+  --recent-files-selected-border: light-dark(rgb(89 89 89 / 0.15), rgb(207 207 207 / 0.2));
+
+  /* Recent files styling variables */
+  --recent-files-text: var(--toolbar-button-text-color);
+
+  /* 🎯 TOOLBAR DESIGN TOKENS - Single source of truth */
+  --toolbar-control-border-radius: 10px;
+  --toolbar-control-hover-bg: var(--toolbar-button-hover-bg-color);
+  --toolbar-control-focus-bg: var(--toolbar-button-hover-bg-color);
+  
+  /* Ensure all hover states use the same color - prevents conflicts */
+  --hover-overlay: var(--toolbar-button-hover-bg-color);
+  
+  /* Unified variables to prevent Tailwind conflicts */
+  --button-hover-color: var(--toolbar-button-hover-bg-color);
+  
+  /* Legacy variable mapping for backward compatibility */
+  --toolbar-control-hover-bg: var(--toolbar-button-hover-bg-color);
+
+  /* 🎯 SECONDARY TOOLBAR DESIGN TOKENS - Match Recent Files Context Menu */
+  --secondary-toolbar-border-radius: var(--recent-files-context-menu-radius); /* 12px */
+  --secondary-toolbar-bg: var(--doorhanger-bg-color);
+  --secondary-toolbar-border: var(--doorhanger-border-color);
+  --secondary-toolbar-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --secondary-toolbar-shadow-dark: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --secondary-toolbar-padding: 6px;
+  --secondary-toolbar-item-padding: 10px 12px;
+  --secondary-toolbar-item-radius: 6px;
+  --secondary-toolbar-item-hover-bg: var(--recent-files-hover-bg);
+  --secondary-toolbar-item-hover-bg-dark: var(--recent-files-hover-bg);
+  --secondary-toolbar-min-width: 220px;
+
+  /* 🎯 NEW ORGANIZED SECONDARY TOOLBAR DESIGN TOKENS */
+  --secondary-toolbar-width: 280px;
+  --secondary-toolbar-section-gap: 16px;
+  --secondary-toolbar-section-padding: 12px 16px;
+  --secondary-toolbar-section-title-size: 12px;
+  --secondary-toolbar-section-title-weight: 600;
+  --secondary-toolbar-section-title-color: light-dark(rgb(107 114 128), rgb(156 163 175));
+  --secondary-toolbar-separator-color: var(--doorhanger-separator-color);
+  --secondary-toolbar-icon-size: 16px;
+  --secondary-toolbar-icon-color: light-dark(rgb(75 85 99), rgb(156 163 175));
+  --secondary-toolbar-radio-group-gap: 2px;
+
+  @media (prefers-color-scheme: dark) {
+    --dialog-bg-color: #2b2a33;
+    --text-primary-color: #fbfbfe;
+    --text-secondary-color: #cfcfd8;
+    --input-border-color: #52525e;
+    --focus-outline-color: #00ddff;
+    --primary-button-bg-color: #00ddff;
+    --primary-button-color: #15141a;
+    --primary-button-hover-color: #00b8d9;
+    --secondary-button-border-color: #676773;
+    --secondary-button-color: #fbfbfe;
+    --secondary-button-hover-color: #42414d;
+    --section-bg-color: #42414d;
+    --separator-color: #52525e;
+    --toggle-bg-color: #52525e;
+  }
+
+  @media screen and (forced-colors: active) {
+    --dialog-bg-color: Canvas;
+    --text-primary-color: CanvasText;
+    --text-secondary-color: GrayText;
+    --input-border-color: ButtonBorder;
+    --focus-outline-color: Highlight;
+    --primary-button-bg-color: ButtonText;
+    --primary-button-color: ButtonFace;
+    --primary-button-hover-color: Highlight;
+    --secondary-button-border-color: ButtonBorder;
+    --secondary-button-color: ButtonText;
+    --secondary-button-hover-color: ButtonFace;
+    --section-bg-color: Canvas;
+    --separator-color: GrayText;
+    --toggle-bg-color: ButtonBorder;
+  }
 }
 
 :root:dir(rtl) {
@@ -327,17 +460,14 @@ body {
   display: flex;
   flex-direction: column;
   background-color: light-dark(rgb(249 250 251), rgb(42 42 46));
-  border-inline-end: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+  border-inline-end: 0;
   transition: inset-inline-start var(--sidebar-transition-duration) var(--sidebar-transition-timing-function);
   z-index: 2;
 }
 
-#outerContainer:is(.sidebarMoving, .sidebarOpen) #sidebarContainer {
-  visibility: visible;
-}
-
 #outerContainer.sidebarOpen #sidebarContainer {
   inset-inline-start: 0;
+  border-inline-end: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64));
 }
 
 #mainContainer {
@@ -350,41 +480,15 @@ body {
 }
 
 #sidebarContent {
-  position: absolute;
-  top: 0 !important;
-  bottom: 40px !important;
-  left: 0;
-  right: 0;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  /* Auto-hide scrollbars when not needed */
-  scrollbar-width: auto;
-  scrollbar-color: light-dark(rgb(209 213 219), rgb(107 114 128)) transparent;
-}
-
-/* WebKit scrollbar - only appears when content overflows */
-#sidebarContent::-webkit-scrollbar {
-  width: 6px;
-}
-
-#sidebarContent::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#sidebarContent::-webkit-scrollbar-thumb {
-  background-color: light-dark(rgb(209 213 219), rgb(107 114 128));
-  border-radius: 3px;
-}
-
-#sidebarContent::-webkit-scrollbar-thumb:hover {
-  background-color: light-dark(rgb(156 163 175), rgb(156 163 175));
-}
-
-/* Modern overlay scrollbars for supported browsers */
-@supports (overflow: overlay) {
-  #sidebarContent {
-    overflow: overlay;
-  }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  outline: none;
+  background: var(--toolbar-bg-color);
 }
 
 #viewerContainer {
@@ -549,7 +653,7 @@ body {
 }
 
 #sidebarResizer:hover {
-  background-color: light-dark(rgb(59 130 246), rgb(96 165 250));
+  background-color: light-dark(rgb(209 213 219), rgb(84, 84, 84));
 }
 
 /* Hide the resizer indicator by default */
@@ -571,7 +675,7 @@ body {
 #sidebarResizer:hover::before,
 #outerContainer.sidebarResizing #sidebarResizer::before {
   opacity: 1;
-  background-color: white;
+  background-color: light-dark(rgb(156 163 175), rgb(156 163 175));
   height: 30px;
 }
 
@@ -761,8 +865,10 @@ body {
   mask-image: var(--darkModeToggle-sun-icon);
 }
 
-html[data-theme="dark"] #darkModeToggle::before {
-  mask-image: var(--darkModeToggle-moon-icon);
+@media (prefers-color-scheme: dark) {
+  #darkModeToggle::before {
+    mask-image: var(--darkModeToggle-moon-icon);
+  }
 }
 
 #invertColorsToggle::before {
@@ -872,7 +978,7 @@ html[data-theme="dark"] #darkModeToggle::before {
   height: var(--toolbar-control-height);
   background-color: var(--toolbar-control-bg);
   border: var(--toolbar-control-border);
-  border-radius: 12px;
+  border-radius: var(--toolbar-control-border-radius);
   color: var(--toolbar-control-color);
   font-size: var(--toolbar-control-font-size);
   line-height: 1;
@@ -883,7 +989,7 @@ html[data-theme="dark"] #darkModeToggle::before {
 #toolbarViewer .dropdownToolbarButton:hover,
 #toolbarViewer #pageNumber:hover,
 #toolbarViewer #scaleSelect:hover {
-  background-color: var(--toolbar-control-hover-bg);
+  background-color: var(--toolbar-button-hover-bg-color);
 }
 
 #toolbarViewer .toolbarField:focus,
@@ -899,19 +1005,25 @@ html[data-theme="dark"] #darkModeToggle::before {
 #toolbarViewer #pageNumber {
   -moz-appearance: textfield;
   -webkit-appearance: none;
-  text-align: center;
-  width: 2.5rem;
-  border-radius: 12px;
-
-  height: 1.75rem;
-  padding: 0 var(--toolbar-control-padding);
+  text-align: right;
+  width: auto;
+  min-width: 1.5rem;
+  max-width: 3rem;
+  border-radius: var(--toolbar-control-border-radius);
+  height: var(--toolbar-control-height);
+  padding: 0 0.25rem 0 0.25rem;
   transition: background-color 0.15s ease, filter 0.15s ease;
+  vertical-align: baseline;
+  position: relative;
+  top: 0.5px;
+  background-color: transparent;
+  line-height: var(--toolbar-control-height);
+  box-sizing: border-box;
 }
 
 #toolbarViewer .toolbarField[type="number"]:hover,
 #toolbarViewer #pageNumber:hover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
-  filter: brightness(0.95) !important;
+  background-color: var(--toolbar-button-hover-bg-color);
 }
 
 #toolbarViewer .toolbarField[type="number"]::-webkit-inner-spin-button,
@@ -927,6 +1039,9 @@ html[data-theme="dark"] #darkModeToggle::before {
   opacity: 1;
   padding-inline: var(--toolbar-control-padding);
   line-height: var(--toolbar-control-height);
+  height: var(--toolbar-control-height);
+  display: flex;
+  align-items: center;
 }
 
 /* Loading state */
@@ -975,6 +1090,7 @@ html[data-theme="dark"] #darkModeToggle::before {
   background-color: transparent;
   cursor: pointer;
   pointer-events: auto;
+  border-radius: var(--toolbar-control-border-radius);
 }
 
 #toolbarViewer .dropdownToolbarButton > select:focus,
@@ -1023,8 +1139,9 @@ html[data-theme="dark"] #darkModeToggle::before {
 
   #toolbarViewer .toolbarField[type="number"],
   #toolbarViewer #pageNumber {
-    width: 2.5rem;
-    
+    min-width: 1.5rem;
+    max-width: 2.5rem;
+    padding: 0 0.2rem 0 0.2rem;
   }
 
   #toolbarViewer .dropdownToolbarButton,
@@ -1038,10 +1155,11 @@ html[data-theme="dark"] #darkModeToggle::before {
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: var(--thumbnail-gap);
   justify-content: center;
-  padding: 1rem;
+  padding: 1rem 1rem 4rem 1rem; /* Increased bottom padding to 2rem */
   width: 100%;
   box-sizing: border-box;
   margin: 0;
+  background: var(--toolbar-bg-color);
 }
 
 #thumbnailView > a:is(:active, :focus) {
@@ -1063,7 +1181,7 @@ html[data-theme="dark"] #darkModeToggle::before {
   align-items: center;
   justify-content: center;
   padding: 0;
-  background-color: light-dark(rgb(255 255 255), rgb(31 41 55));
+  background-color: var(--field-bg-color);
 }
 
 .thumbnail:hover {
@@ -1081,7 +1199,7 @@ html[data-theme="dark"] #darkModeToggle::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background-color: light-dark(rgb(243 244 246), rgb(31 41 55));
+  background-color: var(--field-bg-color);
   display: block;
 }
 
@@ -1097,12 +1215,12 @@ a:focus > .thumbnail > .thumbnailImage,
 .thumbnail:not([data-loaded]) > .thumbnailImage {
   width: 100%;
   height: 100%;
-  background-color: light-dark(rgb(229 231 235), rgb(55 65 81));
+  background-color: var(--field-bg-color);
 }
 
 .treeWithDeepNesting > .treeItem,
 .treeItem > .treeItems {
-  margin-inline-start: 16px; /* Reduced from 20px for more compact layout */
+  margin-inline-start: 18px; /* Improved spacing for better hierarchy */
 }
 
 .treeItem > a {
@@ -1110,19 +1228,18 @@ a:focus > .thumbnail > .thumbnailImage,
   display: flex;
   align-items: center;
   /* Subtract the right padding (left, in RTL mode) of the container: */
-  min-width: calc(100% - 4px);
+  min-width: calc(100% - 8px);
   height: auto;
-  margin-bottom: 1px; /* Reduced from 2px for more compact spacing */
-  padding: 0.375rem 0.5rem; /* Reduced padding: 6px 8px instead of 8px 12px */
-  border-radius: 0.25rem; /* Slightly smaller border radius */
-  color: light-dark(rgb(55 65 81), rgb(209 213 219));
-  font-size: 0.8125rem; /* Slightly smaller: 13px instead of 14px */
-  line-height: 1.2; /* Tighter line height for compact design */
+  margin-bottom: 2px; /* Proper spacing between items */
+  padding: 8px 12px; /* Comfortable padding for better readability */
+  border-radius: 4px; /* Clean, simple border radius */
+  color: var(--treeitem-color);
+  font-size: 13px; /* Consistent font size */
+  line-height: 1.3; /* Better line height for readability */
   font-weight: 400;
   user-select: none;
   white-space: normal;
   cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
   border: 1px solid transparent;
   position: relative;
 }
@@ -1134,65 +1251,55 @@ a:focus > .thumbnail > .thumbnailImage,
 
 .treeWithDeepNesting > .treeItem > a {
   font-weight: 500; /* Slightly bolder for top-level items */
-  font-size: 0.875rem; /* 14px for top-level */
+  font-size: 14px; /* Larger for top-level */
 }
 
 .treeItem .treeItem > a {
-  font-size: 0.8125rem; /* 13px for second-level */
-  opacity: 0.9;
+  font-size: 13px; /* Standard size for second-level */
+  opacity: 0.95;
 }
 
 .treeItem .treeItem .treeItem > a {
-  font-size: 0.75rem; /* 12px for third-level and deeper */
-  opacity: 0.8;
+  font-size: 12px; /* Smaller for third-level and deeper */
+  opacity: 0.9;
 }
 
-/* Modern hover state with subtle elevation */
+/* Simplified hover state */
 .treeItem > a:hover {
-  background-color: light-dark(rgb(248 250 252), rgb(45 55 72));
-  color: light-dark(rgb(15 23 42), rgb(248 250 252));
-  border-color: light-dark(rgb(226 232 240), rgb(75 85 99));
-  transform: translateX(2px);
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  background-color: var(--treeitem-bg-color);
+  color: var(--treeitem-hover-color);
 }
 
-/* Selected state with modern accent */
+/* Simple selected state */
 .treeItem.selected > a {
-  background-color: light-dark(rgb(239 246 255), rgb(30 58 138));
-  color: light-dark(rgb(29 78 216), rgb(147 197 253));
-  border-color: light-dark(rgb(191 219 254), rgb(59 130 246));
+  background-color: var(--treeitem-selected-bg-color);
+  color: var(--treeitem-selected-color);
   font-weight: 500;
-  box-shadow: 0 1px 3px 0 rgb(59 130 246 / 0.2);
 }
 
-/* Enhanced selected state on hover */
+/* Simple selected state on hover */
 .treeItem.selected > a:hover {
   background-color: light-dark(rgb(219 234 254), rgb(37 99 235));
   color: light-dark(rgb(29 78 216), rgb(165 180 252));
-  transform: translateX(2px);
-  box-shadow: 0 2px 4px 0 rgb(59 130 246 / 0.3);
 }
 
-/* Improved toggle button design */
+/* Simple toggle button design */
 .treeItemToggler {
   position: relative;
   float: var(--inline-start);
   height: 0;
   width: 0;
   color: light-dark(rgb(107 114 128), rgb(156 163 175));
-  transition: color 0.15s ease;
 }
 
 .treeItemToggler::before {
   inset-inline-end: 4px;
   mask-image: var(--treeitem-expanded-icon);
   opacity: 0.7;
-  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 .treeItemToggler:hover::before {
-  opacity: 1;
-  color: light-dark(rgb(75 85 99), rgb(209 213 219));
+  opacity: 0.9;
 }
 
 .treeItemToggler.treeItemsHidden::before {
@@ -1219,25 +1326,25 @@ a:focus > .thumbnail > .thumbnailImage,
 .treeItems::before {
   content: '';
   position: absolute;
-  left: -8px;
+  left: -10px;
   top: 0;
   bottom: 0;
   width: 1px;
   background: light-dark(rgb(229 231 235), rgb(75 85 99));
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 /* Remove connecting line for RTL languages */
 :root:dir(rtl) .treeItems::before {
   left: auto;
-  right: -8px;
+  right: -10px;
 }
 
-/* Hover effect for toggle button and associated items */
+/* Remove hover effects for simpler design */
 .treeItemToggler:hover,
 .treeItemToggler:hover + a,
 .treeItemToggler:hover ~ .treeItems {
-  /* Remove old styles that conflict with new design */
+  /* No additional styling needed for simplified design */
 }
 
 /* Ensure proper spacing for deeply nested items */
@@ -1257,6 +1364,11 @@ a:focus > .thumbnail > .thumbnailImage,
 #layersView .treeItem > a > label > input {
   float: var(--inline-start);
   margin-top: 1px;
+}
+
+#outlineView {
+  padding: 12px;
+  box-sizing: border-box;
 }
 
 #outlineOptionsContainer {
@@ -1336,6 +1448,75 @@ dialog :link {
 
 #documentPropertiesDialog {
   text-align: left;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: light-dark(rgb(255 255 255), rgb(38 38 38));
+  border: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64));
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(8px);
+  max-width: 400px;
+  width: 100%;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#documentPropertiesDialog .row {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 0;
+  gap: 16px;
+}
+
+#documentPropertiesDialog .row > span {
+  min-width: 140px;
+  color: light-dark(rgb(107 114 128), rgb(156 163 175));
+  font-weight: 500;
+}
+
+#documentPropertiesDialog .row > p {
+  flex: 1;
+  margin: 0;
+  word-break: break-word;
+  color: light-dark(rgb(17 24 39), rgb(229 231 235));
+}
+
+#documentPropertiesDialog .separator {
+  margin: 8px 0;
+  height: 1px;
+  background-color: light-dark(rgb(229 231 235), rgb(75 85 99));
+  border: none;
+}
+
+#documentPropertiesDialog .buttonRow {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+#documentPropertiesDialog .dialogButton {
+  min-width: 80px;
+  height: 32px;
+  padding: 4px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: light-dark(rgb(249 250 251), rgb(55 65 81));
+  color: light-dark(rgb(17 24 39), rgb(229 231 235));
+  border: 1px solid light-dark(rgb(229 231 235), rgb(75 85 99));
+  transition: all 0.15s ease;
+}
+
+#documentPropertiesDialog .dialogButton:hover {
+  background-color: light-dark(rgb(243 244 246), rgb(75 85 99));
+}
+
+#documentPropertiesDialog .dialogButton:active {
+  background-color: light-dark(rgb(229 231 235), rgb(107 114 128));
+}
+
+#documentPropertiesDialog .dialogButton > span {
+  color: inherit;
 }
 
 #documentPropertiesDialog .row > * {
@@ -1574,48 +1755,189 @@ dialog :link {
 }
 
 #secondaryToolbar {
-  position: absolute !important;
-  top: 100% !important;
-  right: 0 !important;
+  min-width: var(--secondary-toolbar-width) !important;
+  max-width: var(--secondary-toolbar-width) !important;
+  padding: 6px !important;
+  background-color: var(--doorhanger-bg-color) !important;
+  border: 1px solid var(--doorhanger-border-color) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+#secondaryToolbar #secondaryToolbarButtonContainer {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  padding: 0 !important;
+}
+
+#secondaryToolbar .toolbarButton.labeled {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 8px 12px !important;
+  margin: 0 !important;
+  border-radius: 6px !important;
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--toolbar-text-color) !important;
+  font-size: 13px !important;
+  text-align: left !important;
+  transition: all 0.15s ease !important;
+}
+
+#secondaryToolbar .toolbarButton.labeled:hover {
+  background-color: var(--recent-files-hover-bg) !important;
+}
+
+#secondaryToolbar .toolbarButton.labeled::before {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 10px !important;
+  flex-shrink: 0 !important;
+  background-color: currentColor !important;
+  opacity: 0.7 !important;
+}
+
+#secondaryToolbar .toolbarButton.labeled > span {
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  line-height: 1.2 !important;
+  display: inline !important;
+}
+
+#secondaryToolbar .horizontalToolbarSeparator {
+  height: 1px !important;
+  background-color: var(--doorhanger-separator-color) !important;
+  margin: 4px 0 !important;
+  opacity: 0.5 !important;
+}
+
+/* Hide section titles */
+#secondaryToolbar .toolbar-section-title {
+  display: none !important;
+}
+
+/* Ensure proper spacing around separators */
+#secondaryToolbar .horizontalToolbarSeparator + .toolbarButton.labeled {
+  margin-top: 2px !important;
+}
+
+#secondaryToolbar .toolbarButton.labeled + .horizontalToolbarSeparator {
   margin-top: 4px !important;
-  background-color: light-dark(rgb(249 250 251), rgb(38 38 38)) !important;
-  border: 1px solid light-dark(rgb(229 231 235), rgb(64 64 64)) !important;
-  border-radius: 0.75rem !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-  padding: 0.25rem !important;
-  min-width: 200px !important;
-  z-index: 30000 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #secondaryToolbar {
+    box-shadow: var(--secondary-toolbar-shadow-dark) !important;
+  }
 }
 
 /* Override base toolbarButton styles */
 html #secondaryToolbar .toolbarButton.labeled {
   width: 100% !important;
-  height: 28px !important;
-  min-height: 28px !important;
-  max-height: 28px !important;
-  padding: 0.25rem 0.5rem !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: auto !important;
+  padding: var(--secondary-toolbar-item-padding) !important;
   margin: 0 !important;
-  font-size: 0.8125rem !important;
+  font-size: 13px !important;
   font-weight: 400 !important;
-  color: light-dark(rgb(55 65 81), rgb(229 231 235)) !important;
+  color: var(--recent-files-text) !important;
   text-align: left !important;
   background-color: transparent !important;
-  border-radius: 0.25rem !important;
+  border-radius: var(--secondary-toolbar-item-radius) !important;
   display: flex !important;
   align-items: center !important;
-  gap: 0.375rem !important;
+  gap: 10px !important;
   aspect-ratio: unset !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s ease !important;
+  font-family: inherit !important;
 }
 
 html #secondaryToolbar .toolbarButton.labeled:hover {
-  background-color: light-dark(rgb(243 244 246), rgb(55 65 81)) !important;
+  background-color: var(--secondary-toolbar-item-hover-bg) !important;
 }
 
 html #secondaryToolbar .toolbarButton.labeled::before {
-  width: 1rem !important;
-  height: 1rem !important;
-  margin-right: 0.375rem !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: currentColor !important;
+  mask-repeat: no-repeat !important;
+  mask-position: center !important;
+  mask-size: contain !important;
   flex-shrink: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 🎯 TOOLBAR ICON SYSTEM */
+html #secondaryToolbar .toolbar-icon {
+  width: var(--secondary-toolbar-icon-size) !important;
+  height: var(--secondary-toolbar-icon-size) !important;
+  background-color: var(--secondary-toolbar-icon-color) !important;
+  mask-repeat: no-repeat !important;
+  mask-position: center !important;
+  mask-size: contain !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+/* Icon Masks for Different Functions */
+html #secondaryToolbar .icon-open {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'/%3E%3Cpolyline points='14,2 14,8 20,8'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-info {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4'/%3E%3Cpath d='M12 8h.01'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-presentation {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M21 12V7H3v5'/%3E%3Cpath d='M21 17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2'/%3E%3Cpath d='M14 2v20'/%3E%3Cpath d='M10 2v20'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-link {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3'/%3E%3Cline x1='8' y1='12' x2='16' y2='12'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-rotate-right {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpolyline points='23 4 23 10 17 10'/%3E%3Cpath d='M20.49 15a9 9 0 1 1-2.12-9.36L23 10'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-scroll-vertical {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M12 2v20'/%3E%3Cpath d='M17 7l-5-5-5 5'/%3E%3Cpath d='M7 17l5 5 5-5'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-scroll-horizontal {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M2 12h20'/%3E%3Cpath d='M7 7l-5 5 5 5'/%3E%3Cpath d='M17 17l5-5-5-5'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-grid {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Crect x='3' y='3' width='7' height='7'/%3E%3Crect x='14' y='3' width='7' height='7'/%3E%3Crect x='14' y='14' width='7' height='7'/%3E%3Crect x='3' y='14' width='7' height='7'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-single-page {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14,2 14,8 20,8'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-pages-odd {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M16 3H4v18h12'/%3E%3Cpath d='M8 3h12v18H8'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-pages-even {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M4 3h12v18H4'/%3E%3Cpath d='M16 3h4v18h-4'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-accessibility {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 6v6l4 2'/%3E%3Ccircle cx='12' cy='4' r='1'/%3E%3C/svg%3E") !important;
+}
+
+html #secondaryToolbar .icon-annotation {
+  mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z'/%3E%3C/svg%3E") !important;
 }
 
 html #secondaryToolbar .toolbarButton.labeled > span {
@@ -1624,19 +1946,69 @@ html #secondaryToolbar .toolbarButton.labeled > span {
   overflow: visible !important;
   line-height: 1.2 !important;
   display: inline !important;
+  color: inherit !important;
 }
 
-html #secondaryToolbar .horizontalToolbarSeparator {
-  height: 1px !important;
-  background-color: light-dark(rgb(229 231 235), rgb(75 85 99)) !important;
-  margin: 0.25rem !important;
-  opacity: 0.5 !important;
+/* 🎯 MODERN ORGANIZED SECONDARY TOOLBAR STYLING */
+
+html #secondaryToolbar {
+  min-width: var(--secondary-toolbar-width) !important;
+  max-width: var(--secondary-toolbar-width) !important;
+  padding: var(--secondary-toolbar-padding) !important;
 }
 
 html #secondaryToolbar #secondaryToolbarButtonContainer {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.125rem !important;
+  gap: 0 !important;
+  padding: 0 !important;
+}
+
+/* Toolbar Section Containers */
+html #secondaryToolbar .toolbar-section {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  padding: 8px 0 !important;
+}
+
+/* Section Headers */
+html #secondaryToolbar .toolbar-section-header {
+  padding: 0 8px !important;
+  margin-bottom: 4px !important;
+}
+
+html #secondaryToolbar .toolbar-section-title {
+  font-size: var(--secondary-toolbar-section-title-size) !important;
+  font-weight: var(--secondary-toolbar-section-title-weight) !important;
+  color: var(--secondary-toolbar-section-title-color) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+/* Section Separators */
+html #secondaryToolbar .toolbar-separator {
+  height: 1px !important;
+  background-color: var(--secondary-toolbar-separator-color) !important;
+  margin: 8px 0 !important;
+  opacity: 0.6 !important;
+}
+
+/* Radio Group Containers */
+html #secondaryToolbar .toolbar-radio-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--secondary-toolbar-radio-group-gap) !important;
+}
+
+/* Legacy separator support */
+html #secondaryToolbar .horizontalToolbarSeparator {
+  height: 1px !important;
+  background-color: var(--doorhanger-separator-color) !important;
+  margin: 4px 0 !important;
+  opacity: 1 !important;
 }
 
 #findbar {
@@ -1939,16 +2311,26 @@ html #secondaryToolbar #secondaryToolbarButtonContainer {
 }
 
 #toolbarViewerMiddle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+#toolbarViewerMiddle .toolbarHorizontalGroup {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 0;
-  white-space: nowrap;
-  pointer-events: auto;
-  z-index: 2;
+  gap: 0.25rem;
+}
+
+#pageLayoutButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0 1rem;
 }
 
 #toolbarViewerLeft {
@@ -2097,7 +2479,7 @@ html #secondaryToolbar #secondaryToolbarButtonContainer {
   padding: 0;
   margin: 0;
   border: 1px solid var(--field-border-color);
-  border-radius: 12px;
+  border-radius: 14px;
   background-color: var(--field-bg-color);
   color: var(--main-color);
   font-size: 12px;
@@ -2120,8 +2502,7 @@ html #secondaryToolbar #secondaryToolbarButtonContainer {
 }
 
 #toolbarViewerMiddle #scaleSelect:hover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
-  filter: brightness(0.95) !important;
+  background-color: var(--toolbar-button-hover-bg-color) !important;
 }
 
 #toolbarViewerMiddle #scaleSelect:focus {
@@ -2143,6 +2524,58 @@ html #secondaryToolbar #secondaryToolbarButtonContainer {
   padding: 4px;
 }
 
+/* Compact Page Layout Buttons */
+#pageLayoutButtons .toolbarButton.compact {
+  width: 32px !important;
+  height: 32px !important;
+  padding: 6px !important;
+  border-radius: 10px !important;
+  background-color: var(--toolbar-button-bg-color) !important;
+  border: none !important;
+  transition: all 0.15s ease !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact::before {
+  width: calc(var(--icon-size) * 0.7) !important;
+  height: calc(var(--icon-size) * 0.7) !important;
+  background-color: currentColor !important;
+  opacity: 1 !important;
+  mask-size: cover !important;
+  mask-position: center !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact:hover {
+  background-color: var(--toolbar-button-hover-bg-color) !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact.toggled {
+  background-color: var(--toolbar-button-toggled-bg-color) !important;
+  color: var(--toolbar-button-toggled-color) !important;
+  box-shadow: none !important;
+}
+
+#pageLayoutButtons .toolbarButton.compact.toggled::before {
+  background-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* Icon definitions for main toolbar page layout buttons */
+#scrollVerticalMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollVertical-icon);
+}
+
+#scrollHorizontalMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollHorizontal-icon);
+}
+
+#scrollWrappedMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollWrapped-icon);
+}
+
+#scrollPageMain::before {
+  mask-image: var(--secondaryToolbarButton-scrollPage-icon);
+}
+
 /* Floating Annotation Toolbar - Updated to match Figma design */
 #floatingAnnotationToolbar {
   position: fixed;
@@ -2159,6 +2592,10 @@ html #secondaryToolbar #secondaryToolbarButtonContainer {
   z-index: 1000;
   width: 40px;
   max-width: 40px;
+}
+
+#floatingAnnotationToolbar.hidden {
+  display: none !important;
 }
 
 #floatingAnnotationToolbar .toolbarButton {
@@ -2824,9 +3261,7 @@ html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar[styl
   display: flex;
   align-items: center;
   gap: 0 !important;
-  padding-right: 10px;
-  padding-left: 5px;
-
+  padding: 0 1rem 0 0.5rem;
 }
 
 #floatingAnnotationToolbar .inkParams .sliderContainer:last-child {
@@ -2874,12 +3309,42 @@ html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar[styl
   background-color: var(--page-bg-color, rgb(255 255 255));
 }
 
+/* Page highlight animation when clicked from thumbnail */
+@keyframes pageHighlight {
+  0% {
+    box-shadow: 
+      0 0 0 3px light-dark(rgba(59, 130, 246, 0.4), rgba(96, 165, 250, 0.4)),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+    background-color: light-dark(rgba(59, 130, 246, 0.08), rgba(96, 165, 250, 0.12));
+  }
+  50% {
+    box-shadow: 
+      0 0 0 4px light-dark(rgba(37, 99, 235, 0.5), rgba(147, 197, 253, 0.5)),
+      0 4px 12px rgba(0, 0, 0, 0.4);
+    background-color: light-dark(rgba(59, 130, 246, 0.12), rgba(96, 165, 250, 0.16));
+  }
+  100% {
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.3);
+    background-color: var(--page-bg-color, rgb(255 255 255));
+  }
+}
+
+.pdfViewer .page.page-highlight {
+  animation: pageHighlight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Ensure the animation is visible above other elements */
+  z-index: 10;
+  /* Ensure border radius is maintained during animation */
+  border-radius: 16px !important;
+}
+
 .highlightEditor .editToolbar {
   --editor-toolbar-colorpicker-arrow-image: url(images/toolbarButton-menuArrow.svg);
   --editor-toolbar-bg-color: light-dark(rgb(255 255 255), rgb(38 38 38));
   --editor-toolbar-hover-bg-color: light-dark(rgb(229 231 235), rgb(26 26 26));
 
   transform-origin: center !important;
+  transform: translateX(var(--editor-toolbar-horiz-offset)) !important; /* Add horizontal offset */
 
   .buttons {
     .colorPicker {
@@ -3039,6 +3504,10 @@ html #floatingAnnotationToolbar #editorInkParamsToolbar.editorParamsToolbar[styl
     mask-image: var(--secondaryToolbarButton-imageAltTextSettings-icon);
   }
 
+  #toggleAnnotationToolbar::before {
+    mask-image: var(--toolbarButton-editorHighlight-icon);
+  }
+
   #documentProperties::before {
     mask-image: var(--secondaryToolbarButton-documentProperties-icon);
   }
@@ -3070,53 +3539,7 @@ html #secondaryToolbar #scrollModeButtons + .horizontalToolbarSeparator {
   opacity: 0.5 !important;
 }
 
-/* Dark mode theme overrides */
-html[data-theme="dark"] {
-  --main-color: rgb(217 217 217);
-  --body-bg-color: rgb(42 42 42);
-  --errorWrapper-bg-color: rgb(199 17 17);
-  --progressBar-color: rgb(0 96 223);
-  --progressBar-bg-color: rgb(64 64 64);
-  --progressBar-blend-color: rgb(116 177 239);
-  --scrollbar-color: auto;
-  --scrollbar-bg-color: auto;
-  --toolbar-icon-bg-color: rgb(255 255 255);
-  --toolbar-icon-hover-bg-color: rgb(255 255 255);
-
-  --sidebar-narrow-bg-color: rgb(64 64 64 / 0.1);
-  --sidebar-toolbar-bg-color: rgb(50 50 50);
-  --toolbar-bg-color: rgb(56 56 56);
-  --toolbar-border-color: rgb(12 12 13);
-  --button-hover-color: rgb(102 102 103);
-  --toggled-btn-color: rgb(255 255 255);
-  --toggled-btn-bg-color: rgb(0 0 0 / 0.3);
-  --toggled-hover-active-btn-color: rgb(0 0 0 / 0.4);
-  --dropdown-btn-bg-color: rgb(74 74 79);
-  --separator-color: rgb(0 0 0 / 0.3);
-  --field-color: rgb(250 250 250);
-  --field-bg-color: rgb(64 64 68);
-  --field-border-color: rgb(115 115 115);
-  --findbar-nextprevious-btn-bg-color: rgb(89 89 89);
-  --treeitem-color: rgb(255 255 255 / 0.8);
-  --treeitem-hover-color: rgb(255 255 255 / 0.9);
-  --treeitem-selected-color: rgb(255 255 255 / 0.9);
-  --treeitem-selected-bg-color: rgb(255 255 255 / 0.25);
-  --sidebaritem-bg-color: rgb(255 255 255 / 0.15);
-  --doorhanger-bg-color: rgb(74 74 79);
-  --doorhanger-border-color: rgb(39 39 43);
-  --doorhanger-hover-color: rgb(93 94 98);
-  --doorhanger-hover-bg-color: rgb(93 94 98);
-  --doorhanger-separator-color: rgb(92 92 97);
-  --overlay-button-bg-color: rgb(92 92 97);
-  --overlay-button-hover-color: rgb(115 115 115);
-
-  /* Toolbar button colors for dark mode */
-  --toolbar-button-bg-color: rgb(56 56 56);
-  --toolbar-button-hover-bg-color: rgb(76 76 76);
-  --toolbar-button-toggled-bg-color: rgb(0 84 166);
-  --toolbar-button-toggled-color: rgb(255 255 255);
-  --toolbar-button-text-color: rgb(255 255 255);
-}
+/* Forced dark mode styles removed - now using system preference only */
 
 .pdfSidebarNotification::after {
   position: absolute;
@@ -3129,6 +3552,550 @@ html[data-theme="dark"] {
   height: 9px;
   width: 9px;
   border-radius: 50%;
+}
+
+/* Recent Files Sidebar - Consolidated Styles */
+#recentFilesView {
+  padding: 0;
+  overflow-y: auto;
+  height: 100%;
+  background: var(--recent-files-bg);
+}
+
+#recentFilesView .recentFilesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px 12px 20px;
+  background: var(--recent-files-bg);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: none;
+}
+
+#recentFilesView .recentFilesTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--recent-files-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+#recentFilesView .recentFilesClearButton {
+  background: var(--toolbar-button-bg-color);
+  border: 1px solid var(--recent-files-border);
+  color: var(--recent-files-text);
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: var(--recent-files-border-radius);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#recentFilesView .recentFilesClearButton::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background: currentColor;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c0-1 1-2 2-2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+#recentFilesView .recentFilesClearButton:hover:not(:disabled) {
+  background: var(--toolbar-button-hover-bg-color);
+}
+
+#recentFilesView .recentFilesClearButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: var(--toolbar-button-bg-color);
+}
+
+#recentFilesView .recentFilesSearchContainer {
+  padding: 0 20px 16px 20px;
+  background: var(--recent-files-bg);
+  position: relative;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+}
+
+#recentFilesView .recentFilesSearchInput {
+  width: 100%;
+  padding: 10px 12px 10px 40px;
+  border: 1px solid var(--recent-files-border);
+  border-radius: var(--recent-files-search-radius);
+  background: var(--recent-files-bg);
+  color: var(--recent-files-text);
+  font-size: 13px;
+  outline: none;
+  transition: all 0.15s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+#recentFilesView .recentFilesSearchContainer::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  background: var(--recent-files-text);
+  opacity: 0.4;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.15s ease;
+}
+
+#recentFilesView .recentFilesSearchInput:focus {
+  border-color: var(--toggled-btn-color);
+  background: var(--toolbar-button-bg-color);
+}
+
+#recentFilesView .recentFilesSearchInput:focus + .recentFilesSearchContainer::before,
+#recentFilesView .recentFilesSearchInput:not(:placeholder-shown) + .recentFilesSearchContainer::before {
+  opacity: 0.2;
+}
+
+#recentFilesView .recentFilesSearchInput::placeholder {
+  color: var(--recent-files-text);
+  opacity: 0.5;
+}
+
+#recentFilesView .recentFilesList {
+  padding: 0.75rem;
+}
+
+#recentFilesView .recentFileItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  margin: 0.75rem 1rem;
+  border-radius: var(--recent-files-border-radius);
+  border-bottom: none;
+  border: 1px solid transparent;
+}
+
+#recentFilesView .recentFileItem:hover {
+  background: var(--recent-files-hover-bg);
+}
+
+#recentFilesView .recentFileItem.selected {
+  background: var(--recent-files-selected-bg);
+  border: 1px solid var(--recent-files-selected-border);
+}
+
+#recentFilesView .recentFileItem.selected .recentFileFilename {
+  color: var(--toggled-btn-color);
+  font-weight: 600;
+}
+
+/* Currently viewed file styling */
+#recentFilesView .recentFileItem.current {
+  background: var(--recent-files-selected-bg);
+  border: 2px solid var(--recent-files-selected-border);
+}
+
+#recentFilesView .recentFileItem.current .recentFileFilename {
+  color: var(--toggled-btn-color);
+  font-weight: 600;
+}
+
+#recentFilesView .recentFileThumbnail {
+  width: 36px;
+  height: 48px;
+  flex-shrink: 0;
+  margin-right: 12px;
+  border: 1px solid var(--recent-files-border);
+  border-radius: var(--recent-files-thumbnail-radius);
+  overflow: hidden;
+  background: var(--recent-files-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#recentFilesView .recentFileThumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#recentFilesView .recentFileThumbnailPlaceholder {
+  width: 20px;
+  height: 20px;
+  background: var(--recent-files-text);
+  opacity: 0.4;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14,2 14,8 20,8"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  font-size: 0; /* Hide any text content */
+}
+
+#recentFilesView .recentFileContent {
+  flex: 1;
+  min-width: 0;
+  margin-right: 8px;
+}
+
+#recentFilesView .recentFileFilename {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--recent-files-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+#recentFilesView .recentFileMetadata {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--recent-files-text);
+  opacity: 0.6;
+}
+
+#recentFilesView .recentFileLastOpened {
+  flex-shrink: 0;
+}
+
+/* Hide page info, cache status, and edit indicator */
+#recentFilesView .recentFilePageInfo,
+#recentFilesView .recentFileCacheStatus,
+#recentFilesView .recentFileEditIndicator {
+  display: none;
+}
+
+/* Actions */
+#recentFilesView .recentFileActions {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+#recentFilesView .recentFileItem:hover .recentFileActions {
+  opacity: 1;
+}
+
+#recentFilesView .recentFileRemoveButton {
+  background: none;
+  border: none;
+  color: var(--recent-files-text);
+  opacity: 0.5;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  position: relative;
+  font-size: 0; /* Hide any text content */
+}
+
+#recentFilesView .recentFileRemoveButton::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background: currentColor;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c0-1 1-2 2-2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+#recentFilesView .recentFileRemoveButton:hover {
+  background: rgba(239, 68, 68, 0.1);
+  opacity: 1;
+  color: #ef4444;
+}
+
+/* Empty State */
+#recentFilesView .recentFilesEmpty {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--recent-files-text);
+  opacity: 0.6;
+}
+
+#recentFilesView .recentFilesEmptyIcon {
+  width: 48px;
+  height: 48px;
+  background: currentColor;
+  opacity: 0.3;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  margin: 0 auto 16px;
+  font-size: 0; /* Hide any text content */
+}
+
+#recentFilesView .recentFilesEmptyText {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--recent-files-text);
+}
+
+#recentFilesView .recentFilesEmptySubtext {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* No Results State */
+#recentFilesView .recentFilesNoResults {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--recent-files-text);
+  opacity: 0.6;
+}
+
+#recentFilesView .recentFilesNoResults .recentFilesEmptyIcon {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>');
+}
+
+/* Focus states */
+#recentFilesView .recentFileItem:focus {
+  outline: 2px solid var(--toggled-btn-color);
+  outline-offset: -2px;
+  border-radius: var(--recent-files-border-radius);
+}
+
+#recentFilesView .recentFileItem:focus .recentFileFilename {
+  color: var(--toggled-btn-color);
+}
+
+/* Drag and drop states */
+#recentFilesView .drag-over {
+  background: rgba(37, 99, 235, 0.1);
+}
+
+#recentFilesView .drag-over::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px dashed var(--toggled-btn-color);
+  border-radius: var(--recent-files-border-radius);
+  pointer-events: none;
+}
+
+/* Context Menu */
+#recentFilesView .recentFilesContextMenu,
+.recentFilesContextMenu {
+  background: var(--doorhanger-bg-color);
+  border: 1px solid var(--doorhanger-border-color);
+  border-radius: var(--recent-files-context-menu-radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  min-width: 180px;
+  z-index: 10000;
+  position: fixed;
+  backdrop-filter: blur(8px);
+}
+
+@media (prefers-color-scheme: dark) {
+  #recentFilesView .recentFilesContextMenu,
+  .recentFilesContextMenu {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+#recentFilesView .contextMenuItem,
+.recentFilesContextMenu .contextMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--recent-files-text);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+
+#recentFilesView .contextMenuItem:hover,
+.recentFilesContextMenu .contextMenuItem:hover {
+  background: var(--recent-files-hover-bg);
+}
+
+#recentFilesView .contextMenuItem.destructive,
+.recentFilesContextMenu .contextMenuItem.destructive {
+  color: #ef4444;
+}
+
+#recentFilesView .contextMenuItem.destructive:hover,
+.recentFilesContextMenu .contextMenuItem.destructive:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+#recentFilesView .contextMenuIcon,
+.recentFilesContextMenu .contextMenuIcon {
+  width: 16px;
+  height: 16px;
+  background: currentColor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  flex-shrink: 0;
+}
+
+/* Context menu icons using Lucide icons */
+.recentFilesContextMenu .contextMenuItem[data-action="open"] .contextMenuIcon {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10,17 15,12 10,7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>');
+}
+
+.recentFilesContextMenu .contextMenuItem[data-action="openNewTab"] .contextMenuIcon {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>');
+}
+
+.recentFilesContextMenu .contextMenuItem[data-action="copyPath"] .contextMenuIcon {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>');
+}
+
+.recentFilesContextMenu .contextMenuItem[data-action="showInfo"] .contextMenuIcon {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>');
+}
+
+.recentFilesContextMenu .contextMenuItem[data-action="remove"] .contextMenuIcon {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c0-1 1-2 2-2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>');
+}
+
+#recentFilesView .contextMenuSeparator,
+.recentFilesContextMenu .contextMenuSeparator {
+  height: 1px;
+  background: var(--doorhanger-separator-color);
+  margin: 4px 0;
+}
+
+/* Focus visible for better accessibility */
+#recentFilesView .recentFileItem:focus-visible {
+  outline: 2px solid var(--toggled-btn-color);
+  outline-offset: 2px;
+  border-radius: var(--recent-files-border-radius);
+}
+
+#recentFilesView .recentFilesClearButton:focus-visible,
+#recentFilesView .recentFilesSearchInput:focus-visible {
+  outline: none;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 900px) {
+  #recentFilesView .recentFilesHeader {
+    padding: 12px 16px 8px 16px;
+  }
+
+  #recentFilesView .recentFileItem {
+    padding: 10px 16px;
+    margin: 0 4px;
+  }
+
+  #recentFilesView .recentFileThumbnail {
+    width: 32px;
+    height: 42px;
+    margin-right: 10px;
+  }
+
+  #recentFilesView .recentFileFilename {
+    font-size: 12px;
+  }
+
+  #recentFilesView .recentFileMetadata {
+    font-size: 10px;
+  }
+
+  #recentFilesView .recentFilesSearchContainer {
+    padding: 0 16px 12px 16px;
+  }
+}
+
+/* Thumbnail bookmark button */
+.thumbnail {
+  position: relative;
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+/* Remove hover border for selected thumbnails */
+.thumbnail.selected {
+  border-color: transparent !important;
+}
+
+.thumbnail .bookmark-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: transparent;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #f97316;
+  transition: opacity 0.15s ease;
+  border: none;
+  padding: 0;
+  z-index: 1;
+}
+
+/* Show only when selected or bookmarked */
+.thumbnail.selected:hover .bookmark-button,
+.thumbnail.bookmarked .bookmark-button {
+  display: flex;
+}
+
+.thumbnail .bookmark-button:hover {
+  opacity: 0.8;
+}
+
+.thumbnail .bookmark-button svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+/* Bookmarked state */
+.thumbnail.bookmarked:not(.selected) {
+  border-color: #f97316;
+}
+
+.thumbnail.bookmarked .bookmark-button svg {
+  fill: currentColor;
+  stroke: none;
 }
 
 

@@ -51,6 +51,8 @@ import { PagesCountLimit } from "./pdf_viewer.js";
  *   hand tool.
  * @property {HTMLButtonElement} imageAltTextSettingsButton - Button for opening
  *   the image alt-text settings dialog.
+ * @property {HTMLButtonElement} toggleAnnotationToolbarButton - Button to toggle
+ *   the annotation toolbar visibility.
  * @property {HTMLButtonElement} documentPropertiesButton - Button for opening
  *   the document properties dialog.
  */
@@ -142,6 +144,11 @@ class SecondaryToolbar {
       {
         element: options.imageAltTextSettingsButton,
         eventName: "imagealttextsettings",
+        close: true,
+      },
+      {
+        element: options.toggleAnnotationToolbarButton,
+        eventName: "toggleannotationtoolbar",
         close: true,
       },
       {

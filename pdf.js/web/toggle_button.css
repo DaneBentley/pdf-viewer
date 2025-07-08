@@ -40,19 +40,6 @@
   }
 }
 
-/*
-    The original file is located at:
-    https://hg.mozilla.org/mozilla-central/file/168f6caa3b160c12413f9e9ad9df1db49c6b4cdf/toolkit/content/widgets/moz-toggle/moz-toggle.css
-
-    The original file is licensed under the Mozilla Public License, v. 2.0.
-    This file is a modified version of the original file.
-
-    The pseudo-selector :host has been replaced by .toggle-button.
-
-    TODO: check from times to times if the original file has been updated (and
-    in such a case don't forget to change the revision in the above link).
-*/
-
 .toggle-button {
   --toggle-background-color: var(--button-background-color);
   --toggle-background-color-hover: var(--button-background-color-hover);
@@ -90,20 +77,22 @@
   border-radius: var(--toggle-border-radius);
   background-color: var(--toggle-background-color);
   box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
   &:focus-visible {
-    outline: var(--focus-outline);
-    outline-offset: var(--focus-outline-offset);
+    outline: 2px solid var(--focus-outline-color);
+    outline-offset: 2px;
   }
 
   &:enabled:hover {
     background-color: var(--toggle-background-color-hover);
-    border-color: var(--toggle-border-color);
+    border-color: var(--toggle-border-color-hover);
   }
 
   &:enabled:hover:active {
     background-color: var(--toggle-background-color-active);
-    border-color: var(--toggle-border-color);
+    border-color: var(--toggle-border-color-active);
   }
 
   &::before {
@@ -115,6 +104,7 @@
     margin: var(--toggle-dot-margin);
     border-radius: var(--toggle-border-radius);
     translate: 0;
+    transition: translate 0.2s ease;
   }
 }
 
@@ -150,7 +140,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .toggle-button::before {
-    transition: translate 100ms;
+    transition: translate 0.2s ease;
   }
 }
 

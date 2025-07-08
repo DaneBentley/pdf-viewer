@@ -22,7 +22,7 @@
 
 /**
  * pdfjsVersion = 5.3.0
- * pdfjsBuild = 8da89d1
+ * pdfjsBuild = e8da7e8
  */
 
 ;// ./web/pdfjs.js
@@ -8672,7 +8672,7 @@ class PDFScriptingManager {
 ;// ./web/pdf_sidebar.js
 
 const SIDEBAR_WIDTH_VAR = "--sidebar-width";
-const SIDEBAR_MIN_WIDTH = 200;
+const SIDEBAR_MIN_WIDTH = 300;
 const SIDEBAR_RESIZING_CLASS = "sidebarResizing";
 const UI_NOTIFICATION_CLASS = "pdfSidebarNotification";
 class PDFSidebar {
@@ -18226,19 +18226,34 @@ if (document.readyState === "interactive" || document.readyState === "complete")
 function initializeDarkModeToggle() {
   const darkModeToggle = document.getElementById('darkModeToggle');
   const html = document.documentElement;
-  const savedTheme = localStorage.getItem('pdfjs-theme') || 'light';
-  html.setAttribute('data-theme', savedTheme);
-  function updateIcon() {
-    const currentTheme = html.getAttribute('data-theme');
-    darkModeToggle.title = currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  const savedMode = localStorage.getItem('pdfjs-color-scheme') || 'auto';
+  function setColorScheme(mode) {
+    if (mode === 'auto') {
+      html.style.colorScheme = 'light dark';
+      html.removeAttribute('data-theme');
+    } else {
+      html.style.colorScheme = mode;
+      html.removeAttribute('data-theme');
+    }
   }
-  updateIcon();
+  function updateButton() {
+    const currentMode = localStorage.getItem('pdfjs-color-scheme') || 'auto';
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = currentMode === 'dark' || currentMode === 'auto' && systemDark;
+    darkModeToggle.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  }
+  setColorScheme(savedMode);
+  updateButton();
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  mediaQuery.addEventListener('change', updateButton);
   darkModeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('pdfjs-theme', newTheme);
-    updateIcon();
+    const currentMode = localStorage.getItem('pdfjs-color-scheme') || 'auto';
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = currentMode === 'dark' || currentMode === 'auto' && systemDark;
+    const newMode = isDark ? 'light' : 'dark';
+    setColorScheme(newMode);
+    localStorage.setItem('pdfjs-color-scheme', newMode);
+    updateButton();
   });
 }
 function initializeInvertColorsToggle() {
