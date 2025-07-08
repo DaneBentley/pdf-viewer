@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head>
+  <title>PDF.js - Examples</title>
+  <meta charset="utf-8">
+  <meta name="description" content="A general-purpose, web standards-based platform for parsing and rendering PDFs.">
+  <meta name="viewport" content="device-width, initial-scale=1.0">
+  <script src="../js/jquery-3.7.1.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="../images/favicon.ico">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/a11y-light.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <div class="navbar-brand"><img src="../images/logo.svg"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="..">Home</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="../getting_started">Getting started</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href=".">Examples</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="../api">API</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions">FAQ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="container">
+    <h2 id="hello-world-walkthrough">Hello World Walkthrough</h2>
+<p><a href="https://github.com/mozilla/pdf.js/blob/master/examples/learning/helloworld.html">Full source</a></p>
+<p>PDF.js heavily relies on the use of <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>. If promises are new to you, it's recommended you become familiar with them before continuing on.</p>
+<p>This tutorial shows how PDF.js can be used as a library in a web browser.
+<a href="https://github.com/mozilla/pdf.js/tree/master/examples">examples/</a> provides more examples, including usage in Node.js (at <a href="https://github.com/mozilla/pdf.js/tree/master/examples/node">examples/node/</a>).</p>
+<h3 id="document">Document</h3>
+<p>The object structure of PDF.js loosely follows the structure of an actual PDF. At the top level there is a document object. From the document, more information and individual pages can be fetched. To get the document:</p>
+<pre><code class="language-js">pdfjsLib.<span class="hljs-title function_">getDocument</span>(<span class="hljs-string">'helloworld.pdf'</span>)
+</code></pre>
+<p>Remember though that PDF.js uses promises, and the above will return a <code>PDFDocumentLoadingTask</code> instance that has a <code>promise</code> property which is resolved with the document object.</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> loadingTask = pdfjsLib.<span class="hljs-title function_">getDocument</span>(<span class="hljs-string">'helloworld.pdf'</span>);
+loadingTask.<span class="hljs-property">promise</span>.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">pdf</span>) {
+  <span class="hljs-comment">// you can now use *pdf* here</span>
+});
+</code></pre>
+<h3 id="page">Page</h3>
+<p>Now that we have the document, we can get a page. Again, this uses promises.</p>
+<pre><code class="language-js">pdf.<span class="hljs-title function_">getPage</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">page</span>) {
+  <span class="hljs-comment">// you can now use *page* here</span>
+});
+</code></pre>
+<h3 id="rendering-the-page">Rendering the Page</h3>
+<p>Each PDF page has its own viewport which defines the size in pixels(72DPI) and initial rotation. By default the viewport is scaled to the original size of the PDF, but this can be changed by modifying the viewport. When the viewport is created, an initial transformation matrix will also be created that takes into account the desired scale, rotation, and it transforms the coordinate system (the 0,0 point in PDF documents the bottom-left whereas canvas 0,0 is top-left).</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> scale = <span class="hljs-number">1.5</span>;
+<span class="hljs-keyword">var</span> viewport = page.<span class="hljs-title function_">getViewport</span>({ <span class="hljs-attr">scale</span>: scale, });
+<span class="hljs-comment">// Support HiDPI-screens.</span>
+<span class="hljs-keyword">var</span> outputScale = <span class="hljs-variable language_">window</span>.<span class="hljs-property">devicePixelRatio</span> || <span class="hljs-number">1</span>;
+
+<span class="hljs-keyword">var</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'the-canvas'</span>);
+<span class="hljs-keyword">var</span> context = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">'2d'</span>);
+
+canvas.<span class="hljs-property">width</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(viewport.<span class="hljs-property">width</span> * outputScale);
+canvas.<span class="hljs-property">height</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(viewport.<span class="hljs-property">height</span> * outputScale);
+canvas.<span class="hljs-property">style</span>.<span class="hljs-property">width</span> = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(viewport.<span class="hljs-property">width</span>) + <span class="hljs-string">"px"</span>;
+canvas.<span class="hljs-property">style</span>.<span class="hljs-property">height</span> =  <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(viewport.<span class="hljs-property">height</span>) + <span class="hljs-string">"px"</span>;
+
+<span class="hljs-keyword">var</span> transform = outputScale !== <span class="hljs-number">1</span>
+  ? [outputScale, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, outputScale, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+  : <span class="hljs-literal">null</span>;
+
+<span class="hljs-keyword">var</span> renderContext = {
+  <span class="hljs-attr">canvasContext</span>: context,
+  <span class="hljs-attr">transform</span>: transform,
+  <span class="hljs-attr">viewport</span>: viewport
+};
+page.<span class="hljs-title function_">render</span>(renderContext);
+</code></pre>
+<p>Alternatively, if you want the canvas to render to a certain pixel size you could do the following:</p>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> desiredWidth = <span class="hljs-number">100</span>;
+<span class="hljs-keyword">var</span> viewport = page.<span class="hljs-title function_">getViewport</span>({ <span class="hljs-attr">scale</span>: <span class="hljs-number">1</span>, });
+<span class="hljs-keyword">var</span> scale = desiredWidth / viewport.<span class="hljs-property">width</span>;
+<span class="hljs-keyword">var</span> scaledViewport = page.<span class="hljs-title function_">getViewport</span>({ <span class="hljs-attr">scale</span>: scale, });
+</code></pre>
+<h2 id="interactive-examples">Interactive examples</h2>
+<h3 id="hello-world-with-document-load-error-handling">Hello World with document load error handling</h3>
+<p>The example demonstrates how promises can be used to handle errors during loading.
+It also demonstrates how to wait until a page is loaded and rendered.</p>
+<script async="" src="https://jsfiddle.net/pdfjs/9engc9mw/embed/html,css,result/"></script>
+
+<h3 id="hello-world-using-base64-encoded-pdf">Hello World using base64 encoded PDF</h3>
+<p>The PDF.js can accept any decoded base64 data as an array.</p>
+<script async="" src="https://jsfiddle.net/pdfjs/cq0asLqz/embed/html,css,result/"></script>
+
+<h3 id="previousnext-example">Previous/Next example</h3>
+<p>The same canvas cannot be used to perform to draw two pages at the same time --
+the example demonstrates how to wait on previous operation to be complete.</p>
+<script async="" src="https://jsfiddle.net/pdfjs/wagvs9Lf/embed/html,css,result/"></script>
+
+  </main>
+  <footer>
+    <p>© Mozilla and individual contributors</p>
+    <p>
+        PDF.js is licensed under <a href="https://github.com/mozilla/pdf.js/blob/master/LICENSE">Apache 2.0</a>,
+        documentation is licensed under <a href="https://creativecommons.org/licenses/by-sa/2.5">CC BY-SA 2.5</a>.
+    </p>
+  </footer>
+
+
+</body></html>
